@@ -194,78 +194,92 @@ export default function HeroSection() {
 
       {/* 5. Bottom Center Organic 'Scroll down' Dome Element (z-30) */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30 flex items-end justify-center pointer-events-auto">
-        <button
-          onClick={() => {
-            const nextSection = document.getElementById("the-seat") || document.getElementById("why-it-works");
-            if (nextSection) {
-              nextSection.scrollIntoView({ behavior: "smooth" });
-            } else {
-              window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
-            }
+        <motion.div
+          initial={{ y: "115%", opacity: 0, filter: "blur(6px)" }}
+          animate={
+            imageLoaded
+              ? { y: "0%", opacity: 1, filter: "blur(0px)" }
+              : { y: "115%", opacity: 0, filter: "blur(6px)" }
+          }
+          transition={{
+            duration: 1.25,
+            delay: 1.0,
+            ease: [0.19, 1, 0.22, 1],
           }}
-          className="group relative flex items-end justify-center select-none cursor-pointer focus:outline-none transition-all duration-300 active:scale-[0.98]"
-          aria-label="Scroll down"
         >
-          {/* Symmetrical Rounded Pill Arch Background matching Header Style */}
-          <svg
-            className="w-[200px] sm:w-[225px] md:w-[245px] h-[38px] sm:h-[42px] drop-shadow-[0_-4px_14px_rgba(0,0,0,0.08)]"
-            viewBox="0 0 240 44"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+          <button
+            onClick={() => {
+              const nextSection = document.getElementById("the-seat") || document.getElementById("why-it-works");
+              if (nextSection) {
+                nextSection.scrollIntoView({ behavior: "smooth" });
+              } else {
+                window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+              }
+            }}
+            className="group relative flex items-end justify-center select-none cursor-pointer focus:outline-none transition-all duration-300 active:scale-[0.98]"
+            aria-label="Scroll down"
           >
-            <defs>
-              <linearGradient id="scroll-btn-fill" x1="0" y1="0" x2="240" y2="44" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#FFFFFF" />
-                <stop offset="50%" stopColor="#F9F7F4" />
-                <stop offset="100%" stopColor="#FFFFFF" />
-              </linearGradient>
-              <linearGradient id="scroll-btn-border" x1="0" y1="0" x2="240" y2="44" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="rgba(255, 255, 255, 1)" />
-                <stop offset="35%" stopColor="rgba(255, 255, 255, 0.75)" />
-                <stop offset="70%" stopColor="rgba(216, 204, 189, 0.55)" />
-                <stop offset="100%" stopColor="rgba(255, 255, 255, 0.95)" />
-              </linearGradient>
-              <linearGradient id="scroll-btn-shine" x1="0" y1="0" x2="240" y2="44" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="rgba(255, 255, 255, 0.85)" />
-                <stop offset="40%" stopColor="rgba(255, 255, 255, 0.15)" />
-                <stop offset="70%" stopColor="rgba(255, 255, 255, 0)" />
-                <stop offset="100%" stopColor="rgba(255, 255, 255, 0.4)" />
-              </linearGradient>
-            </defs>
-
-            {/* Mathematically Smooth Continuous Capsule Arch */}
-            <path
-              d="M 0 44 C 24 44 38 41 46 26 C 54 10 68 0 88 0 L 152 0 C 172 0 186 10 194 26 C 202 41 216 44 240 44 Z"
-              fill="url(#scroll-btn-fill)"
-              stroke="url(#scroll-btn-border)"
-              strokeWidth="1.3"
-            />
-            {/* Top Specular Sheen Layer */}
-            <path
-              d="M 46 26 C 54 10 68 1.2 88 1.2 L 152 1.2 C 172 1.2 186 10 194 26 C 184 14 172 3 152 3 L 88 3 C 68 3 56 14 46 26 Z"
-              fill="url(#scroll-btn-shine)"
-              opacity="0.9"
-            />
-          </svg>
-
-          {/* Content Inside Dome: Text + Arrow in Same Row */}
-          <div className="absolute inset-0 pb-1 sm:pb-1.5 flex items-center justify-center gap-1.5 sm:gap-2 pointer-events-none">
-            <span className="font-sans text-[12px] sm:text-[12.5px] font-semibold text-black tracking-[0.01em] leading-none select-none">
-              Scroll down
-            </span>
-            <motion.div
-              animate={{ y: [0, 2.5, 0] }}
-              transition={{
-                duration: 1.6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="text-black flex items-center"
+            {/* Symmetrical Rounded Pill Arch Background matching Header Style */}
+            <svg
+              className="w-[200px] sm:w-[225px] md:w-[245px] h-[38px] sm:h-[42px] drop-shadow-[0_-4px_14px_rgba(0,0,0,0.08)]"
+              viewBox="0 0 240 44"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <ArrowDown className="w-3.5 h-3.5 stroke-[2.4] transition-transform duration-300 group-hover:translate-y-0.5" />
-            </motion.div>
-          </div>
-        </button>
+              <defs>
+                <linearGradient id="scroll-btn-fill" x1="0" y1="0" x2="240" y2="44" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="#FFFFFF" />
+                  <stop offset="50%" stopColor="#F9F7F4" />
+                  <stop offset="100%" stopColor="#FFFFFF" />
+                </linearGradient>
+                <linearGradient id="scroll-btn-border" x1="0" y1="0" x2="240" y2="44" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="rgba(255, 255, 255, 1)" />
+                  <stop offset="35%" stopColor="rgba(255, 255, 255, 0.75)" />
+                  <stop offset="70%" stopColor="rgba(216, 204, 189, 0.55)" />
+                  <stop offset="100%" stopColor="rgba(255, 255, 255, 0.95)" />
+                </linearGradient>
+                <linearGradient id="scroll-btn-shine" x1="0" y1="0" x2="240" y2="44" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="rgba(255, 255, 255, 0.85)" />
+                  <stop offset="40%" stopColor="rgba(255, 255, 255, 0.15)" />
+                  <stop offset="70%" stopColor="rgba(255, 255, 255, 0.0)" />
+                  <stop offset="100%" stopColor="rgba(255, 255, 255, 0.4)" />
+                </linearGradient>
+              </defs>
+
+              {/* Mathematically Smooth Continuous Capsule Arch */}
+              <path
+                d="M 0 44 C 24 44 38 41 46 26 C 54 10 68 0 88 0 L 152 0 C 172 0 186 10 194 26 C 202 41 216 44 240 44 Z"
+                fill="url(#scroll-btn-fill)"
+                stroke="url(#scroll-btn-border)"
+                strokeWidth="1.3"
+              />
+              {/* Top Specular Sheen Layer */}
+              <path
+                d="M 46 26 C 54 10 68 1.2 88 1.2 L 152 1.2 C 172 1.2 186 10 194 26 C 184 14 172 3 152 3 L 88 3 C 68 3 56 14 46 26 Z"
+                fill="url(#scroll-btn-shine)"
+                opacity="0.9"
+              />
+            </svg>
+
+            {/* Content Inside Dome: Text + Arrow in Same Row */}
+            <div className="absolute inset-0 pb-1 sm:pb-1.5 flex items-center justify-center gap-1.5 sm:gap-2 pointer-events-none">
+              <span className="font-sans text-[12px] sm:text-[12.5px] font-semibold text-black tracking-[0.01em] leading-none select-none">
+                Scroll down
+              </span>
+              <motion.div
+                animate={{ y: [0, 2.5, 0] }}
+                transition={{
+                  duration: 1.6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="text-black flex items-center"
+              >
+                <ArrowDown className="w-3.5 h-3.5 stroke-[2.4] transition-transform duration-300 group-hover:translate-y-0.5" />
+              </motion.div>
+            </div>
+          </button>
+        </motion.div>
       </div>
 
     </section>
