@@ -186,6 +186,7 @@ export default function HeroSection() {
               alt="The Divine Seat Ergonomic Meditation Cushion"
               fill
               priority
+              sizes="(max-width: 640px) 280px, (max-width: 768px) 350px, (max-width: 1024px) 420px, 490px"
               className="object-contain drop-shadow-[18px_24px_32px_rgba(36,20,8,0.38)] drop-shadow-[6px_10px_14px_rgba(25,12,4,0.22)] transition-transform duration-700 hover:scale-[1.015]"
             />
           </div>
