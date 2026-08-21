@@ -1,26 +1,159 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Glacier';
+  src: url('/fonts/Glacier.woff2') format('woff2'),
+       url('/fonts/Glacier.otf') format('opentype'),
+       url('/fonts/Glacier.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* 60-15-10-7-5-3 Proportional Palette Tokens */
+  --color-canvas: #F6F3ED;          /* 60% Dominant */
+  --color-tint: #EDEFE0;            /* 15% Secondary */
+  --color-secondary: #D8CCBD;       /* 10% Borders & Surfaces */
+  --color-primary: #876540;         /* 7% Primary CTAs & Accents */
+  --color-espresso: #402E1D;        /* 5% Typography & Dark accents */
+  --color-sage: #7C7F66;            /* 3% Craft & Badges */
+
+  /* Typography */
+  --font-display: 'Glacier', 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Glass Surfaces */
+  --glass-header: rgba(246, 243, 237, 0.45);
+  --glass-surface: rgba(246, 243, 237, 0.72);
+  --glass-elevated: rgba(255, 255, 255, 0.85);
+  --glass-dark: rgba(64, 46, 29, 0.85);
+  --glass-border: rgba(216, 204, 189, 0.55);
+
+  /* Easing */
+  --ease-lux: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-fluid: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-espresso);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Glass Header */
+.glass-header {
+  background: var(--glass-header);
+  backdrop-filter: blur(48px) saturate(180%);
+  -webkit-backdrop-filter: blur(48px) saturate(180%);
+}
+
+/* Glass Card */
+.glass-card {
+  background: var(--glass-surface);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 20px 40px -15px rgba(64, 46, 29, 0.07);
+}
+
+/* Glass Pill Badge */
+.glass-pill {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(216, 204, 189, 0.45);
+}
+
+/* Primary CTA Button with Liquid Metallic Shimmer */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: #876540;
+  color: #F6F3ED;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.95rem 1.85rem;
+  border-radius: 9999px;
+  overflow: hidden;
+  transition: all 0.4s var(--ease-fluid);
+  box-shadow: 0 10px 25px -5px rgba(135, 101, 64, 0.35);
+}
+
+.btn-primary:hover {
+  background: #755533;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -6px rgba(135, 101, 64, 0.45);
+}
+
+.btn-primary:active {
+  transform: scale(0.985);
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: 0.75s ease;
+}
+
+.btn-primary:hover::after {
+  left: 150%;
+}
+
+/* Ghost Luxury Button */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #402E1D;
+  border: 1px solid rgba(216, 204, 189, 0.65);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.95rem 1.85rem;
+  border-radius: 9999px;
+  transition: all 0.35s var(--ease-fluid);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: #876540;
+  color: #876540;
+  transform: translateY(-2px);
 }
