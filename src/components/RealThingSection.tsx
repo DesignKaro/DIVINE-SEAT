@@ -91,16 +91,17 @@ export default function RealThingSection() {
       {/* Background Lifestyle Image with Light Clean Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/real-thing-bg.png"
+          src="/images/real-thing-bg-v2.png"
           alt="A closer look at the real thing background"
           fill
           priority
+          unoptimized
           sizes="100vw"
-          className="object-cover object-center brightness-[0.92] contrast-[1.02]"
+          className="object-cover object-center brightness-[0.96] contrast-[1.02]"
         />
         {/* Soft, gentle dark tint for high clarity & natural warmth */}
-        <div className="absolute inset-0 bg-black/25" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/35" />
       </div>
 
       <div className="relative z-10 w-full max-w-[1400px] mx-auto flex flex-col items-center">
