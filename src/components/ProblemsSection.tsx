@@ -18,42 +18,42 @@ const problems: ProblemItem[] = [
     number: "01",
     title: "Numb Legs",
     desc: "Restricted circulation from cross-legged sitting leaves the legs and feet numb within minutes.",
-    image: "/images/problems/problem_v2_1.png",
+    image: "/images/problems/problem_v2_1.avif",
     alt: "Leg numbness and restricted circulation during meditation",
   },
   {
     number: "02",
     title: "Hip Tightness",
     desc: "Without the right support, the hips can't settle — creating tension that builds through the whole sit.",
-    image: "/images/problems/problem_v2_2.png",
+    image: "/images/problems/problem_v2_2.avif",
     alt: "Hip tightness and tension during meditation sitting",
   },
   {
     number: "03",
     title: "Knee Pressure",
     desc: "When the hips can't open freely, the knees carry the strain — making longer sits increasingly uncomfortable.",
-    image: "/images/problems/problem_v2_3.png",
+    image: "/images/problems/problem_v2_3.avif",
     alt: "Knee pressure and strain during cross-legged sitting",
   },
   {
     number: "04",
     title: "Tailbone & Lower Back",
     desc: "All body weight concentrates at the base of the spine — the spot that tends to ache first and longest.",
-    image: "/images/problems/problem_v2_4.png",
+    image: "/images/problems/problem_v2_4.avif",
     alt: "Tailbone and lower back ache during meditation",
   },
   {
     number: "05",
     title: "Slouching",
     desc: "Without a foundation that supports the pelvis, the spine gradually curves and the shoulders round forward.",
-    image: "/images/problems/problem_v2_slouching.png",
+    image: "/images/problems/problem_v2_slouching.avif",
     alt: "Slouching posture during meditation sitting",
   },
   {
     number: "06",
     title: "Constant Readjustment",
     desc: "Each shift to find comfort pulls attention away from the practice — making stillness harder to reach.",
-    image: "/images/problems/problem_v2_readjustment.png",
+    image: "/images/problems/problem_v2_readjustment.avif",
     alt: "Constant readjustment and distraction during meditation",
   },
 ];
@@ -112,10 +112,10 @@ export default function ProblemsSection() {
     >
       {/* Corner Mandala Motifs */}
       <div className="absolute left-0 top-0 -translate-x-1/3 -translate-y-1/3 w-[260px] sm:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">
-        <Image src="/images/about.png" alt="" fill unoptimized sizes="440px" className="object-contain" />
+        <Image src="/images/about.avif" alt="" fill unoptimized sizes="440px" className="object-contain" />
       </div>
       <div className="absolute right-0 bottom-0 translate-x-1/3 translate-y-1/3 w-[260px] sm:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">
-        <Image src="/images/about.png" alt="" fill unoptimized sizes="440px" className="object-contain" />
+        <Image src="/images/about.avif" alt="" fill unoptimized sizes="440px" className="object-contain" />
       </div>
 
       <div className="relative z-10 w-full max-w-[1280px] mx-auto">

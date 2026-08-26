@@ -76,7 +76,7 @@ export default function HeroSection() {
             loop
             muted
             playsInline
-            poster="/hero_bg_poster.jpg"
+            poster="/hero_bg_poster.avif"
             className="w-full h-full object-cover object-center"
             onLoadedData={() => setImageLoaded(true)}
           >

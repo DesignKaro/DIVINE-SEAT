@@ -14,7 +14,7 @@ export default function AncientWisdomSection() {
       {/* Background Sacred Mandala Motifs */}
       <div className="absolute left-0 top-1/4 -translate-x-1/3 w-[360px] sm:w-[480px] lg:w-[560px] aspect-square pointer-events-none select-none z-0 opacity-[0.14] mix-blend-multiply">
         <Image
-          src="/images/about.png"
+          src="/images/about.avif"
           alt="Sacred Mandala Motif (Left)"
           fill
           unoptimized
@@ -25,7 +25,7 @@ export default function AncientWisdomSection() {
 
       <div className="absolute right-0 bottom-1/4 translate-x-1/3 w-[360px] sm:w-[480px] lg:w-[560px] aspect-square pointer-events-none select-none z-0 opacity-[0.14] mix-blend-multiply">
         <Image
-          src="/images/about.png"
+          src="/images/about.avif"
           alt="Sacred Mandala Motif (Right)"
           fill
           unoptimized
@@ -71,7 +71,7 @@ export default function AncientWisdomSection() {
             className="lg:col-span-6 relative w-full aspect-square max-w-[540px] mx-auto rounded-[24px] sm:rounded-[32px] overflow-hidden group"
           >
             <Image
-              src="/images/asana_steadiness_ease.png"
+              src="/images/asana_steadiness_ease.avif"
               alt="Siddhasana and Padmasana Classical Yogic Meditation Postures"
               fill
               unoptimized
@@ -229,7 +229,7 @@ export default function AncientWisdomSection() {
               className="lg:col-span-6 relative w-full aspect-square max-w-[540px] mx-auto rounded-[24px] sm:rounded-[32px] overflow-hidden group order-1 lg:order-2"
             >
               <Image
-                src="/images/subtle_anatomy_nadi_v2.png"
+                src="/images/subtle_anatomy_nadi_v2.avif"
                 alt="Posture, Breath and Subtle Energy Nadi Flow in Meditation"
                 fill
                 unoptimized
@@ -257,7 +257,7 @@ export default function AncientWisdomSection() {
               className="lg:col-span-6 relative w-full aspect-square max-w-[540px] mx-auto rounded-[24px] sm:rounded-[32px] overflow-hidden group"
             >
               <Image
-                src="/images/ancient_wisdom_modern_comfort.png"
+                src="/images/ancient_wisdom_modern_comfort.avif"
                 alt="The Lotus Seat — Ancient Wisdom and Modern Ergonomic Support"
                 fill
                 unoptimized

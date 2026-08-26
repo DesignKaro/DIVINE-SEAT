@@ -50,7 +50,7 @@ export default function AboutFoundationSection() {
     >
       {/* Full-cover Background Image */}
       <Image
-        src="/images/about-bg.png"
+        src="/images/about-bg.avif"
         alt="About section background"
         fill
         priority
@@ -172,7 +172,7 @@ export default function AboutFoundationSection() {
               }}
             >
               <Image
-                src="/images/about.png"
+                src="/images/about.avif"
                 alt="Sacred Mandala Motif"
                 fill
                 unoptimized
@@ -186,7 +186,7 @@ export default function AboutFoundationSection() {
               
               {/* Featured High-Res Editorial Photography */}
               <Image
-                src="/images/about_seat_lifestyle_v5.png"
+                src="/images/about_seat_lifestyle_v5.avif"
                 alt="The Divine Lotus in Minimalist Japanese Sanctuary"
                 fill
                 priority

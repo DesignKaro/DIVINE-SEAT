@@ -33,7 +33,7 @@ export default function Footer() {
         {/* Sanctuary Gallery Lifestyle Background Image Layer */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
           <Image
-            src="/images/real-thing-bg-v2.png"
+            src="/images/real-thing-bg-v2.avif"
             alt="Footer Room Environment"
             fill
             priority={false}

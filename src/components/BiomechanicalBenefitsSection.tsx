@@ -143,7 +143,7 @@ export default function BiomechanicalBenefitsSection() {
               {/* Hover Bottom-Right Corner Sacred Mandala Quadrant (Exact 1 Quadrant Centered at Corner) */}
               <div className="absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 w-[280px] sm:w-[340px] aspect-square pointer-events-none select-none z-0 opacity-0 group-hover:opacity-[0.24] scale-95 group-hover:scale-100 transition-all duration-500 ease-out mix-blend-multiply">
                 <Image
-                  src="/images/about.png"
+                  src="/images/about.avif"
                   alt="Sacred Mandala Quadrant Watermark"
                   fill
                   unoptimized
@@ -183,7 +183,7 @@ export default function BiomechanicalBenefitsSection() {
           {/* Hover Bottom-Right Corner Sacred Mandala Quadrant (Exact 1 Quadrant) */}
           <div className="absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 w-[360px] sm:w-[460px] aspect-square pointer-events-none select-none z-0 opacity-0 group-hover:opacity-[0.24] scale-95 group-hover:scale-100 transition-all duration-500 ease-out mix-blend-multiply">
             <Image
-              src="/images/about.png"
+              src="/images/about.avif"
               alt="Sacred Mandala Quadrant Watermark"
               fill
               unoptimized

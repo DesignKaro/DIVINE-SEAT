@@ -69,7 +69,7 @@ export default function PricingSection() {
       {/* Background Sacred Mandala Motif (Half Bleed from Top Center) */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] sm:w-[620px] md:w-[760px] lg:w-[860px] aspect-square pointer-events-none select-none z-0 opacity-[0.11] mix-blend-multiply">
         <Image
-          src="/images/about.png"
+          src="/images/about.avif"
           alt="Sacred Mandala Top Center Motif"
           fill
           unoptimized
@@ -180,7 +180,7 @@ export default function PricingSection() {
                       }`}
                     >
                       <Image
-                        src="/images/about.png"
+                        src="/images/about.avif"
                         alt="Sacred Mandala Background Motif"
                         fill
                         unoptimized

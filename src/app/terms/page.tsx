@@ -260,7 +260,7 @@ export default function TermsPage() {
         {/* Sanctuary Gallery Lifestyle Background Image Layer (Exact same as Footer) */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
           <Image
-            src="/images/real-thing-bg-v2.png"
+            src="/images/real-thing-bg-v2.avif"
             alt="Divine Lotus Room Environment"
             fill
             priority

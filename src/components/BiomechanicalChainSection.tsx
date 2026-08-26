@@ -27,7 +27,7 @@ const materialSteps: MaterialItem[] = [
     role: "The Foundation",
     fullDesc:
       "Firm, lightweight and naturally resilient, cork gives The Lotus Seat its stable, inclined foundation without adding unnecessary weight.",
-    image: "/images/materials/01-cork.png",
+    image: "/images/materials/01-cork.avif",
     caption: "100% NATURAL RESILIENT CORK",
   },
   {
@@ -39,7 +39,7 @@ const materialSteps: MaterialItem[] = [
     role: "The Comfort",
     fullDesc:
       "Naturally responsive and resilient, latex gently gives under the body while returning to its shape — creating softness without the deep sinking feeling of conventional soft foam.",
-    image: "/images/materials/02-latex.png",
+    image: "/images/materials/02-latex.avif",
     caption: "BOTANICAL NATURAL LATEX CORE",
   },
   {
@@ -51,7 +51,7 @@ const materialSteps: MaterialItem[] = [
     role: "The Touch",
     fullDesc:
       "Soft, breathable and comfortable against the body, the cotton cover creates the final layer between the seat and the practice — removable and washable for everyday use.",
-    image: "/images/materials/03-cotton.png",
+    image: "/images/materials/03-cotton.avif",
     caption: "REMOVABLE & WASHABLE COTTON COVER",
   },
 ];
@@ -122,7 +122,7 @@ export default function BiomechanicalChainSection() {
       {/* 1. Left-Side Half-Bleed Sacred Mandala Background Motif */}
       <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] sm:w-[560px] md:w-[680px] lg:w-[760px] aspect-square pointer-events-none select-none z-0 opacity-[0.14] mix-blend-multiply">
         <Image
-          src="/images/about.png"
+          src="/images/about.avif"
           alt="Sacred Mandala Motif (Left Half Bleed)"
           fill
           unoptimized
@@ -134,7 +134,7 @@ export default function BiomechanicalChainSection() {
       {/* 2. Right-Side Half-Bleed Sacred Mandala Background Motif */}
       <div className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 w-[420px] sm:w-[560px] md:w-[680px] lg:w-[760px] aspect-square pointer-events-none select-none z-0 opacity-[0.14] mix-blend-multiply">
         <Image
-          src="/images/about.png"
+          src="/images/about.avif"
           alt="Sacred Mandala Motif (Right Half Bleed)"
           fill
           unoptimized

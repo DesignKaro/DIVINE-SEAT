@@ -43,7 +43,7 @@ const answerItems: AnswerItem[] = [
     question: "Which sitting postures work best with the Divine Seat?",
     answer:
       "Engineered for versatile comfort across Half Lotus (Ardha Padmasana), Full Lotus (Padmasana), Easy Cross-Legged (Sukhasana), Seiza kneeling, and Burmese postures across all heights and flexibility levels.",
-    image: "/images/about_seat_lifestyle_v4.png",
+    image: "/images/about_seat_lifestyle_v4.avif",
     alt: "Lotus seat versatile posture and body fit",
   },
   {
@@ -73,7 +73,7 @@ const answerItems: AnswerItem[] = [
     question: "Can it be used beyond traditional meditation?",
     answer:
       "Yes, its architectural silhouette doubles as a floor lounge chair, breathwork seat, tea ceremony cushion, or mindful reading perch in any contemporary living sanctuary.",
-    image: "/images/gallery/01.png",
+    image: "/images/gallery/01.avif",
     alt: "Architectural floor chair in contemporary living sanctuary",
   },
   {
@@ -83,7 +83,7 @@ const answerItems: AnswerItem[] = [
     question: "Where are the materials sourced and how long does it last?",
     answer:
       "Handcrafted from 100% biodegradable FSC-certified Mediterranean cork, natural rubber tree latex, and organic linen. Built to withstand daily practice for over a decade without sagging.",
-    image: "/images/about_seat_inset.jpg",
+    image: "/images/about_seat_inset.avif",
     alt: "Handcrafted natural sustainable materials and artisan joinery",
   },
 ];
@@ -127,7 +127,7 @@ export default function TheAnswerSection() {
         {/* 1. Top-Left Corner Motif (Compact) */}
         <div className="absolute left-0 top-0 -translate-x-1/3 -translate-y-1/3 w-[260px] sm:w-[320px] md:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none opacity-[0.20] mix-blend-multiply">
           <Image
-            src="/images/about.png"
+            src="/images/about.avif"
             alt="Sacred Mandala Motif (Top Left)"
             fill
             unoptimized
@@ -139,7 +139,7 @@ export default function TheAnswerSection() {
         {/* 2. Bottom-Right Corner Motif (Compact) */}
         <div className="absolute right-0 bottom-0 translate-x-1/3 translate-y-1/3 w-[260px] sm:w-[320px] md:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none opacity-[0.20] mix-blend-multiply">
           <Image
-            src="/images/about.png"
+            src="/images/about.avif"
             alt="Sacred Mandala Motif (Bottom Right)"
             fill
             unoptimized
@@ -192,7 +192,7 @@ export default function TheAnswerSection() {
           <div className="lg:col-span-5 flex flex-col lg:sticky lg:top-28 xl:top-32 self-start z-10 h-fit">
             <div className="relative w-full max-w-[480px] lg:max-w-none aspect-[2752/1536] rounded-[20px] sm:rounded-[24px] overflow-hidden">
               <Image
-                src="/images/faq_wedge_pillow.jpg"
+                src="/images/faq_wedge_pillow.avif"
                 alt="The Lotus Seat — Frequently Asked Questions"
                 fill
                 unoptimized

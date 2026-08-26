@@ -20,7 +20,7 @@ const solutionSteps: SolutionStep[] = [
     badge: "Pelvic Support",
     title: "A stable foundation from the pelvis up.",
     desc: "Supports the base of the posture so the spine can rise more naturally.",
-    image: "/images/solution/solution_step_1.png",
+    image: "/images/solution/solution_step_1.avif",
     alt: "Pelvic support foundation for natural spine alignment",
   },
   {
@@ -28,7 +28,7 @@ const solutionSteps: SolutionStep[] = [
     badge: "Hip Elevation",
     title: "More room for the hips to settle.",
     desc: "Gentle elevation makes cross-legged sitting less demanding on the hips.",
-    image: "/images/solution/solution_step_2.png",
+    image: "/images/solution/solution_step_2.avif",
     alt: "Hip elevation for comfortable cross-legged sitting",
   },
   {
@@ -36,7 +36,7 @@ const solutionSteps: SolutionStep[] = [
     badge: "Knee Comfort",
     title: "Less strain through the legs.",
     desc: "A more balanced sitting position gives the knees more freedom to settle naturally.",
-    image: "/images/solution/solution_step_3.png",
+    image: "/images/solution/solution_step_3.avif",
     alt: "Knee comfort and reduced leg strain",
   },
   {
@@ -44,7 +44,7 @@ const solutionSteps: SolutionStep[] = [
     badge: "Tailbone & Lower-Back Comfort",
     title: "Support where long sitting is often felt most.",
     desc: "Responsive cushioning helps distribute pressure around the pelvis and sitting area.",
-    image: "/images/solution/solution_step_4.png",
+    image: "/images/solution/solution_step_4.avif",
     alt: "Tailbone and lower back pressure relief",
   },
   {
@@ -52,7 +52,7 @@ const solutionSteps: SolutionStep[] = [
     badge: "Naturally Upright Posture",
     title: "Upright without being held upright.",
     desc: "The seat supports the foundation of the posture rather than relying on a backrest.",
-    image: "/images/solution/solution_step_5.png",
+    image: "/images/solution/solution_step_5.avif",
     alt: "Natural upright posture support without backrest",
   },
   {
@@ -60,7 +60,7 @@ const solutionSteps: SolutionStep[] = [
     badge: "Less Readjustment",
     title: "Settle in and stay with it.",
     desc: "A stable, comfortable sitting position means less need to keep shifting in search of comfort.",
-    image: "/images/solution/solution_step_6.png",
+    image: "/images/solution/solution_step_6.avif",
     alt: "Stable sitting position with less need to readjust",
   },
 ];
@@ -150,7 +150,7 @@ export default function SolutionSection() {
               {/* Sacred Mandala Motif inside Card Left */}
               <div className="absolute -left-16 sm:-left-20 top-1/2 -translate-y-1/2 w-[300px] sm:w-[420px] md:w-[480px] aspect-square pointer-events-none select-none z-0 opacity-15 mix-blend-multiply">
                 <Image
-                  src="/images/about.png"
+                  src="/images/about.avif"
                   alt="Sacred Mandala Background Motif"
                   fill
                   unoptimized

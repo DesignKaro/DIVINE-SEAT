@@ -76,7 +76,7 @@ export default function ComparisonSection() {
       {/* Background Sacred Mandala Motif (Centered Vertically and Horizontally) */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[720px] md:w-[850px] lg:w-[980px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">
         <Image
-          src="/images/about.png"
+          src="/images/about.avif"
           alt="Sacred Mandala Background Motif (Centered)"
           fill
           unoptimized
@@ -100,32 +100,34 @@ export default function ComparisonSection() {
               className="flex items-center gap-2 mb-3 sm:mb-4"
             >
               <span className="font-sans text-[11.5px] sm:text-[12.5px] font-bold tracking-[0.16em] uppercase text-[#876540]">
-                /SIDE-BY-SIDE ANALYSIS
+                /THE DIFFERENCE
               </span>
             </motion.div>
 
-            {/* Heading */}
+            {/* Main Headline */}
             <motion.h2
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-display font-semibold text-[32px] sm:text-[42px] md:text-[48px] lg:text-[54px] leading-[1.1] tracking-[-0.015em] text-[#2C2016]"
+              className="font-display font-semibold text-[32px] sm:text-[42px] md:text-[48px] lg:text-[52px] leading-[1.10] tracking-[-0.015em] text-[#402E1D]"
             >
               More than a softer place to sit.
             </motion.h2>
           </div>
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
+          {/* Right Lead Paragraph */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="font-sans text-[14px] sm:text-[15px] leading-[1.65] text-[#402E1D]/80 font-normal max-w-[480px] md:pb-1"
+            className="font-sans text-[14px] sm:text-[15.5px] leading-[1.65] text-[#402E1D]/80 font-normal max-w-[460px] md:pb-1"
           >
-            Traditional cushions make the floor softer, but sitting for meditation requires more than padding. The Lotus Seat reconsiders the foundation itself — pairing ergonomic pelvic inclination with natural resilient support for steady stillness.
-          </motion.p>
+            <p>
+              Traditional cushions and zafus soften the floor. The Lotus Seat rethinks the whole foundation — combining purposeful elevation, pelvic positioning, and responsive materials.
+            </p>
+          </motion.div>
         </div>
 
         {/* Comparison Showcase Container */}
@@ -193,7 +195,7 @@ export default function ComparisonSection() {
                     }}
                   >
                     <Image
-                      src="/images/traditional-cushion-ghost.png"
+                      src="/images/traditional-cushion-ghost.avif"
                       alt=""
                       width={320}
                       height={320}
@@ -220,7 +222,7 @@ export default function ComparisonSection() {
                     }}
                   >
                     <Image
-                      src="/images/lotus-seat-ghost.png"
+                      src="/images/lotus-seat-ghost.avif"
                       alt=""
                       width={320}
                       height={320}
