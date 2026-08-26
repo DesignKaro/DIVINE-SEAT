@@ -46,11 +46,25 @@ export default function AboutFoundationSection() {
     <section 
       id="the-seat" 
       data-header-theme="light"
-      className="relative w-full min-h-screen bg-[#F6F3ED] text-[#402E1D] py-20 sm:py-28 lg:py-36 px-6 sm:px-10 lg:px-16 overflow-hidden flex items-center justify-center"
+      className="relative w-full min-h-screen text-[#402E1D] py-14 sm:py-24 lg:py-36 px-4 sm:px-10 lg:px-16 overflow-hidden flex items-center justify-center"
     >
+      {/* Full-cover Background Image */}
+      <Image
+        src="/images/about-bg.png"
+        alt="About section background"
+        fill
+        priority
+        unoptimized
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+
+      {/* Warm overlay for legibility */}
+      <div className="absolute inset-0 bg-[#E6DFD4]/25 backdrop-blur-[1px]" />
+
       {/* Main Content Grid Container */}
       <div className="relative z-10 w-full max-w-[1360px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           {/* LEFT COLUMN: Editorial Narrative & Inset Detail Card (5 Cols) */}
           <motion.div
@@ -61,48 +75,35 @@ export default function AboutFoundationSection() {
             className="lg:col-span-5 flex flex-col justify-center items-start"
           >
             {/* Category Eyebrow Tag with Forward Slash */}
-            <motion.div variants={leftItemVariants} className="flex items-center gap-2 mb-3.5 sm:mb-4.5">
+            <motion.div variants={leftItemVariants} className="flex items-center gap-2 mb-3 sm:mb-4">
               <span className="font-sans text-[11.5px] sm:text-[12.5px] font-bold tracking-[0.16em] uppercase text-[#876540]">
-                /ABOUT THE SEAT
+                /ABOUT THE LOTUS SEAT
               </span>
             </motion.div>
 
             {/* Large Bold Editorial Headline */}
             <motion.h2 
               variants={leftItemVariants}
-              className="font-display font-bold text-[34px] sm:text-[44px] md:text-[50px] lg:text-[56px] leading-[1.08] tracking-[-0.015em] text-[#402E1D] mb-8 sm:mb-10 max-w-[480px]"
+              className="font-display font-bold text-[32px] sm:text-[42px] md:text-[48px] lg:text-[52px] leading-[1.1] tracking-[-0.015em] text-[#402E1D] mb-5 sm:mb-6 max-w-[520px]"
             >
-              Anatomically sculpted foundation
+              A better foundation for stillness.
             </motion.h2>
 
-            {/* Inset Secondary Visual Card */}
-            <motion.div
-              variants={leftItemVariants}
-              whileHover={{ y: -5, scale: 1.02 }}
-              transition={{ duration: 0.35, ease: [0.19, 1, 0.22, 1] }}
-              className="relative w-full max-w-[280px] sm:max-w-[310px] aspect-[16/10] rounded-[22px] overflow-hidden shadow-[0_10px_30px_-8px_rgba(64,46,29,0.08)] bg-[#EDEFE0]/50 mb-7 group cursor-pointer"
-            >
-              <Image
-                src="/images/about_seat_inset.jpg"
-                alt="Divine Lotus Precision Studio Profile"
-                fill
-                sizes="(max-width: 640px) 280px, 310px"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-106"
-              />
-              
-              {/* Micro Tag Badge */}
-              <div className="absolute bottom-2.5 left-3 px-2.5 py-1 rounded-full bg-[#1E140D]/75 backdrop-blur-md border border-white/20 text-[10px] font-medium tracking-wider text-white/90 uppercase">
-                Dual-Density Core
-              </div>
-            </motion.div>
-
             {/* Editorial Narrative Copy */}
-            <motion.p 
+            <motion.div 
               variants={leftItemVariants}
-              className="font-sans text-[14px] sm:text-[15px] leading-[1.68] text-[#402E1D]/80 font-normal max-w-[410px] mb-8"
+              className="space-y-3.5 sm:space-y-4 font-sans text-[14px] sm:text-[15px] leading-[1.65] text-[#402E1D]/85 font-normal max-w-[500px] mb-7 sm:mb-9"
             >
-              Crafted around an essential biomechanical truth: rather than continuously forcing the spine to fight gravity, begin with an unyielding 8.5° pelvic foundation that restores effortless anatomical alignment.
-            </motion.p>
+              <p>
+                The Lotus Seat is an ergonomic meditation seat designed to solve the big meditation pain points — pelvis positioning, tailbone/perineum pressure, leg numbness, and slumping for long sitting, posture support, and comfort.
+              </p>
+              <p>
+                Its design supports the pelvis and encourages a naturally upright posture, while giving the body a comfortable foundation for traditional meditation postures such as Siddhasana, Padmasana and Sukhasana.
+              </p>
+              <p>
+                Because when sitting becomes steady and comfortable, you spend less time being pulled away by pain, numbness and the need to constantly readjust and more time settling into the meditation, going deeper into the practice and finding stillness.
+              </p>
+            </motion.div>
 
             {/* Signature Fused Pill Capsule Action Button */}
             <motion.div variants={leftItemVariants} className="relative inline-flex items-center">
@@ -162,9 +163,9 @@ export default function AboutFoundationSection() {
             viewport={{ once: false, amount: 0.25 }}
             className="lg:col-span-7 relative flex flex-col items-end"
           >
-            {/* Background Sacred Mandala Motif (With Soft Faded Radial Edges) */}
+            {/* Background Sacred Mandala Motif (Compact with Soft Faded Radial Edges) */}
             <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[540px] sm:w-[700px] md:w-[820px] lg:w-[940px] aspect-square pointer-events-none select-none -z-10 opacity-[0.28] mix-blend-multiply"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] sm:w-[480px] md:w-[560px] lg:w-[640px] aspect-square pointer-events-none select-none -z-10 opacity-[0.20] mix-blend-multiply"
               style={{
                 maskImage: "radial-gradient(circle at center, black 40%, rgba(0,0,0,0.6) 65%, transparent 92%)",
                 WebkitMaskImage: "radial-gradient(circle at center, black 40%, rgba(0,0,0,0.6) 65%, transparent 92%)",
@@ -175,35 +176,36 @@ export default function AboutFoundationSection() {
                 alt="Sacred Mandala Motif"
                 fill
                 unoptimized
-                sizes="(max-width: 1024px) 80vw, 55vw"
+                sizes="(max-width: 1024px) 50vw, 35vw"
                 className="object-contain object-center"
               />
             </div>
             
             {/* Top-Right Corner Notched Architectural Frame Container */}
-            <div className="relative w-full aspect-[4/3.45] sm:aspect-[4/3.35] max-h-[640px] min-h-[440px] sm:min-h-[520px] rounded-[34px] overflow-hidden group shadow-[0_24px_54px_-16px_rgba(64,46,29,0.12)] bg-[#EDEFE0]">
+            <div className="relative w-full aspect-[4/3.45] sm:aspect-[4/3.35] max-h-[640px] min-h-[440px] sm:min-h-[520px] rounded-[34px] overflow-hidden group bg-[#EDEFE0]">
               
               {/* Featured High-Res Editorial Photography */}
               <Image
-                src="/images/about_seat_lifestyle.jpg"
+                src="/images/about_seat_lifestyle_v5.png"
                 alt="The Divine Lotus in Minimalist Japanese Sanctuary"
                 fill
                 priority
+                unoptimized
                 sizes="(max-width: 1024px) 100vw, 58vw"
                 className="object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-[1.035]"
               />
 
               {/* Soft Ambient Inner Corner Vignette / Scrim to prevent harsh edges */}
-              <div className="absolute inset-0 pointer-events-none rounded-[34px] shadow-[inset_0_0_50px_rgba(30,20,13,0.12)]" />
+              <div className="absolute inset-0 pointer-events-none rounded-[34px]" />
 
               {/* Floating Frosted Glass Feature Highlights Card - Single Horizontal Row (Exact Hero Glass Style) */}
-              <div className="absolute bottom-3.5 sm:bottom-5 inset-x-3.5 sm:inset-x-5 z-20 pointer-events-none">
+              <div className="absolute bottom-2.5 sm:bottom-5 inset-x-2.5 sm:inset-x-5 z-20 pointer-events-none">
                 <motion.div
                   initial={{ opacity: 0, y: 20, scale: 0.98 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: false, amount: 0.25 }}
                   transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative p-4 sm:p-5 md:p-5.5 rounded-[22px] sm:rounded-[26px] overflow-hidden border border-white/80 shadow-[0_20px_48px_rgba(0,0,0,0.25)] pointer-events-auto w-full"
+                  className="relative p-3 sm:p-5 md:p-5.5 rounded-[18px] sm:rounded-[26px] overflow-hidden border border-white/80 pointer-events-auto w-full"
                   style={{
                     backdropFilter: "blur(28px) saturate(140%) brightness(1.04)",
                     WebkitBackdropFilter: "blur(28px) saturate(140%) brightness(1.04)",
@@ -214,25 +216,25 @@ export default function AboutFoundationSection() {
                 >
                   {/* Polished Mineral Curved Specular Reflection (Identical to Hero Cards) */}
                   <div
-                    className="absolute inset-0 pointer-events-none rounded-[22px] sm:rounded-[26px]"
+                    className="absolute inset-0 pointer-events-none rounded-[18px] sm:rounded-[26px]"
                     style={{
                       background: "radial-gradient(120% 90% at 85% 10%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 40%, transparent 70%)",
                     }}
                   />
 
-                  <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-white/20">
+                  <div className="relative z-10 grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 divide-x divide-white/20">
                     {[
                       {
-                        title: "8.5° Cork Base",
-                        desc: "Neutral pelvic tilt",
+                        title: "8.5° Base",
+                        desc: "Neutral tilt",
                       },
                       {
-                        title: "Botanical Latex",
-                        desc: "Zero-pressure relief",
+                        title: "Latex Core",
+                        desc: "Zero-pressure",
                       },
                       {
-                        title: "Organic Linen",
-                        desc: "Breathable cover",
+                        title: "Linen Cover",
+                        desc: "Breathable",
                       },
                     ].map((feature, idx) => (
                       <motion.div
@@ -242,12 +244,12 @@ export default function AboutFoundationSection() {
                         viewport={{ once: false, amount: 0.25 }}
                         transition={{ duration: 0.6, delay: 0.3 + idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
                         whileHover={{ y: -2 }}
-                        className={`flex flex-col justify-center transition-colors ${idx > 0 ? "pt-2.5 sm:pt-0 sm:pl-4 md:pl-6" : ""}`}
+                        className={`flex flex-col justify-center transition-colors ${idx > 0 ? "pl-2 sm:pl-4 md:pl-6" : ""}`}
                       >
-                        <h4 className="font-display font-bold text-[17px] sm:text-[18.5px] md:text-[20px] text-white leading-tight tracking-[0.025em]">
+                        <h4 className="font-display font-bold text-[13.5px] sm:text-[18.5px] md:text-[20px] text-white leading-tight tracking-[0.01em]">
                           {feature.title}
                         </h4>
-                        <p className="font-sans text-[12px] sm:text-[13px] text-white/90 font-normal tracking-normal mt-0.5 sm:mt-1">
+                        <p className="font-sans text-[10.5px] sm:text-[13px] text-white/90 font-normal tracking-normal mt-0.5 sm:mt-1">
                           {feature.desc}
                         </p>
                       </motion.div>

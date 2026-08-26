@@ -4,8 +4,6 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { motion, useInView, type Variants } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-import CushionFeatureCard from "./CushionFeatureCard";
-import BaseFeatureCard from "./BaseFeatureCard";
 
 export default function HeroSection() {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -66,207 +64,169 @@ export default function HeroSection() {
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full h-screen min-h-[650px] flex items-center justify-center overflow-hidden bg-[#241a12]"
+      className="relative w-full h-[100svh] min-h-[580px] sm:min-h-[650px] flex items-center justify-center overflow-hidden bg-[#241a12]"
       data-header-theme="dark"
     >
       
-      {/* 1. Background Layer (Static & optimized for zero lag) */}
+      {/* 1. Background Video Layer (Autoplaying, seamless loop with poster fallback) */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div className="relative w-full h-full">
-          <Image
-            src="/hero_bg_v3.avif"
-            alt="Divine Lotus Zen Sanctuary Background"
-            fill
-            priority
-            quality={100}
-            sizes="100vw"
-            className="object-cover object-left md:object-[25%_center]"
-            onLoad={() => setImageLoaded(true)}
-          />
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/hero_bg_poster.jpg"
+            className="w-full h-full object-cover object-center"
+            onLoadedData={() => setImageLoaded(true)}
+          >
+            <source src="/videos/hero_bg_video.mp4" type="video/mp4" />
+          </video>
         </div>
 
-        {/* Ambient Lighting Scrim */}
-        <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+        {/* Ambient Darkening & Contrast Scrim Overlay (Softened) */}
+        <div className="absolute inset-0 bg-black/18 pointer-events-none" />
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "linear-gradient(to bottom, rgba(0,0,0,0.28) 0%, rgba(26,16,8,0.08) 45%, rgba(0,0,0,0.25) 100%)",
+          }}
+        />
       </div>
 
       {/* 2. Middle Layer: Display Typography (z-10) */}
-      <div className="absolute inset-x-0 bottom-[34%] sm:bottom-[35%] md:bottom-[36%] lg:bottom-[37.5%] z-10 flex flex-col items-center justify-end px-4 select-none pointer-events-none -translate-y-[155px]">
+      <div className="absolute inset-x-0 bottom-[18%] sm:bottom-[30%] md:bottom-[36%] lg:bottom-[37.5%] z-10 flex flex-col items-center justify-end px-4 sm:px-6 select-none pointer-events-none -translate-y-0 sm:-translate-y-[55px]">
         
-        <motion.h1
-          variants={titleContainerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="font-display font-medium tracking-[0.025em] text-[clamp(40px,6.4vw,88px)] leading-[1.05] text-white drop-shadow-[0_6px_35px_rgba(0,0,0,0.35)] flex flex-col items-start max-w-[92vw]"
-        >
-          {/* Row 1: Sit better. (Left aligned) */}
-          <div className="flex items-center gap-[0.28em]">
-            {["Sit", "better."].map((word, wordIndex) => (
-              <span key={wordIndex} className="inline-flex overflow-hidden pt-2 pb-6 -mt-2 -mb-6">
-                {word.split("").map((char, charIndex) => (
-                  <motion.span
-                    key={charIndex}
-                    variants={letterVariants}
-                    className="inline-block will-change-transform"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </span>
-            ))}
-          </div>
+        <div className="flex flex-col items-start max-w-[92vw]">
+          <motion.h1
+            variants={titleContainerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="font-display font-semibold tracking-[0.035em] text-[clamp(34px,7.5vw,96px)] leading-[1.02] text-white drop-shadow-[0_6px_35px_rgba(0,0,0,0.4)] flex flex-col items-start"
+          >
+            {/* Row 1: THE LOTUS SEAT */}
+            <div className="flex items-center gap-[0.24em] sm:gap-[0.28em] flex-wrap">
+              {["THE", "LOTUS", "SEAT"].map((word, wordIndex) => (
+                <span key={wordIndex} className="inline-flex overflow-hidden pt-1 pb-4 sm:pt-2 sm:pb-6 -mt-1 -mb-4 sm:-mt-2 sm:-mb-6">
+                  {word.split("").map((char, charIndex) => (
+                    <motion.span
+                      key={charIndex}
+                      variants={letterVariants}
+                      className="inline-block will-change-transform"
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </span>
+              ))}
+            </div>
+          </motion.h1>
 
-          {/* Row 2: Meditate longer. (Shifted to start right where row 1 ends) */}
-          <div className="flex items-center gap-[0.28em] pl-[8vw] sm:pl-[12vw] md:pl-[15vw] lg:pl-[190px]">
-            {["Meditate", "longer."].map((word, wordIndex) => (
-              <span key={wordIndex} className="inline-flex overflow-hidden pt-2 pb-6 -mt-2 -mb-6">
-                {word.split("").map((char, charIndex) => (
-                  <motion.span
-                    key={charIndex}
-                    variants={letterVariants}
-                    className="inline-block will-change-transform"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </span>
-            ))}
-          </div>
-        </motion.h1>
+          {/* Subtitle / Narrative */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-2.5 sm:mt-4 max-w-[620px]"
+          >
+            <p className="font-sans text-[14.5px] sm:text-[19px] md:text-[22px] lg:text-[24px] text-white/95 leading-[1.35] sm:leading-[1.4] font-medium drop-shadow-[0_2px_14px_rgba(0,0,0,0.5)]">
+              Where ancient wisdom meets modern comfort.
+            </p>
+          </motion.div>
+
+          {/* Editorial Affirmations & Exploration Link */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+            transition={{ duration: 0.8, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-3 sm:mt-5 font-sans"
+          >
+            <p className="text-[12.5px] sm:text-[15.5px] md:text-[16.5px] text-white/85 font-medium leading-tight drop-shadow-[0_1px_8px_rgba(0,0,0,0.45)]">
+              Sit with ease. Stay with the practice.
+            </p>
+            {/* Explore the Seat Fused Pill Button (Exact About Section Signature Style) */}
+            <div className="pt-2.5 sm:pt-4">
+              <a
+                href="#the-seat"
+                className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer pointer-events-auto"
+              >
+                {/* SVG Fused Pill + Circle Background */}
+                <svg
+                  className="w-[220px] sm:w-[236px] h-[44px] sm:h-[46px]"
+                  viewBox="0 0 236 46"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <linearGradient id="btn-hero-about-fill" x1="0" y1="0" x2="236" y2="46" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#FFFFFF" />
+                      <stop offset="50%" stopColor="#F9F7F4" />
+                      <stop offset="100%" stopColor="#FFFFFF" />
+                    </linearGradient>
+                    <linearGradient id="btn-hero-about-border" x1="0" y1="0" x2="236" y2="46" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="rgba(64, 46, 29, 0.25)" />
+                      <stop offset="50%" stopColor="rgba(216, 204, 189, 0.8)" />
+                      <stop offset="100%" stopColor="rgba(64, 46, 29, 0.2)" />
+                    </linearGradient>
+                  </defs>
+
+                  <path
+                    d="M 23 0 L 173 0 C 180 0 185 7 190 7 C 195 7 200 0 213 0 A 23 23 0 1 1 213 46 C 200 46 195 39 190 39 C 185 39 180 46 173 46 L 23 46 A 23 23 0 0 1 23 0 Z"
+                    fill="url(#btn-hero-about-fill)"
+                    stroke="url(#btn-hero-about-border)"
+                    strokeWidth="1.4"
+                  />
+                </svg>
+
+                {/* Button Text */}
+                <div className="absolute left-0 top-0 bottom-0 w-[176px] sm:w-[188px] flex items-center justify-center pointer-events-none">
+                  <span className="font-sans text-[11.5px] sm:text-[12.5px] font-bold tracking-[0.04em] uppercase text-[#1E140D] whitespace-nowrap">
+                    Explore the Seat
+                  </span>
+                </div>
+
+                {/* Button Right Bronze Circle with Arrow */}
+                <div className="absolute right-[4px] top-[4px] w-[36px] h-[36px] sm:w-[38px] sm:h-[38px] rounded-full bg-[#876540] flex items-center justify-center group-hover:bg-[#6D5133] transition-colors duration-300">
+                  <ArrowDown className="w-[16px] h-[16px] text-white stroke-[2.4] transition-transform duration-300 group-hover:translate-y-0.5" />
+                </div>
+              </a>
+            </div>
+          </motion.div>
+        </div>
       </div>
 
-      {/* 3. Left Feature Card Layer: Glassmorphic Card Pointing to Cushion (z-30) */}
-      <div className="absolute left-[3%] sm:left-[4%] md:left-[6%] lg:left-[8%] xl:left-[11%] bottom-[24%] sm:bottom-[26%] md:bottom-[29%] lg:bottom-[31%] z-30 pointer-events-none">
-        <CushionFeatureCard
-          title="Ergonomic Cushion Core"
-          description="Engineered with responsive botanical latex to dissipate pressure points while maintaining upright spinal balance."
-          imageLoaded={isInView}
-        />
-      </div>
-
-      {/* 3b. Right Feature Card Layer: Glassmorphic Card Pointing to Cork Base (z-30) */}
-      <div className="absolute right-[3%] sm:right-[4%] md:right-[6%] lg:right-[8%] xl:right-[11%] bottom-[16%] sm:bottom-[18%] md:bottom-[19%] lg:bottom-[20%] z-30 pointer-events-none">
-        <BaseFeatureCard
-          title="Natural Cork Base"
-          description="Portuguese cork with an 8.5° forward slope naturally tilts the pelvis to align the spine."
-          imageLoaded={isInView}
-        />
-      </div>
-
-      {/* 4. Foreground Layer: Divine Lotus Product Aligned Over Mat (z-20) */}
-      <div className="absolute bottom-[36px] sm:bottom-[44px] md:bottom-[54px] lg:bottom-[68px] z-20 w-full flex justify-center items-end px-6 pointer-events-none">
-        <motion.div
-          variants={productVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="relative w-full max-w-[280px] sm:max-w-[350px] md:max-w-[420px] lg:max-w-[490px] will-change-transform"
-        >
-          {/* Directional Sunlight Cast Shadow on Right-Bottom of Tatami Mat */}
-          <div 
-            className="absolute -bottom-2 left-[15%] w-[95%] h-14 md:h-16 bg-[#241508]/30 rounded-[100%] blur-2xl transform translate-x-8 translate-y-4 rotate-[1.5deg] pointer-events-none"
-            aria-hidden="true" 
-          />
-          
-          {/* Tighter Ground Contact Occlusion Shadow beneath Cork Base */}
-          <div 
-            className="absolute bottom-1 left-[10%] w-[85%] h-8 bg-[#1a0e05]/45 rounded-[100%] blur-md transform translate-x-4 translate-y-1 pointer-events-none"
-            aria-hidden="true" 
-          />
-
-          {/* Product Image Layer with Directional Bottom-Right Drop Shadow */}
-          <div className="relative aspect-[16/10] w-full">
-            <Image
-              src="/lotus_product_v2.webp"
-              alt="The Divine Lotus Ergonomic Meditation Cushion"
-              fill
-              priority
-              sizes="(max-width: 640px) 280px, (max-width: 768px) 350px, (max-width: 1024px) 420px, 490px"
-              className="object-contain drop-shadow-[18px_24px_32px_rgba(36,20,8,0.38)] drop-shadow-[6px_10px_14px_rgba(25,12,4,0.22)] transition-transform duration-700 hover:scale-[1.015]"
-            />
-          </div>
-        </motion.div>
-      </div>
-
-      {/* 5. Bottom Center Organic 'Scroll down' Dome Element (z-30) */}
-      <div className="absolute bottom-[-1px] left-1/2 -translate-x-1/2 z-30 flex items-end justify-center pointer-events-auto">
-        <motion.div
-          initial={{ y: 30, opacity: 0 }}
-          animate={
-            isInView
-              ? { y: 0, opacity: 1 }
-              : { y: 30, opacity: 0 }
-          }
-          transition={{
-            duration: 0.8,
-            delay: 0.35,
-            ease: [0.16, 1, 0.3, 1],
+      {/* 3. Bottom Right Glass Card with Logo Icon (Default static without entrance delay) */}
+      <div className="absolute bottom-4 right-4 sm:bottom-10 sm:right-10 md:bottom-14 md:right-16 lg:bottom-16 lg:right-20 z-20 select-none pointer-events-auto">
+        {/* Pure Colorless Frosted Glass Card - Square Dimension, No Border, No Shadows */}
+        <div
+          className="w-[52px] h-[52px] min-[400px]:w-[58px] min-[400px]:h-[58px] sm:w-[74px] sm:h-[74px] md:w-[88px] md:h-[88px] lg:w-[96px] lg:h-[96px] rounded-xl sm:rounded-2xl md:rounded-3xl flex items-center justify-center bg-white/[0.12] transition-transform duration-500 hover:-translate-y-1"
+          style={{
+            backdropFilter: "blur(32px) saturate(130%)",
+            WebkitBackdropFilter: "blur(32px) saturate(130%)",
+            transform: "translateZ(0)",
+            WebkitTransform: "translateZ(0)",
+            willChange: "transform, backdrop-filter",
           }}
         >
-          <button
-            onClick={() => {
-              const nextSection = document.getElementById("the-seat") || document.getElementById("why-it-works");
-              if (nextSection) {
-                nextSection.scrollIntoView({ behavior: "smooth" });
-              } else {
-                window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
-              }
-            }}
-            className="group relative flex items-end justify-center select-none cursor-pointer focus:outline-none transition-all duration-300 active:scale-[0.98]"
-            aria-label="Scroll down"
-          >
-            {/* Symmetrical Rounded Pill Arch Background blending into #F6F3ED below */}
-            <svg
-              className="w-[200px] sm:w-[225px] md:w-[245px] h-[38px] sm:h-[42px] drop-shadow-[0_-4px_16px_rgba(0,0,0,0.12)]"
-              viewBox="0 0 240 44"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <linearGradient id="scroll-btn-border" x1="0" y1="0" x2="0" y2="44" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stopColor="rgba(255, 255, 255, 0.95)" />
-                  <stop offset="40%" stopColor="rgba(216, 204, 189, 0.8)" />
-                  <stop offset="85%" stopColor="rgba(246, 243, 237, 0)" />
-                  <stop offset="100%" stopColor="rgba(246, 243, 237, 0)" />
-                </linearGradient>
-                <linearGradient id="scroll-btn-shine" x1="0" y1="0" x2="0" y2="44" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stopColor="rgba(255, 255, 255, 0.6)" />
-                  <stop offset="50%" stopColor="rgba(255, 255, 255, 0)" />
-                </linearGradient>
-              </defs>
-
-              {/* Seamless Arch Fill with exact #F6F3ED background */}
-              <path
-                d="M 0 44 C 24 44 38 41 46 26 C 54 10 68 0 88 0 L 152 0 C 172 0 186 10 194 26 C 202 41 216 44 240 44 Z"
-                fill="#F6F3ED"
-                stroke="url(#scroll-btn-border)"
-                strokeWidth="1.3"
-              />
-              {/* Top Specular Rim Layer */}
-              <path
-                d="M 46 26 C 54 10 68 1.2 88 1.2 L 152 1.2 C 172 1.2 186 10 194 26 C 184 14 172 3 152 3 L 88 3 C 68 3 56 14 46 26 Z"
-                fill="url(#scroll-btn-shine)"
-                opacity="0.8"
-              />
-            </svg>
-
-            {/* Content Inside Dome: Text + Arrow in Same Row */}
-            <div className="absolute inset-0 pb-1 sm:pb-1.5 flex items-center justify-center gap-1.5 sm:gap-2 pointer-events-none">
-              <span className="font-sans text-[12px] sm:text-[12.5px] font-semibold text-[#402E1D] tracking-[0.01em] leading-none select-none">
-                Scroll down
-              </span>
-              <motion.div
-                animate={{ y: [0, 2.5, 0] }}
-                transition={{
-                  duration: 1.6,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="text-[#402E1D] flex items-center"
-              >
-                <ArrowDown className="w-3.5 h-3.5 stroke-[2.4] transition-transform duration-300 group-hover:translate-y-0.5" />
-              </motion.div>
-            </div>
-          </button>
-        </motion.div>
+          <div className="relative w-8 h-4 min-[400px]:w-9 min-[400px]:h-5 sm:w-12 sm:h-6 md:w-15 md:h-7 lg:w-16 lg:h-8 flex items-center justify-center">
+            <Image
+              src="/logo.png"
+              alt="Divine Lotus Logo"
+              fill
+              priority
+              unoptimized
+              quality={100}
+              sizes="(max-width: 640px) 40px, (max-width: 768px) 60px, 64px"
+              className="object-contain"
+              onError={(e) => {
+                const target = e.currentTarget as HTMLImageElement;
+                if (!target.src.includes("lotus_logo.jpeg")) {
+                  target.src = "/lotus_logo.jpeg";
+                }
+              }}
+            />
+          </div>
+        </div>
       </div>
 
     </section>

@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { Check, ArrowUpRight } from "lucide-react";
+import CustomizeModal from "./CustomizeModal";
 
 interface PricingTier {
   id: string;
@@ -51,17 +53,18 @@ const pricingTiers: PricingTier[] = [
       "One additional cover included",
     ],
     bonus: "Includes the complete Sadhana Practice Guide.",
-    ctaText: "CUSTOMIZE YOURS • €199",
+    ctaText: "CUSTOMISE NOW • €199",
     highlighted: true,
   },
 ];
 
 export default function PricingSection() {
+  const [isCustomizeOpen, setIsCustomizeOpen] = useState(false);
   return (
     <section
       id="pricing"
       data-header-theme="light"
-      className="relative w-full bg-[#F6F3ED] text-[#402E1D] py-16 sm:py-20 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center border-t border-[#402E1D]/6 overflow-hidden"
+      className="relative w-full bg-[#ECE7DE] text-[#402E1D] py-16 sm:py-20 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden"
     >
       {/* Background Sacred Mandala Motif (Half Bleed from Top Center) */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] sm:w-[620px] md:w-[760px] lg:w-[860px] aspect-square pointer-events-none select-none z-0 opacity-[0.11] mix-blend-multiply">
@@ -113,7 +116,7 @@ export default function PricingSection() {
         </div>
 
         {/* Two-Column Pricing Cards Grid with Slide In Animations */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-[1100px] mx-auto items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-14 lg:gap-8 max-w-[1100px] mx-auto items-stretch">
           {pricingTiers.map((tier, index) => {
             const isLeftCard = index === 0;
             return (
@@ -136,7 +139,7 @@ export default function PricingSection() {
                     isLeftCard
                       ? "rounded-[32px] sm:rounded-[36px]"
                       : "rounded-bl-[32px] rounded-br-[32px] rounded-tl-[32px] sm:rounded-bl-[36px] sm:rounded-br-[36px] sm:rounded-tl-[36px] rounded-tr-none"
-                  } p-7 sm:p-10 lg:p-11 shadow-[0_12px_40px_-15px_rgba(64,46,29,0.06)] border border-[#402E1D]/6 flex flex-col justify-between hover:shadow-[0_20px_50px_-15px_rgba(64,46,29,0.12)] transition-all duration-300`}
+                  } p-7 sm:p-10 lg:p-11 border border-[#402E1D]/6 flex flex-col justify-between transition-all duration-300`}
                 >
                   {/* Seamless Notched Corner Ear Tab with "Personalized" Text on Second Card */}
                   {!isLeftCard && (
@@ -228,7 +231,18 @@ export default function PricingSection() {
 
                   {/* Action CTA Button (Exact Small Left-Aligned Fused Pinched-Neck Pill Design) */}
                   <div className="flex justify-start pt-1">
-                    <button className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer">
+                    <button
+                      onClick={() => {
+                        if (tier.id === "custom") {
+                          setIsCustomizeOpen(true);
+                        } else {
+                          // Standard tier reservation/order scroll or notify
+                          const notifyBtn = document.querySelector('[aria-label="Notify Me"]') as HTMLButtonElement;
+                          if (notifyBtn) notifyBtn.click();
+                        }
+                      }}
+                      className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+                    >
                       {/* SVG Fused Pill + Pinched Neck + Circle Background */}
                       <svg
                         className="w-[228px] sm:w-[244px] h-[46px] sm:h-[48px]"
@@ -279,6 +293,12 @@ export default function PricingSection() {
       </div>
 
       </div>
+
+      {/* Bespoke Customization Studio Modal */}
+      <CustomizeModal
+        isOpen={isCustomizeOpen}
+        onClose={() => setIsCustomizeOpen(false)}
+      />
     </section>
   );
 }

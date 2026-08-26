@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-manrope), 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Glacier', var(--font-cormorant), 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+}
+
 @font-face {
   font-family: 'Glacier';
   src: url('/fonts/Glacier.woff2') format('woff2'),
@@ -20,8 +25,8 @@
   --color-sage: #7C7F66;            /* 3% Craft & Badges */
 
   /* Typography */
-  --font-display: 'Glacier', 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Glacier', var(--font-cormorant), 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans: var(--font-manrope), 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Glass Surfaces */
   --glass-header: rgba(246, 243, 237, 0.45);
@@ -40,7 +45,7 @@
     background-color: var(--color-canvas);
     color: var(--color-espresso);
     font-family: var(--font-sans);
-    overflow-x: hidden;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -62,6 +67,21 @@
 
 .font-display {
   font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.font-display.font-normal,
+.font-display.font-light,
+.font-display.font-thin,
+.font-display.font-extralight,
+.font-display.font-medium {
+  font-weight: 600 !important;
+}
+
+@media (max-width: 640px) {
+  .font-display {
+    font-weight: 600 !important;
+  }
 }
 
 .font-sans {
@@ -81,7 +101,6 @@
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 20px 40px -15px rgba(64, 46, 29, 0.07);
 }
 
 /* Glass Pill Badge */

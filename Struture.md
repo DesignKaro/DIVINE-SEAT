@@ -13,7 +13,8 @@ Complete structural blueprint, 13-section narrative hierarchy, verbatim editoria
                         ↓
 [3. The Problem — 4-Card Discomfort Grid & Physical Friction]
                         ↓
-[4. The Answer — Ergonomic pelvic foundation & Biomechanical Insight]
+[4. The Answer — Ergonomic pelvic foun
+dation & Biomechanical Insight]
                         ↓
 [5. 360° Interactive Product View — Physical form, angles & layer deconstructor]
                         ↓

@@ -81,7 +81,7 @@ export default function BiomechanicalBenefitsSection() {
     <section
       id="benefits"
       data-header-theme="light"
-      className="relative w-full bg-[#ECE7DE] text-[#402E1D] py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden"
+      className="relative w-full bg-[#E6DFD4] text-[#402E1D] py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden"
     >
       <div className="relative z-10 w-full max-w-[1280px] mx-auto">
         
@@ -97,7 +97,7 @@ export default function BiomechanicalBenefitsSection() {
               className="flex items-center gap-2 mb-3 sm:mb-4"
             >
               <span className="font-sans text-[11.5px] sm:text-[12.5px] font-bold tracking-[0.16em] uppercase text-[#876540]">
-                /BIOMECHANICAL BENEFITS
+                /BENEFITS
               </span>
             </motion.div>
 
@@ -152,8 +152,8 @@ export default function BiomechanicalBenefitsSection() {
               </div>
 
               <div className="relative z-10">
-                {/* Thin Minimal Icon Badge */}
-                <div className="w-11 h-11 rounded-2xl bg-[#F6F3ED] border border-[#402E1D]/6 text-[#876540] flex items-center justify-center mb-5 group-hover:bg-[#876540] group-hover:text-white transition-all duration-300">
+                {/* Clean Borderless Icon Badge */}
+                <div className="w-11 h-11 rounded-2xl bg-[#F6F3ED] text-[#876540] flex items-center justify-center mb-5 group-hover:bg-[#876540] group-hover:text-white transition-all duration-300">
                   {card.icon}
                 </div>
 
@@ -192,8 +192,8 @@ export default function BiomechanicalBenefitsSection() {
           </div>
 
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-start gap-5 max-w-[760px]">
-            {/* Thin Minimal Icon Badge */}
-            <div className="w-11 h-11 rounded-2xl bg-[#F6F3ED] border border-[#402E1D]/6 text-[#876540] flex items-center justify-center shrink-0 group-hover:bg-[#876540] group-hover:text-white transition-all duration-300">
+            {/* Clean Borderless Icon Badge */}
+            <div className="w-11 h-11 rounded-2xl bg-[#F6F3ED] text-[#876540] flex items-center justify-center shrink-0 group-hover:bg-[#876540] group-hover:text-white transition-all duration-300">
               <InfinityIcon className="w-5 h-5 stroke-[1.4]" />
             </div>
 
