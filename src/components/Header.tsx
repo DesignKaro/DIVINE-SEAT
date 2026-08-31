@@ -700,8 +700,8 @@ export default function Header() {
 
             {/* Text */}
             <div className="absolute left-0 top-0 bottom-0 w-[112px] sm:w-[154px] flex items-center justify-center pointer-events-none px-2">
-              <span className="font-sans text-[10.5px] sm:text-[12px] font-bold uppercase tracking-[0.06em] text-white transition-colors duration-300 whitespace-nowrap">
-                WISDOM OF SITTING
+              <span className="font-sans text-[11px] sm:text-[12.5px] font-medium text-white transition-colors duration-300 whitespace-nowrap">
+                Wisdom of Sitting
               </span>
             </div>
 
