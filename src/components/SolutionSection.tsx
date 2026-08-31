@@ -182,13 +182,13 @@ export default function SolutionSection() {
     }
   };
 
-  // Autoplay 4.5s
+  // Autoplay 3.0s
   useEffect(() => {
     if (isPaused || isFlipping || isDragging) return;
 
     const timer = setInterval(() => {
       paginate(1);
-    }, 4500);
+    }, 3000);
 
     return () => clearInterval(timer);
   }, [isPaused, isFlipping, isDragging, activeStep]);
