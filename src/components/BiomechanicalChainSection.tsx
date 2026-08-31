@@ -112,21 +112,29 @@ export default function BiomechanicalChainSection() {
       data-header-theme="light"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className="relative w-full text-[#402E1D] py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden scroll-mt-16 sm:scroll-mt-24"
+      className="relative w-full bg-[#E6DFD4] text-[#402E1D] py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden scroll-mt-16 sm:scroll-mt-24"
     >
-      {/* Full-cover Background Image (Laterally Inverted) */}
-      <Image
-        src="/images/about-bg.avif"
-        alt="Materials section background"
-        fill
-        priority={false}
-        unoptimized
-        sizes="100vw"
-        className="object-cover object-center scale-x-[-1]"
-      />
+      {/* Full-cover Background Image with Soft Edge Blending (Laterally Inverted) */}
+      <div 
+        className="absolute inset-0 z-0 overflow-hidden"
+        style={{
+          maskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
+        }}
+      >
+        <Image
+          src="/images/about-bg.avif"
+          alt="Materials section background"
+          fill
+          priority={false}
+          unoptimized
+          sizes="100vw"
+          className="object-cover object-center scale-x-[-1]"
+        />
 
-      {/* Warm overlay for legibility with section color */}
-      <div className="absolute inset-0 bg-[#E6DFD4]/45 backdrop-blur-[1px]" />
+        {/* Warm overlay for legibility with increased opacity */}
+        <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
+      </div>
 
       {/* 1. Left-Side Half-Bleed Sacred Mandala Background Motif */}
       <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] sm:w-[560px] md:w-[680px] lg:w-[760px] aspect-square pointer-events-none select-none z-0 opacity-[0.14] mix-blend-multiply">

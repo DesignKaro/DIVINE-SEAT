@@ -11,21 +11,29 @@ export default function AncientWisdomSection() {
     <section
       id="ancient-wisdom"
       data-header-theme="light"
-      className="relative w-full text-[#402E1D] py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden scroll-mt-16 sm:scroll-mt-24"
+      className="relative w-full bg-[#E6DFD4] text-[#402E1D] py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden scroll-mt-16 sm:scroll-mt-24"
     >
-      {/* Full-cover Background Image (Normal Orientation) */}
-      <Image
-        src="/images/about-bg.avif"
-        alt="Ancient wisdom section background"
-        fill
-        priority={false}
-        unoptimized
-        sizes="100vw"
-        className="object-cover object-center"
-      />
+      {/* Full-cover Background Image with Soft Edge Blending (Normal Orientation) */}
+      <div 
+        className="absolute inset-0 z-0 overflow-hidden"
+        style={{
+          maskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
+        }}
+      >
+        <Image
+          src="/images/about-bg.avif"
+          alt="Ancient wisdom section background"
+          fill
+          priority={false}
+          unoptimized
+          sizes="100vw"
+          className="object-cover object-center"
+        />
 
-      {/* Warm overlay for legibility with section color */}
-      <div className="absolute inset-0 bg-[#E6DFD4]/45 backdrop-blur-[1px]" />
+        {/* Warm overlay for legibility with increased opacity */}
+        <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
+      </div>
 
       {/* Background Sacred Mandala Motifs */}
       <div className="absolute left-0 top-1/4 -translate-x-1/3 w-[360px] sm:w-[480px] lg:w-[560px] aspect-square pointer-events-none select-none z-0 opacity-[0.14] mix-blend-multiply">

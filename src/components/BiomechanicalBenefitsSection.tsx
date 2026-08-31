@@ -95,7 +95,7 @@ export default function BiomechanicalBenefitsSection() {
       />
 
       {/* Warm overlay for legibility with section color */}
-      <div className="absolute inset-0 bg-[#E6DFD4]/45 backdrop-blur-[1px]" />
+      <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
 
       <div className="relative z-10 w-full max-w-[1280px] mx-auto">
         

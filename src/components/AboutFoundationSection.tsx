@@ -47,21 +47,29 @@ export default function AboutFoundationSection() {
     <section 
       id="the-seat" 
       data-header-theme="light"
-      className="relative w-full min-h-screen text-[#402E1D] py-14 sm:py-24 lg:py-36 px-4 sm:px-10 lg:px-16 overflow-hidden flex items-center justify-center scroll-mt-16 sm:scroll-mt-24"
+      className="relative w-full min-h-screen bg-[#E6DFD4] text-[#402E1D] py-14 sm:py-24 lg:py-36 px-4 sm:px-10 lg:px-16 overflow-hidden flex items-center justify-center scroll-mt-16 sm:scroll-mt-24"
     >
-      {/* Full-cover Background Image */}
-      <Image
-        src="/images/about-bg.avif"
-        alt="About section background"
-        fill
-        priority
-        unoptimized
-        sizes="100vw"
-        className="object-cover object-center"
-      />
+      {/* Full-cover Background Image with Soft Edge Blending */}
+      <div 
+        className="absolute inset-0 z-0 overflow-hidden"
+        style={{
+          maskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
+        }}
+      >
+        <Image
+          src="/images/about-bg.avif"
+          alt="About section background"
+          fill
+          priority
+          unoptimized
+          sizes="100vw"
+          className="object-cover object-center"
+        />
 
-      {/* Warm overlay for legibility */}
-      <div className="absolute inset-0 bg-[#E6DFD4]/45 backdrop-blur-[1px]" />
+        {/* Warm overlay for legibility with increased opacity */}
+        <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
+      </div>
 
       {/* Main Content Grid Container */}
       <div className="relative z-10 w-full max-w-[1360px] mx-auto">

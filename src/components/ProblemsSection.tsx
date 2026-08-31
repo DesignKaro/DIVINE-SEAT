@@ -100,21 +100,29 @@ export default function ProblemsSection() {
     <section
       id="the-problem"
       data-header-theme="light"
-      className="relative w-full text-[#402E1D] py-14 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 overflow-hidden flex flex-col items-center justify-center scroll-mt-16 sm:scroll-mt-24"
+      className="relative w-full bg-[#E6DFD4] text-[#402E1D] py-14 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 overflow-hidden flex flex-col items-center justify-center scroll-mt-16 sm:scroll-mt-24"
     >
-      {/* Full-cover Background Image (Laterally Inverted) */}
-      <Image
-        src="/images/about-bg.avif"
-        alt="Problems section background"
-        fill
-        priority={false}
-        unoptimized
-        sizes="100vw"
-        className="object-cover object-center scale-x-[-1]"
-      />
+      {/* Full-cover Background Image with Soft Edge Blending (Laterally Inverted) */}
+      <div 
+        className="absolute inset-0 z-0 overflow-hidden"
+        style={{
+          maskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
+        }}
+      >
+        <Image
+          src="/images/about-bg.avif"
+          alt="Problems section background"
+          fill
+          priority={false}
+          unoptimized
+          sizes="100vw"
+          className="object-cover object-center scale-x-[-1]"
+        />
 
-      {/* Warm overlay for legibility with section color */}
-      <div className="absolute inset-0 bg-[#E6DFD4]/45 backdrop-blur-[1px]" />
+        {/* Warm overlay for legibility with increased opacity */}
+        <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
+      </div>
 
       {/* Corner Mandala Motifs */}
       <div className="absolute left-0 top-0 -translate-x-1/3 -translate-y-1/3 w-[260px] sm:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">

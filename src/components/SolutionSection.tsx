@@ -237,21 +237,29 @@ export default function SolutionSection() {
     <section
       id="the-solution"
       data-header-theme="light"
-      className="relative w-full text-[#402E1D] py-12 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-12 overflow-hidden flex flex-col items-center justify-center scroll-mt-16 sm:scroll-mt-24"
+      className="relative w-full bg-[#E6DFD4] text-[#402E1D] py-12 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-12 overflow-hidden flex flex-col items-center justify-center scroll-mt-16 sm:scroll-mt-24"
     >
-      {/* Full-cover Background Image */}
-      <Image
-        src="/images/about-bg.avif"
-        alt="Solution section background"
-        fill
-        priority={false}
-        unoptimized
-        sizes="100vw"
-        className="object-cover object-center"
-      />
+      {/* Full-cover Background Image with Soft Edge Blending */}
+      <div 
+        className="absolute inset-0 z-0 overflow-hidden"
+        style={{
+          maskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
+        }}
+      >
+        <Image
+          src="/images/about-bg.avif"
+          alt="Solution section background"
+          fill
+          priority={false}
+          unoptimized
+          sizes="100vw"
+          className="object-cover object-center"
+        />
 
-      {/* Warm overlay for legibility with section color */}
-      <div className="absolute inset-0 bg-[#E6DFD4]/45 backdrop-blur-[1px]" />
+        {/* Warm overlay for legibility with increased opacity */}
+        <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
+      </div>
 
       {/* Section Container */}
       <div className="relative z-10 w-full max-w-[1360px] mx-auto flex flex-col items-center">
