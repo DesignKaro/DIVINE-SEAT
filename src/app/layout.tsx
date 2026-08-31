@@ -147,6 +147,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${manrope.variable} ${cormorant.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
+        <link rel="preload" href="/fonts/Glacier.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="icon" href="/lotus-favicon.png" type="image/png" />
         <link rel="shortcut icon" href="/lotus-favicon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/lotus-favicon.png" />

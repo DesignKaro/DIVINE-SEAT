@@ -1,16 +1,18 @@
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import AboutFoundationSection from "@/components/AboutFoundationSection";
 import ProblemsSection from "@/components/ProblemsSection";
 import SolutionSection from "@/components/SolutionSection";
 import RealThingSection from "@/components/RealThingSection";
-import PricingSection from "@/components/PricingSection";
-import BiomechanicalBenefitsSection from "@/components/BiomechanicalBenefitsSection";
-import BiomechanicalChainSection from "@/components/BiomechanicalChainSection";
-import AncientWisdomSection from "@/components/AncientWisdomSection";
-import ComparisonSection from "@/components/ComparisonSection";
-import TheAnswerSection from "@/components/TheAnswerSection";
-import Footer from "@/components/Footer";
+
+// Dynamically load below-the-fold sections for optimized initial JavaScript execution & TBT
+const PricingSection = dynamic(() => import("@/components/PricingSection"));
+const AncientWisdomSection = dynamic(() => import("@/components/AncientWisdomSection"));
+const BiomechanicalChainSection = dynamic(() => import("@/components/BiomechanicalChainSection"));
+const ComparisonSection = dynamic(() => import("@/components/ComparisonSection"));
+const TheAnswerSection = dynamic(() => import("@/components/TheAnswerSection"));
+const Footer = dynamic(() => import("@/components/Footer"));
 import JsonLd from "@/components/JsonLd";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://divinelotus.com";

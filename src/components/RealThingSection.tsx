@@ -20,41 +20,69 @@ export default function RealThingSection() {
   const currentFrameRef = useRef(0);
   const rafRef = useRef<number | null>(null);
 
-  // Preload all frames progressively
+  // Preload frames progressively with IntersectionObserver threshold
   useEffect(() => {
     const images: HTMLImageElement[] = new Array(TOTAL_FRAMES);
+    imagesRef.current = images;
 
-    // 1. Critical Wave: Load initial 25 frames immediately
-    const priorityCount = Math.min(25, TOTAL_FRAMES);
-    for (let i = 0; i < priorityCount; i++) {
-      const img = new window.Image();
-      img.src = FRAME_PATH(i);
-      img.onload = () => {
-        if (i === 0 && canvasRef.current) {
-          drawFrame(0);
-        }
-      };
-      images[i] = img;
-    }
+    // 1. Critical: Load frame 0 immediately for initial canvas paint
+    const initialImg = new window.Image();
+    initialImg.src = FRAME_PATH(0);
+    initialImg.onload = () => {
+      if (canvasRef.current) {
+        drawFrame(0);
+      }
+    };
+    images[0] = initialImg;
 
-    // 2. Background Wave: Stream remaining frames smoothly
-    const loadRemaining = () => {
-      for (let i = priorityCount; i < TOTAL_FRAMES; i++) {
+    let hasStartedFullPreload = false;
+    const startPreload = () => {
+      if (hasStartedFullPreload) return;
+      hasStartedFullPreload = true;
+
+      // 2. Critical Wave: Load initial 25 frames
+      const priorityCount = Math.min(25, TOTAL_FRAMES);
+      for (let i = 1; i < priorityCount; i++) {
         const img = new window.Image();
         img.src = FRAME_PATH(i);
         images[i] = img;
       }
+
+      // 3. Background Wave: Stream remaining frames on idle
+      const loadRemaining = () => {
+        for (let i = priorityCount; i < TOTAL_FRAMES; i++) {
+          const img = new window.Image();
+          img.src = FRAME_PATH(i);
+          images[i] = img;
+        }
+      };
+
+      if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+        window.requestIdleCallback(loadRemaining, { timeout: 1200 });
+      } else {
+        setTimeout(loadRemaining, 200);
+      }
     };
 
-    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-      window.requestIdleCallback(loadRemaining, { timeout: 800 });
+    // Use IntersectionObserver to start streaming when within 800px of section
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          startPreload();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "800px 0px" }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
     } else {
-      setTimeout(loadRemaining, 100);
+      startPreload();
     }
 
-    imagesRef.current = images;
-
     return () => {
+      observer.disconnect();
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
