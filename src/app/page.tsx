@@ -27,7 +27,7 @@ const homeSchemas = {
       image: [
         `${siteUrl}/images/seat-stack.webp`,
         `${siteUrl}/images/seat-profile.webp`,
-        `${siteUrl}/images/about_seat_lifestyle_v4.avif`,
+        `${siteUrl}/images/about_seat_lifestyle_v6.avif`,
       ],
       description:
         "Architectural ergonomic meditation seat handcrafted with Portuguese cork, natural botanical latex core, and removable organic linen cover.",

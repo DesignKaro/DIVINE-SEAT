@@ -179,7 +179,7 @@ export default function AboutFoundationSection() {
               
               {/* Featured High-Res Editorial Photography */}
               <Image
-                src="/images/about_seat_lifestyle_v5.avif"
+                src="/images/about_seat_lifestyle_v6.avif"
                 alt="The Divine Lotus in Minimalist Japanese Sanctuary"
                 fill
                 priority
