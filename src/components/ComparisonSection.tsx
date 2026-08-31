@@ -83,7 +83,7 @@ export default function ComparisonSection() {
       />
 
       {/* Warm overlay for legibility with section color */}
-      <div className="absolute inset-0 bg-[#ECE7DE]/45 backdrop-blur-[1px]" />
+      <div className="absolute inset-0 bg-[#E6DFD4]/45 backdrop-blur-[1px]" />
 
       {/* Background Sacred Mandala Motif (Centered Vertically and Horizontally) */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[720px] md:w-[850px] lg:w-[980px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">

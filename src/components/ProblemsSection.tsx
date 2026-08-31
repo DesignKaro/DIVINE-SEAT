@@ -114,7 +114,7 @@ export default function ProblemsSection() {
       />
 
       {/* Warm overlay for legibility with section color */}
-      <div className="absolute inset-0 bg-[#ECE7DE]/45 backdrop-blur-[1px]" />
+      <div className="absolute inset-0 bg-[#E6DFD4]/45 backdrop-blur-[1px]" />
 
       {/* Corner Mandala Motifs */}
       <div className="absolute left-0 top-0 -translate-x-1/3 -translate-y-1/3 w-[260px] sm:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">

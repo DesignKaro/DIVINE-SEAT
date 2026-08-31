@@ -19,7 +19,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative w-full bg-[#ECE7DE] text-white flex flex-col items-center">
+    <footer className="relative w-full bg-[#F6F3ED] text-white flex flex-col items-center">
 
       {/* Main Hero Background Canvas with Smooth Top Rounded Corners on Left & Right */}
       <div className="relative w-full rounded-t-[22px] sm:rounded-t-[28px] lg:rounded-t-[34px] overflow-hidden flex flex-col items-center border-t border-white/35 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),inset_0_24px_60px_rgba(255,255,255,0.15)]">

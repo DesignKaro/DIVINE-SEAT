@@ -126,7 +126,7 @@ export default function BiomechanicalChainSection() {
       />
 
       {/* Warm overlay for legibility with section color */}
-      <div className="absolute inset-0 bg-[#ECE7DE]/45 backdrop-blur-[1px]" />
+      <div className="absolute inset-0 bg-[#E6DFD4]/45 backdrop-blur-[1px]" />
 
       {/* 1. Left-Side Half-Bleed Sacred Mandala Background Motif */}
       <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] sm:w-[560px] md:w-[680px] lg:w-[760px] aspect-square pointer-events-none select-none z-0 opacity-[0.14] mix-blend-multiply">
