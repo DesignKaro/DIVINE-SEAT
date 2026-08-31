@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import AnimatedHeading from "@/components/ui/AnimatedHeading";
 
 interface MaterialItem {
   id: string;
@@ -89,11 +89,6 @@ export default function BiomechanicalChainSection() {
     setActiveStepState([newStep, dir]);
   };
 
-  const handlePrev = () => {
-    const nextIdx = (activeStep - 1 + materialSteps.length) % materialSteps.length;
-    setActiveStepState([nextIdx, -1]);
-  };
-
   const handleNext = () => {
     const nextIdx = (activeStep + 1) % materialSteps.length;
     setActiveStepState([nextIdx, 1]);
@@ -104,7 +99,7 @@ export default function BiomechanicalChainSection() {
     if (isPaused) return;
     const timer = setInterval(() => {
       setActiveStepState(([prev]) => [(prev + 1) % materialSteps.length, 1]);
-    }, 5500);
+    }, 4500);
 
     return () => clearInterval(timer);
   }, [isPaused]);
@@ -117,8 +112,22 @@ export default function BiomechanicalChainSection() {
       data-header-theme="light"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className="relative w-full bg-[#ECE7DE] text-[#402E1D] py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden"
+      className="relative w-full text-[#402E1D] py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden scroll-mt-16 sm:scroll-mt-24"
     >
+      {/* Full-cover Background Image */}
+      <Image
+        src="/images/about-bg.avif"
+        alt="Materials section background"
+        fill
+        priority={false}
+        unoptimized
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+
+      {/* Warm overlay for legibility with section color */}
+      <div className="absolute inset-0 bg-[#ECE7DE]/45 backdrop-blur-[1px]" />
+
       {/* 1. Left-Side Half-Bleed Sacred Mandala Background Motif */}
       <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] sm:w-[560px] md:w-[680px] lg:w-[760px] aspect-square pointer-events-none select-none z-0 opacity-[0.14] mix-blend-multiply">
         <Image
@@ -161,16 +170,11 @@ export default function BiomechanicalChainSection() {
               </span>
             </motion.div>
 
-            {/* Editorial Display Heading */}
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.65, delay: 0.05 }}
+            {/* Editorial Display Heading with kinetic reveal */}
+            <AnimatedHeading
+              text="Natural where it matters."
               className="font-display font-semibold text-[32px] sm:text-[40px] md:text-[44px] lg:text-[48px] leading-[1.12] tracking-[-0.015em] text-[#402E1D]"
-            >
-              Natural where it matters.
-            </motion.h2>
+            />
           </div>
 
           {/* Subtitle Description on Right */}
@@ -185,7 +189,7 @@ export default function BiomechanicalChainSection() {
           </motion.p>
         </div>
 
-        {/* Animated Banner Showcase with Dynamic Slide Transition (Left Title | Center Image | Right Description) */}
+        {/* Animated Banner Showcase with 3 Left Navigators | Center Image | Right Description */}
         <div className="w-full rounded-[24px] sm:rounded-[32px] overflow-hidden bg-[#241A12] text-white relative min-h-[440px] lg:min-h-[490px] flex flex-col justify-between shadow-2xl">
           
           {/* Hero Section Background Image Layer */}
@@ -199,44 +203,57 @@ export default function BiomechanicalChainSection() {
               className="object-cover object-center brightness-[0.92] contrast-[1.02]"
             />
             {/* Soft Ambient Scrim for Text Legibility */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-black/45" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/35 to-black/50" />
           </div>
 
           {/* Dynamic Content Body */}
-          <div className="relative z-10 p-6 sm:p-10 lg:p-12 flex-1 flex items-center">
-            <div className="w-full grid grid-cols-1 lg:grid-cols-[1.1fr_auto_1.1fr] items-center justify-items-stretch gap-8 lg:gap-12">
+          <div className="relative z-10 p-5 sm:p-8 lg:p-12 flex-1 flex items-center">
+            <div className="w-full grid grid-cols-1 lg:grid-cols-[1.25fr_auto_1.1fr] items-center justify-items-stretch gap-6 lg:gap-10">
               
-              {/* 1. LEFT: Step Number, Role & Material Title */}
-              <div className="w-full text-left">
-                <AnimatePresence custom={direction} mode="wait">
-                  <motion.div
-                    key={currentItem.id}
-                    custom={direction}
-                    variants={slideContentVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                  >
-                    {/* Material Title */}
-                    <h3 className="font-display font-semibold sm:font-bold text-[34px] sm:text-[40px] md:text-[48px] leading-[1.1] text-white mb-2 drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
-                      {currentItem.title}
-                    </h3>
+              {/* 1. LEFT: 3 Material Navigators (Only Title, No Step Row) */}
+              <div className="w-full flex flex-col gap-2 sm:gap-3">
+                {materialSteps.map((step, idx) => {
+                  const isActive = activeStep === idx;
+                  return (
+                    <button
+                      key={step.id}
+                      onClick={() => setStep(idx)}
+                      onMouseEnter={() => setStep(idx)}
+                      className={`relative w-full flex items-center gap-3.5 sm:gap-4 p-2.5 sm:p-3.5 rounded-[18px] sm:rounded-[22px] transition-all duration-300 cursor-pointer text-left select-none ${
+                        isActive
+                          ? "bg-white/15 backdrop-blur-md shadow-lg scale-[1.02]"
+                          : "opacity-55 hover:opacity-100 hover:bg-white/5 hover:scale-[1.01]"
+                      }`}
+                      aria-label={`Select ${step.title}`}
+                    >
+                      {/* Left Circle Image (Borderless) */}
+                      <div className="relative w-11 h-11 sm:w-13 sm:h-13 rounded-full overflow-hidden shrink-0 transition-transform duration-300">
+                        <Image
+                          src={step.image}
+                          alt={step.title}
+                          fill
+                          unoptimized
+                          sizes="56px"
+                          className="object-cover object-center"
+                        />
+                      </div>
 
-                    {/* Role Headline */}
-                    <p className="font-sans text-[16px] sm:text-[18px] text-[#D8C7B5] font-semibold leading-[1.4] drop-shadow-[0_1px_8px_rgba(0,0,0,0.4)]">
-                      {currentItem.role}
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
+                      {/* Right Title Only */}
+                      <h4 className="font-display font-semibold sm:font-bold text-[20px] sm:text-[23px] lg:text-[25px] text-white leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                        {step.title}
+                      </h4>
+                    </button>
+                  );
+                })}
               </div>
 
-              {/* 2. CENTER: Clean 1:1 Aspect Ratio Image Frame */}
+              {/* 2. CENTER: Clean Aspect Ratio Image Frame (100% Full Width on phone view) */}
               <div
                 onClick={handleNext}
-                className="relative w-[260px] sm:w-[320px] md:w-[360px] lg:w-[380px] aspect-square mx-auto shrink-0 flex items-center justify-center my-2 sm:my-0 cursor-pointer select-none group"
+                className="relative w-full sm:w-[300px] md:w-[340px] lg:w-[360px] aspect-square mx-auto shrink-0 flex items-center justify-center my-2 sm:my-0 cursor-pointer select-none group"
                 title="Click to view next material"
               >
-                <div className="relative z-10 w-full h-full rounded-[22px] sm:rounded-[28px] overflow-hidden">
+                <div className="relative z-10 w-full h-full rounded-[22px] sm:rounded-[28px] overflow-hidden shadow-2xl">
                   <AnimatePresence custom={direction} mode="wait">
                     <motion.div
                       key={currentItem.id}
@@ -252,7 +269,7 @@ export default function BiomechanicalChainSection() {
                         alt={currentItem.title}
                         fill
                         unoptimized
-                        sizes="(max-width: 640px) 260px, (max-width: 1024px) 360px, 380px"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 340px, 360px"
                         className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     </motion.div>
@@ -281,25 +298,6 @@ export default function BiomechanicalChainSection() {
             </div>
           </div>
 
-          {/* Clean Floating Prev / Next Arrow Controls */}
-          <div className="absolute right-4 sm:right-6 md:right-8 bottom-4 sm:bottom-6 z-20 flex items-center gap-2.5">
-            <button
-              onClick={handlePrev}
-              aria-label="Previous material"
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white text-white hover:text-[#1E140D] flex items-center justify-center transition-all duration-200 active:scale-95 cursor-pointer backdrop-blur-md shadow-sm"
-            >
-              <ChevronLeft className="w-4 h-4 sm:w-4.5 sm:h-4.5 stroke-[2.4]" />
-            </button>
-
-            <button
-              onClick={handleNext}
-              aria-label="Next material"
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white text-white hover:text-[#1E140D] flex items-center justify-center transition-all duration-200 active:scale-95 cursor-pointer backdrop-blur-md shadow-sm"
-            >
-              <ChevronRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 stroke-[2.4]" />
-            </button>
-          </div>
-
         </div>
 
         {/* Yogic Traditions Insight Text */}
@@ -319,4 +317,3 @@ export default function BiomechanicalChainSection() {
     </section>
   );
 }
-

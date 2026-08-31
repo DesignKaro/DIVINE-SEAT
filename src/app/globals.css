@@ -41,6 +41,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--color-canvas);
     color: var(--color-espresso);
@@ -189,4 +193,17 @@
   border-color: #876540;
   color: #876540;
   transform: translateY(-2px);
+}
+
+@keyframes progress-ring {
+  0% {
+    stroke-dashoffset: 138;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-progress-ring {
+  animation: progress-ring 3s linear infinite;
 }

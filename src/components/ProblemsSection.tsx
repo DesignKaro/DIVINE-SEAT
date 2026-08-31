@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Zap, Compass, Flame, Activity, TrendingDown, RefreshCw } from "lucide-react";
+import AnimatedHeading from "@/components/ui/AnimatedHeading";
 
 interface ProblemItem {
   number: string;
@@ -11,6 +12,7 @@ interface ProblemItem {
   desc: string;
   image: string;
   alt: string;
+  icon: React.ComponentType<{ className?: string }>;
 }
 
 const problems: ProblemItem[] = [
@@ -20,6 +22,7 @@ const problems: ProblemItem[] = [
     desc: "Restricted circulation from cross-legged sitting leaves the legs and feet numb within minutes.",
     image: "/images/problems/problem_v2_1.avif",
     alt: "Leg numbness and restricted circulation during meditation",
+    icon: Zap,
   },
   {
     number: "02",
@@ -27,6 +30,7 @@ const problems: ProblemItem[] = [
     desc: "Without the right support, the hips can't settle — creating tension that builds through the whole sit.",
     image: "/images/problems/problem_v2_2.avif",
     alt: "Hip tightness and tension during meditation sitting",
+    icon: Compass,
   },
   {
     number: "03",
@@ -34,6 +38,7 @@ const problems: ProblemItem[] = [
     desc: "When the hips can't open freely, the knees carry the strain — making longer sits increasingly uncomfortable.",
     image: "/images/problems/problem_v2_3.avif",
     alt: "Knee pressure and strain during cross-legged sitting",
+    icon: Flame,
   },
   {
     number: "04",
@@ -41,6 +46,7 @@ const problems: ProblemItem[] = [
     desc: "All body weight concentrates at the base of the spine — the spot that tends to ache first and longest.",
     image: "/images/problems/problem_v2_4.avif",
     alt: "Tailbone and lower back ache during meditation",
+    icon: Activity,
   },
   {
     number: "05",
@@ -48,6 +54,7 @@ const problems: ProblemItem[] = [
     desc: "Without a foundation that supports the pelvis, the spine gradually curves and the shoulders round forward.",
     image: "/images/problems/problem_v2_slouching.avif",
     alt: "Slouching posture during meditation sitting",
+    icon: TrendingDown,
   },
   {
     number: "06",
@@ -55,6 +62,7 @@ const problems: ProblemItem[] = [
     desc: "Each shift to find comfort pulls attention away from the practice — making stillness harder to reach.",
     image: "/images/problems/problem_v2_readjustment.avif",
     alt: "Constant readjustment and distraction during meditation",
+    icon: RefreshCw,
   },
 ];
 
@@ -62,54 +70,52 @@ const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.08 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.08 },
   },
 };
 
 const headerVariants: Variants = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
-const GAP = 16;
-
-function getVisible(width: number) {
-  if (width < 640) return 1;
-  if (width < 1024) return 2;
-  return 4;
-}
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 30, scale: 0.97 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+  },
+};
 
 export default function ProblemsSection() {
-  const [visible, setVisible] = useState(4); // SSR-safe default (desktop)
-  const [activeIndex, setActiveIndex] = useState(0);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
-  // Responsive visible count
-  useEffect(() => {
-    const update = () => {
-      const v = getVisible(window.innerWidth);
-      setVisible(v);
-      setActiveIndex((i) => Math.min(i, problems.length - v));
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
-  const maxIndex = problems.length - visible;
-  const prev = () => setActiveIndex((i) => Math.max(i - 1, 0));
-  const next = () => setActiveIndex((i) => Math.min(i + 1, maxIndex));
 
   return (
     <section
       id="the-problem"
       data-header-theme="light"
-      className="relative w-full bg-[#ECE7DE] text-[#402E1D] py-14 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 overflow-hidden flex flex-col items-center justify-center"
+      className="relative w-full text-[#402E1D] py-14 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 overflow-hidden flex flex-col items-center justify-center scroll-mt-16 sm:scroll-mt-24"
     >
+      {/* Full-cover Background Image (Laterally Inverted) */}
+      <Image
+        src="/images/about-bg.avif"
+        alt="Problems section background"
+        fill
+        priority={false}
+        unoptimized
+        sizes="100vw"
+        className="object-cover object-center scale-x-[-1]"
+      />
+
+      {/* Warm overlay for legibility with section color */}
+      <div className="absolute inset-0 bg-[#ECE7DE]/45 backdrop-blur-[1px]" />
+
       {/* Corner Mandala Motifs */}
       <div className="absolute left-0 top-0 -translate-x-1/3 -translate-y-1/3 w-[260px] sm:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">
         <Image src="/images/about.avif" alt="" fill unoptimized sizes="440px" className="object-contain" />
@@ -118,7 +124,7 @@ export default function ProblemsSection() {
         <Image src="/images/about.avif" alt="" fill unoptimized sizes="440px" className="object-contain" />
       </div>
 
-      <div className="relative z-10 w-full max-w-[1280px] mx-auto">
+      <div className="relative z-10 w-full max-w-[1440px] mx-auto">
 
         {/* Section Header */}
         <motion.div
@@ -134,157 +140,103 @@ export default function ProblemsSection() {
                 /THE PROBLEM
               </span>
             </motion.div>
-            <motion.h2
-              variants={headerVariants}
+            <AnimatedHeading
+              text="Meditation shouldn't have to become a test of endurance."
               className="font-display font-semibold text-[32px] sm:text-[40px] md:text-[44px] lg:text-[48px] leading-[1.12] tracking-[-0.015em] text-[#402E1D]"
-            >
-              Meditation shouldn't have to become a test of endurance.
-            </motion.h2>
+            />
           </div>
 
           <motion.p
             variants={headerVariants}
-            className="font-sans text-[14px] sm:text-[15px] leading-[1.65] text-[#402E1D]/80 font-normal max-w-[480px] md:pb-1"
+            className="font-sans text-[14px] sm:text-[15px] leading-[1.65] text-[#402E1D]/80 font-normal max-w-[500px] md:pb-1"
           >
-            Meditation can bring its own physical challenges — numb legs, tightness in the hips, pressure around the knees, aching through the tailbone and lower back, and a posture that gradually begins to slump. When the body struggles to settle, staying still and focused becomes harder too.
+            Longer periods of meditation can bring physical discomfort — numb legs, tightness in the hips, pressure around the knees, aching through the tailbone and lower back, and a posture that gradually begins to slump. As the body becomes uncomfortable, the need to constantly readjust makes stillness harder to maintain.
           </motion.p>
         </motion.div>
 
-        {/* Slider */}
+        {/* 3x2 Animated Grid (Centered & Scaled Down) */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.12 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7 max-w-[1140px] mx-auto w-full"
         >
-          {/* Clipping wrapper */}
-          <div className="overflow-hidden">
-            <motion.div
-              className="flex"
-              style={{ gap: `${GAP}px`, cursor: "grab" }}
-              animate={{
-                x: `calc(-${activeIndex} * (100% / ${visible} + ${GAP / visible}px))`,
-              }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.05}
-              onDragEnd={(_, info) => {
-                if (info.offset.x < -50) next();
-                else if (info.offset.x > 50) prev();
-              }}
-            >
-              {problems.map((item, idx) => {
-                const isExpanded = expandedIndex === idx;
-                return (
+          {problems.map((item, idx) => {
+            const isExpanded = expandedIndex === idx;
+            const IconComponent = item.icon;
+
+            return (
+              <motion.div
+                key={idx}
+                variants={cardVariants}
+                whileHover={{ y: -8 }}
+                onClick={() => setExpandedIndex((p) => (p === idx ? null : idx))}
+                className="group relative rounded-[24px] sm:rounded-[28px] overflow-hidden bg-[#E2DCD2] border border-[#402E1D]/10 cursor-pointer select-none shadow-[0_16px_36px_rgba(64,46,29,0.06)] hover:shadow-[0_24px_50px_rgba(64,46,29,0.12)] transition-shadow duration-500 aspect-square w-full"
+              >
+                {/* Background Photography */}
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  fill
+                  unoptimized
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover object-center transition-transform duration-700 ease-out will-change-transform group-hover:scale-106"
+                />
+
+                {/* Ambient Scrim Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent pointer-events-none" />
+
+                {/* Floating Frosted Glass Label Card */}
+                <div className="absolute bottom-3 sm:bottom-3.5 inset-x-3 sm:inset-x-3.5 z-20">
                   <div
-                    key={idx}
-                    onClick={() => setExpandedIndex((p) => (p === idx ? null : idx))}
-                    className="group relative shrink-0 rounded-[26px] sm:rounded-[30px] overflow-hidden bg-[#E2DCD2] border border-[#402E1D]/8 cursor-pointer select-none"
+                    className="relative p-3.5 sm:p-4 rounded-[18px] sm:rounded-[22px] overflow-hidden border border-white/80 transition-all duration-500 ease-out"
                     style={{
-                      width: `calc((100% - ${(visible - 1) * GAP}px) / ${visible})`,
-                      aspectRatio: "3/4.2",
+                      backdropFilter: "blur(28px) saturate(140%) brightness(1.04)",
+                      WebkitBackdropFilter: "blur(28px) saturate(140%) brightness(1.04)",
+                      transform: "translateZ(0)",
+                      WebkitTransform: "translateZ(0)",
+                      willChange: "transform, backdrop-filter",
+                      background: "linear-gradient(135deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.05) 100%)",
                     }}
                   >
-                    <Image
-                      src={item.image}
-                      alt={item.alt}
-                      fill
-                      unoptimized
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className={`object-cover object-center transition-transform duration-700 ease-out will-change-transform ${
-                        isExpanded ? "scale-105" : "group-hover:scale-105"
-                      }`}
+                    {/* Specular Curved Sheen */}
+                    <div
+                      className="absolute inset-0 pointer-events-none rounded-[18px] sm:rounded-[22px]"
+                      style={{ background: "radial-gradient(120% 90% at 85% 10%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 40%, transparent 70%)" }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10 pointer-events-none" />
 
-                    {/* Glass label */}
-                    <div className="absolute bottom-3 sm:bottom-3.5 inset-x-3 sm:inset-x-3.5 z-20">
-                      <div
-                        className="relative p-4 rounded-[20px] sm:rounded-[22px] overflow-hidden border border-white/80 transition-all duration-500 ease-out"
-                        style={{
-                          backdropFilter: "blur(28px) saturate(140%) brightness(1.04)",
-                          WebkitBackdropFilter: "blur(28px) saturate(140%) brightness(1.04)",
-                          transform: "translateZ(0)",
-                          WebkitTransform: "translateZ(0)",
-                          willChange: "transform, backdrop-filter",
-                          background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.04) 100%)",
-                        }}
-                      >
-                        <div
-                          className="absolute inset-0 pointer-events-none rounded-[20px] sm:rounded-[22px]"
-                          style={{ background: "radial-gradient(120% 90% at 85% 10%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 40%, transparent 70%)" }}
-                        />
-                        <div className="relative z-10 flex items-center justify-between gap-2">
-                          <h3 className="font-display font-bold text-[16px] sm:text-[17px] text-white leading-tight tracking-[0.02em]">
-                            {item.title}
-                          </h3>
-                          <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
-                            isExpanded
-                              ? "bg-white text-[#1E140D] scale-110 rotate-45"
-                              : "bg-white/20 text-white group-hover:bg-white group-hover:text-[#1E140D] group-hover:scale-110"
-                          }`}>
-                            <ArrowUpRight className="w-4 h-4 stroke-[2.4]" />
-                          </div>
-                        </div>
-                        <div className={`relative z-10 grid transition-all duration-500 ease-out ${
-                          isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr] sm:group-hover:grid-rows-[1fr]"
-                        }`}>
-                          <div className="overflow-hidden">
-                            <p className={`font-sans text-[13px] sm:text-[12.5px] leading-[1.6] text-white/90 font-normal pt-3 transition-opacity duration-300 delay-100 ${
-                              isExpanded ? "opacity-100" : "opacity-0 sm:group-hover:opacity-100"
-                            }`}>
-                              {item.desc}
-                            </p>
-                          </div>
-                        </div>
+                    {/* Title + Relevant Icon Badge (No Icon Border) */}
+                    <div className="relative z-10 flex items-center justify-between gap-2.5">
+                      <h3 className="font-display font-bold text-[15.5px] sm:text-[17px] text-white leading-tight tracking-[0.015em]">
+                        {item.title}
+                      </h3>
+
+                      {/* Icon Circle on Right Side of Title (No Border) */}
+                      <div className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 text-white group-hover:bg-white group-hover:text-[#876540] group-hover:scale-110 transition-all duration-300">
+                        <IconComponent className="w-3.5 h-3.5 stroke-[2.2]" />
                       </div>
                     </div>
+
+                    {/* Description Reveal on Hover / Click */}
+                    <div className={`relative z-10 grid transition-all duration-500 ease-out ${
+                      isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr] sm:group-hover:grid-rows-[1fr]"
+                    }`}>
+                      <div className="overflow-hidden">
+                        <p className={`font-sans text-[12.5px] sm:text-[13px] leading-[1.6] text-white/90 font-normal pt-2.5 transition-opacity duration-300 delay-75 ${
+                          isExpanded ? "opacity-100" : "opacity-0 sm:group-hover:opacity-100"
+                        }`}>
+                          {item.desc}
+                        </p>
+                      </div>
+                    </div>
+
                   </div>
-                );
-              })}
-            </motion.div>
-          </div>
+                </div>
 
-          {/* Controls */}
-          <div className="flex items-center justify-between mt-5 sm:mt-8">
-
-            {/* Dot indicators */}
-            <div className="flex items-center gap-2">
-              {Array.from({ length: maxIndex + 1 }).map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveIndex(i)}
-                  aria-label={`Go to slide ${i + 1}`}
-                  className={`transition-all duration-300 rounded-full ${
-                    activeIndex === i
-                      ? "w-6 h-2 bg-[#876540]"
-                      : "w-2 h-2 bg-[#402E1D]/25 hover:bg-[#876540]/60"
-                  }`}
-                />
-              ))}
-            </div>
-
-            {/* Prev / Next arrows */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={prev}
-                disabled={activeIndex === 0}
-                aria-label="Previous slide"
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/75 hover:bg-white text-[#402E1D] flex items-center justify-center transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:pointer-events-none cursor-pointer shadow-sm"
-              >
-                <ChevronLeft className="w-4 h-4 stroke-[2.4]" />
-              </button>
-              <button
-                onClick={next}
-                disabled={activeIndex === maxIndex}
-                aria-label="Next slide"
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/75 hover:bg-white text-[#402E1D] flex items-center justify-center transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:pointer-events-none cursor-pointer shadow-sm"
-              >
-                <ChevronRight className="w-4 h-4 stroke-[2.4]" />
-              </button>
-            </div>
-          </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
       </div>

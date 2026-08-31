@@ -81,8 +81,22 @@ export default function BiomechanicalBenefitsSection() {
     <section
       id="benefits"
       data-header-theme="light"
-      className="relative w-full bg-[#E6DFD4] text-[#402E1D] py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden"
+      className="relative w-full text-[#402E1D] py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden scroll-mt-16 sm:scroll-mt-24"
     >
+      {/* Full-cover Background Image */}
+      <Image
+        src="/images/about-bg.avif"
+        alt="Benefits section background"
+        fill
+        priority={false}
+        unoptimized
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+
+      {/* Warm overlay for legibility with section color */}
+      <div className="absolute inset-0 bg-[#E6DFD4]/45 backdrop-blur-[1px]" />
+
       <div className="relative z-10 w-full max-w-[1280px] mx-auto">
         
         {/* Section Header (Matches Solution Section Header Layout & Typography) */}

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bell, Menu, X, ArrowUpRight, CheckCircle2, User, Mail, Phone } from "lucide-react";
+import { Bell, Menu, X, ArrowUpRight, CheckCircle2, User, Mail, Phone, Box, ArrowRight } from "lucide-react";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -103,13 +103,14 @@ export default function Header() {
 
       <div className="relative w-full max-w-[1400px] mx-auto px-3.5 sm:px-6 md:px-12 flex items-center justify-between">
         
-        {/* LEFT: Menu Button with matching Fused Dumbbell Silhouette + Dropdown */}
-        <div
-          ref={menuRef}
-          onMouseEnter={handleMenuEnter}
-          onMouseLeave={handleMenuLeave}
-          className="relative flex items-center justify-start z-30"
-        >
+        {/* LEFT: Menu Button + 3D Experience Button */}
+        <div className="relative flex items-center gap-2 sm:gap-3 z-30">
+          <div
+            ref={menuRef}
+            onMouseEnter={handleMenuEnter}
+            onMouseLeave={handleMenuLeave}
+            className="relative flex items-center justify-start"
+          >
           <button
             onClick={() => {
               setMenuOpen(!menuOpen);
@@ -216,7 +217,7 @@ export default function Header() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.96 }}
                 transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className={`absolute left-0 top-[calc(100%+16px)] sm:top-[calc(100%+28px)] w-[calc(100vw-32px)] max-w-[265px] p-2.5 rounded-[22px] sm:rounded-[24px] overflow-hidden z-50 transition-colors duration-300 ${
+                className={`absolute left-0 top-[calc(100%+16px)] sm:top-[calc(100%+28px)] w-[calc(100vw-32px)] max-w-[285px] max-h-[min(82vh,600px)] overflow-y-auto p-2 sm:p-2.5 rounded-[22px] sm:rounded-[24px] z-50 transition-colors duration-300 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/25 [&::-webkit-scrollbar-track]:bg-transparent ${
                   isDarkTheme
                     ? "shadow-[0_24px_50px_rgba(0,0,0,0.25)]"
                     : "shadow-[0_24px_50px_rgba(135,101,64,0.35)]"
@@ -244,20 +245,24 @@ export default function Header() {
                   }}
                 />
 
-                <div className="relative z-10 flex flex-col space-y-1">
+                <div className="relative z-10 flex flex-col space-y-0.5 sm:space-y-1">
                   {[
                     { label: "The Seat", href: "/#the-seat" },
-                    { label: "Why It Works", href: "/#why-it-works" },
-                    { label: "Meditation & Posture", href: "/#posture" },
+                    { label: "The Problem", href: "/#the-problem" },
+                    { label: "The Solution", href: "/#the-solution" },
+                    { label: "3D Experience", href: "/#real-thing" },
+                    { label: "Choose Your Seat", href: "/#pricing" },
                     { label: "Materials", href: "/#materials" },
-                    { label: "Contact Us", href: "/contact" },
+                    { label: "Meditation & Posture", href: "/#ancient-wisdom" },
+                    { label: "The Difference", href: "/#comparison" },
                     { label: "FAQ", href: "/#faq" },
+                    { label: "Contact Us", href: "/contact" },
                   ].map((item) => (
                     <Link
                       key={item.label}
                       href={item.href}
                       onClick={() => setMenuOpen(false)}
-                      className={`flex items-center justify-between px-3.5 py-2.5 rounded-[14px] text-[13px] sm:text-[13.5px] font-medium transition-all duration-200 group/item ${
+                      className={`flex items-center justify-between px-3.5 py-2 sm:py-2.5 rounded-[12px] sm:rounded-[14px] text-[12.5px] sm:text-[13px] font-medium transition-all duration-200 group/item ${
                         isDarkTheme
                           ? "text-white hover:bg-white/20"
                           : "text-[#FAF6F0] hover:bg-white/10"
@@ -273,6 +278,91 @@ export default function Header() {
               </motion.div>
             )}
           </AnimatePresence>
+          </div>
+
+          {/* 3D Experience Action Button with Matching Fused Dumbbell Silhouette */}
+          <Link
+            href="/#real-thing"
+            onClick={(e) => {
+              const target = document.getElementById("real-thing");
+              if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+                window.history.pushState(null, "", "/#real-thing");
+              }
+            }}
+            className="group relative hidden sm:inline-flex items-center select-none transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] cursor-pointer"
+            aria-label="3D Experience"
+          >
+            <svg
+              className="w-[136px] sm:w-[176px] h-[34px] sm:h-[38px] transition-all duration-300"
+              viewBox="0 0 176 38"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <clipPath id="clip-btn-exp">
+                  <path d="M 19 0 L 125 0 C 130.5 0 134.5 5.5 138.5 5.5 C 142.5 5.5 146.5 0 157 0 A 19 19 0 1 1 157 38 C 146.5 38 142.5 32.5 138.5 32.5 C 134.5 32.5 130.5 38 125 38 L 19 38 A 19 19 0 0 1 19 0 Z" />
+                </clipPath>
+
+                <linearGradient id="btn-glass-fill-exp" x1="0" y1="0" x2="176" y2="38" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="rgba(255, 255, 255, 0.16)" />
+                  <stop offset="50%" stopColor="rgba(255, 255, 255, 0.08)" />
+                  <stop offset="100%" stopColor="rgba(255, 255, 255, 0.04)" />
+                </linearGradient>
+                <linearGradient id="btn-glass-border-exp" x1="0" y1="0" x2="176" y2="38" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="rgba(255, 255, 255, 0.85)" />
+                  <stop offset="35%" stopColor="rgba(255, 255, 255, 0.45)" />
+                  <stop offset="70%" stopColor="rgba(216, 204, 189, 0.35)" />
+                  <stop offset="100%" stopColor="rgba(255, 255, 255, 0.75)" />
+                </linearGradient>
+
+                <linearGradient id="btn-dark-fill-exp" x1="0" y1="0" x2="176" y2="38" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="#876540" />
+                  <stop offset="50%" stopColor="#967355" />
+                  <stop offset="100%" stopColor="#876540" />
+                </linearGradient>
+                <linearGradient id="btn-dark-border-exp" x1="0" y1="0" x2="176" y2="38" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="rgba(255, 255, 255, 0.25)" />
+                  <stop offset="50%" stopColor="rgba(216, 204, 189, 0.4)" />
+                  <stop offset="100%" stopColor="rgba(255, 255, 255, 0.2)" />
+                </linearGradient>
+              </defs>
+
+              <g clipPath="url(#clip-btn-exp)">
+                <foreignObject x="0" y="0" width="176" height="38" className="w-full h-full">
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      backdropFilter: "blur(24px) saturate(140%) brightness(1.04)",
+                      WebkitBackdropFilter: "blur(24px) saturate(140%) brightness(1.04)",
+                    }}
+                  />
+                </foreignObject>
+              </g>
+
+              <path
+                d="M 19 0 L 125 0 C 130.5 0 134.5 5.5 138.5 5.5 C 142.5 5.5 146.5 0 157 0 A 19 19 0 1 1 157 38 C 146.5 38 142.5 32.5 138.5 32.5 C 134.5 32.5 130.5 38 125 38 L 19 38 A 19 19 0 0 1 19 0 Z"
+                fill={isDarkTheme ? "url(#btn-glass-fill-exp)" : "url(#btn-dark-fill-exp)"}
+                stroke={isDarkTheme ? "url(#btn-glass-border-exp)" : "url(#btn-dark-border-exp)"}
+                strokeWidth="1.2"
+                className="transition-all duration-300"
+              />
+            </svg>
+
+            {/* Text */}
+            <div className="absolute left-0 top-0 bottom-0 w-[104px] sm:w-[138px] flex items-center justify-center pointer-events-none">
+              <span className="font-sans text-[11px] sm:text-[12.5px] font-semibold text-white transition-colors duration-300">
+                3D Experience
+              </span>
+            </div>
+
+            {/* Box Icon */}
+            <div className="absolute right-0 top-0 bottom-0 w-[32px] sm:w-[38px] flex items-center justify-center pointer-events-none">
+              <Box className="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px] stroke-[2.2] text-white transition-colors duration-300 group-hover:rotate-12 group-hover:scale-110" />
+            </div>
+          </Link>
         </div>
 
         {/* CENTER: Lotus Logo Icon + Text Below - Locked to Exact Horizontal Center (50%) */}
@@ -310,13 +400,14 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* RIGHT: Action / CTA Button - Notify me + Dropdown Form */}
-        <div
-          ref={notifyRef}
-          onMouseEnter={handleNotifyEnter}
-          onMouseLeave={handleNotifyLeave}
-          className="relative flex items-center justify-end z-30"
-        >
+        {/* RIGHT: Action / CTA Buttons - Notify me + Buy Now */}
+        <div className="relative flex items-center gap-2 sm:gap-3 z-30">
+          <div
+            ref={notifyRef}
+            onMouseEnter={handleNotifyEnter}
+            onMouseLeave={handleNotifyLeave}
+            className="relative flex items-center justify-end"
+          >
           <button
             onClick={() => {
               setNotifyOpen(!notifyOpen);
@@ -534,6 +625,83 @@ export default function Header() {
               </motion.div>
             )}
           </AnimatePresence>
+          </div>
+
+          {/* Buy Now Action Button with Matching Fused Dumbbell Silhouette */}
+          <Link
+            href="/#pricing"
+            className="group relative hidden sm:inline-flex items-center select-none transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] cursor-pointer"
+            aria-label="Buy Now"
+          >
+            <svg
+              className="w-[108px] sm:w-[136px] h-[34px] sm:h-[38px] transition-all duration-300"
+              viewBox="0 0 136 38"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <clipPath id="clip-btn-buy">
+                  <path d="M 19 0 L 85 0 C 90.5 0 94.5 5.5 98.5 5.5 C 102.5 5.5 106.5 0 117 0 A 19 19 0 1 1 117 38 C 106.5 38 102.5 32.5 98.5 32.5 C 94.5 32.5 90.5 38 85 38 L 19 38 A 19 19 0 0 1 19 0 Z" />
+                </clipPath>
+
+                <linearGradient id="btn-glass-fill-buy" x1="0" y1="0" x2="136" y2="38" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="rgba(255, 255, 255, 0.16)" />
+                  <stop offset="50%" stopColor="rgba(255, 255, 255, 0.08)" />
+                  <stop offset="100%" stopColor="rgba(255, 255, 255, 0.04)" />
+                </linearGradient>
+                <linearGradient id="btn-glass-border-buy" x1="0" y1="0" x2="136" y2="38" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="rgba(255, 255, 255, 0.85)" />
+                  <stop offset="35%" stopColor="rgba(255, 255, 255, 0.45)" />
+                  <stop offset="70%" stopColor="rgba(216, 204, 189, 0.35)" />
+                  <stop offset="100%" stopColor="rgba(255, 255, 255, 0.75)" />
+                </linearGradient>
+
+                <linearGradient id="btn-dark-fill-buy" x1="0" y1="0" x2="136" y2="38" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="#876540" />
+                  <stop offset="50%" stopColor="#967355" />
+                  <stop offset="100%" stopColor="#876540" />
+                </linearGradient>
+                <linearGradient id="btn-dark-border-buy" x1="0" y1="0" x2="136" y2="38" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="rgba(255, 255, 255, 0.25)" />
+                  <stop offset="50%" stopColor="rgba(216, 204, 189, 0.4)" />
+                  <stop offset="100%" stopColor="rgba(255, 255, 255, 0.2)" />
+                </linearGradient>
+              </defs>
+
+              <g clipPath="url(#clip-btn-buy)">
+                <foreignObject x="0" y="0" width="136" height="38" className="w-full h-full">
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      backdropFilter: "blur(24px) saturate(140%) brightness(1.04)",
+                      WebkitBackdropFilter: "blur(24px) saturate(140%) brightness(1.04)",
+                    }}
+                  />
+                </foreignObject>
+              </g>
+
+              <path
+                d="M 19 0 L 85 0 C 90.5 0 94.5 5.5 98.5 5.5 C 102.5 5.5 106.5 0 117 0 A 19 19 0 1 1 117 38 C 106.5 38 102.5 32.5 98.5 32.5 C 94.5 32.5 90.5 38 85 38 L 19 38 A 19 19 0 0 1 19 0 Z"
+                fill={isDarkTheme ? "url(#btn-glass-fill-buy)" : "url(#btn-dark-fill-buy)"}
+                stroke={isDarkTheme ? "url(#btn-glass-border-buy)" : "url(#btn-dark-border-buy)"}
+                strokeWidth="1.2"
+                className="transition-all duration-300"
+              />
+            </svg>
+
+            {/* Text */}
+            <div className="absolute left-0 top-0 bottom-0 w-[76px] sm:w-[98px] flex items-center justify-center pointer-events-none">
+              <span className="font-sans text-[11.5px] sm:text-[13px] font-bold text-white transition-colors duration-300">
+                Buy Now
+              </span>
+            </div>
+
+            {/* Arrow Icon */}
+            <div className="absolute right-0 top-0 bottom-0 w-[32px] sm:w-[38px] flex items-center justify-center pointer-events-none">
+              <ArrowRight className="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px] stroke-[2.4] text-white transition-colors duration-300 group-hover:translate-x-0.5 group-hover:scale-110" />
+            </div>
+          </Link>
         </div>
 
       </div>

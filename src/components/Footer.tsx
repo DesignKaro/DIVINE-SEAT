@@ -281,34 +281,31 @@ export default function Footer() {
             </div>
 
             {/* Column 3: Navigation Links */}
-            <div className="space-y-2">
-              <p className="font-semibold text-white mb-1 text-[13.5px] sm:text-[14.5px]">Navigation</p>
-              <div>
-                <a
-                  href="/#the-seat"
-                  className="group/link relative inline-block w-fit text-white/90 hover:text-white transition-colors duration-200"
-                >
-                  <span>Products</span>
-                  <span className="absolute left-0 -bottom-0.5 w-0 h-[1.5px] bg-white transition-all duration-300 ease-out group-hover/link:w-full" />
-                </a>
-              </div>
-              <div>
-                <a
-                  href="/#pricing"
-                  className="group/link relative inline-block w-fit text-white/90 hover:text-white transition-colors duration-200"
-                >
-                  <span>Shop</span>
-                  <span className="absolute left-0 -bottom-0.5 w-0 h-[1.5px] bg-white transition-all duration-300 ease-out group-hover/link:w-full" />
-                </a>
-              </div>
-              <div>
-                <a
-                  href="/contact"
-                  className="group/link relative inline-block w-fit text-white/90 hover:text-white transition-colors duration-200"
-                >
-                  <span>Contact Us</span>
-                  <span className="absolute left-0 -bottom-0.5 w-0 h-[1.5px] bg-white transition-all duration-300 ease-out group-hover/link:w-full" />
-                </a>
+            <div className="space-y-2 col-span-2 sm:col-span-1 lg:col-span-1">
+              <p className="font-semibold text-white mb-2 text-[13.5px] sm:text-[14.5px]">Navigation</p>
+              <div className="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-1.5 text-[12.5px] sm:text-[13px]">
+                {[
+                  { label: "The Seat", href: "/#the-seat" },
+                  { label: "The Problem", href: "/#the-problem" },
+                  { label: "The Solution", href: "/#the-solution" },
+                  { label: "3D Experience", href: "/#real-thing" },
+                  { label: "Choose Your Seat", href: "/#pricing" },
+                  { label: "Materials", href: "/#materials" },
+                  { label: "Meditation & Posture", href: "/#ancient-wisdom" },
+                  { label: "The Difference", href: "/#comparison" },
+                  { label: "FAQ", href: "/#faq" },
+                  { label: "Contact Us", href: "/contact" },
+                ].map((link) => (
+                  <div key={link.label}>
+                    <a
+                      href={link.href}
+                      className="group/link relative inline-block w-fit text-white/85 hover:text-white transition-colors duration-200 leading-snug"
+                    >
+                      <span>{link.label}</span>
+                      <span className="absolute left-0 -bottom-0.5 w-0 h-[1.5px] bg-white transition-all duration-300 ease-out group-hover/link:w-full" />
+                    </a>
+                  </div>
+                ))}
               </div>
             </div>
 

@@ -10,7 +10,11 @@ import {
   Trash2,
   ArrowUpRight,
   ArrowLeft,
-  ArrowRight
+  ArrowRight,
+  Plus,
+  Palette,
+  PenTool,
+  ShoppingBag
 } from "lucide-react";
 
 export interface ColorPair {
@@ -22,40 +26,46 @@ export interface ColorPair {
 
 export const PREBUILT_COLOR_PAIRS: ColorPair[] = [
   {
-    id: "terracotta-linen",
-    name: "Terracotta & Linen",
+    id: "slate-mist",
+    name: "Slate Mist",
     upperColor: "#ECE7DE",
-    baseColor: "#BA6844",
+    baseColor: "#777E86",
   },
   {
-    id: "sandalwood-cream",
-    name: "Sandalwood & Cream",
-    upperColor: "#F8F5EE",
-    baseColor: "#876540",
+    id: "terracotta-rose",
+    name: "Terracotta Rose",
+    upperColor: "#ECE7DE",
+    baseColor: "#B66865",
   },
   {
-    id: "forest-sage",
-    name: "Forest Sage & Ecru",
-    upperColor: "#EDE8DC",
-    baseColor: "#586D5A",
+    id: "ochre-gold",
+    name: "Ochre Gold",
+    upperColor: "#ECE7DE",
+    baseColor: "#CBB28D",
   },
   {
-    id: "slate-oat",
-    name: "Charcoal Slate & Oat",
-    upperColor: "#E2DDD5",
-    baseColor: "#383A3F",
+    id: "natural-sand",
+    name: "Natural Sand",
+    upperColor: "#ECE7DE",
+    baseColor: "#D2BA96",
   },
   {
-    id: "indigo-cloud",
-    name: "Indigo & Cloud",
-    upperColor: "#F2F4F7",
-    baseColor: "#2A3B4C",
+    id: "ivory-cream",
+    name: "Ivory Cream",
+    upperColor: "#ECE7DE",
+    baseColor: "#C7B7A8",
   },
   {
-    id: "raw-cork-ochre",
-    name: "Cork & Warm Ochre",
-    upperColor: "#EADDC7",
-    baseColor: "#C98236",
+    id: "warm-taupe",
+    name: "Warm Taupe",
+    upperColor: "#ECE7DE",
+    baseColor: "#B08A70",
+  },
+  {
+    id: "espresso-earth",
+    name: "Espresso Earth",
+    upperColor: "#ECE7DE",
+    baseColor: "#6D5450",
   },
 ];
 
@@ -69,7 +79,9 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1);
 
   const [paletteMode, setPaletteMode] = useState<"prebuilt" | "custom">("prebuilt");
-  const [selectedPrebuiltId, setSelectedPrebuiltId] = useState<string>("terracotta-linen");
+  const [selectedPrebuiltId, setSelectedPrebuiltId] = useState<string>("slate-mist");
+  const [hoveredPairId, setHoveredPairId] = useState<string | null>(null);
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
 
   // Custom Colors
   const [customUpper, setCustomUpper] = useState<string>("#ECE7DE");
@@ -189,58 +201,41 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
             </button>
           </div>
 
-          {/* Premium Tactile Segmented Stepper Track */}
+          {/* Borderless Minimal Atelier Tab Navigation (Full Width) */}
           {!isSuccess && (
-            <div className="px-5 sm:px-10 lg:px-12 pb-3.5 sm:pb-6">
-              <div className="bg-[#EFECE5] p-1 sm:p-1.5 rounded-xl sm:rounded-2xl flex items-center gap-1 sm:gap-1.5 select-none font-sans">
+            <div className="px-5 sm:px-10 lg:px-12 pb-3 sm:pb-4.5">
+              <div className="w-full grid grid-cols-3 gap-1 sm:gap-1.5 bg-[#F5F2EC] p-1 sm:p-1.5 rounded-full select-none font-sans">
                 {[
-                  { step: 1, label: "Color", mobileLabel: "Color" },
-                  { step: 2, label: "Notes & Files", mobileLabel: "Notes" },
-                  { step: 3, label: "Finalize", mobileLabel: "Finalize" },
+                  { step: 1, label: "Color Palette", shortLabel: "Palette", icon: Palette },
+                  { step: 2, label: "Notes & Details", shortLabel: "Details", icon: PenTool },
+                  { step: 3, label: "Review & Order", shortLabel: "Review", icon: ShoppingBag },
                 ].map((item) => {
                   const isActive = currentStep === item.step;
-                  const isCompleted = item.step < currentStep;
+                  const Icon = item.icon;
 
                   return (
                     <button
                       key={item.step}
                       type="button"
-                      onClick={() => {
-                        if (item.step < currentStep) setCurrentStep(item.step as 1 | 2 | 3);
-                      }}
-                      disabled={item.step > currentStep}
-                      className={`relative flex-1 py-1.5 sm:py-2.5 px-1.5 sm:px-3.5 rounded-lg sm:rounded-xl transition-all duration-300 flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 text-left ${
+                      onClick={() => setCurrentStep(item.step as 1 | 2 | 3)}
+                      className={`relative w-full h-8 sm:h-8.5 rounded-full transition-all duration-200 ease-out flex items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-3.5 cursor-pointer select-none border-0 outline-none ${
                         isActive
-                          ? "bg-white shadow-[0_2px_8px_rgba(64,46,29,0.06)] text-[#1E140D] cursor-default ring-1 ring-black/5"
-                          : isCompleted
-                          ? "hover:bg-white/60 text-[#1E140D] cursor-pointer"
-                          : "text-[#402E1D]/45 cursor-not-allowed opacity-60"
+                          ? "bg-white text-[#1E140D]"
+                          : "bg-transparent text-[#402E1D]/55 hover:text-[#1E140D] hover:bg-white/40"
                       }`}
                     >
-                      {/* Step Indicator Badge */}
-                      <div
-                        className={`w-4.5 h-4.5 sm:w-5.5 sm:h-5.5 rounded-full flex items-center justify-center text-[9.5px] sm:text-[11px] font-bold shrink-0 transition-colors ${
-                          isActive
-                            ? "bg-[#876540] text-white"
-                            : isCompleted
-                            ? "bg-[#876540]/15 text-[#876540]"
-                            : "bg-[#402E1D]/10 text-[#402E1D]/60"
-                        }`}
-                      >
-                        {isCompleted ? (
-                          <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[2.5]" />
-                        ) : (
-                          <span>{item.step}</span>
-                        )}
-                      </div>
+                      {/* Tab Icon */}
+                      <Icon 
+                        className={`w-3.5 h-3.5 shrink-0 transition-colors ${
+                          isActive ? "text-[#1E140D] stroke-[2.3]" : "text-[#402E1D]/60"
+                        }`} 
+                      />
 
-                      {/* Step Label */}
-                      <span
-                        className={`font-sans text-[10.5px] sm:text-[12px] font-bold leading-tight truncate ${
-                          isActive ? "text-[#1E140D]" : isCompleted ? "text-[#1E140D]/90" : "text-[#402E1D]/55"
-                        }`}
-                      >
-                        <span className="sm:hidden">{item.mobileLabel}</span>
+                      {/* Label Text for All Tabs */}
+                      <span className={`font-sans text-[11.5px] sm:text-[12px] leading-none whitespace-nowrap ${
+                        isActive ? "font-bold text-[#1E140D]" : "font-semibold"
+                      }`}>
+                        <span className="sm:hidden">{item.shortLabel}</span>
                         <span className="hidden sm:inline">{item.label}</span>
                       </span>
                     </button>
@@ -278,152 +273,227 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                 
                 {/* STEP 1: COLOR PALETTE */}
                 {currentStep === 1 && (
-                  <div className="space-y-5 sm:space-y-6 animate-in fade-in duration-200">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                      <div>
-                        <h4 className="font-sans text-[14px] sm:text-[15px] font-bold text-[#1E140D]">
-                          Select Color Pairing
-                        </h4>
-                        <p className="font-sans text-[12.5px] sm:text-[13px] text-[#402E1D]/65 font-medium mt-0.5">
-                          Choose from our signature pairs or mix your custom fabrics.
-                        </p>
-                      </div>
-
-                      {/* Mode Switcher matching Stepper Design */}
-                      <div className="flex items-center gap-1 bg-[#EFECE5] p-1.5 rounded-2xl self-start sm:self-auto select-none">
-                        <button
-                          type="button"
-                          onClick={() => setPaletteMode("prebuilt")}
-                          className={`px-3.5 py-1.5 rounded-xl transition-all duration-300 cursor-pointer font-sans text-[12px] font-bold ${
-                            paletteMode === "prebuilt"
-                              ? "bg-white shadow-[0_2px_8px_rgba(64,46,29,0.06)] text-[#1E140D] ring-1 ring-black/5"
-                              : "text-[#402E1D]/55 hover:text-[#1E140D]"
-                          }`}
-                        >
-                          6 Prebuilt
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setPaletteMode("custom")}
-                          className={`px-3.5 py-1.5 rounded-xl transition-all duration-300 cursor-pointer font-sans text-[12px] font-bold ${
-                            paletteMode === "custom"
-                              ? "bg-white shadow-[0_2px_8px_rgba(64,46,29,0.06)] text-[#1E140D] ring-1 ring-black/5"
-                              : "text-[#402E1D]/55 hover:text-[#1E140D]"
-                          }`}
-                        >
-                          Custom Pickers
-                        </button>
-                      </div>
+                  <div className="space-y-4 sm:space-y-4.5 animate-in fade-in duration-200">
+                    <div>
+                      <h4 className="font-sans text-[13.5px] sm:text-[14.5px] font-bold text-[#1E140D]">
+                        Prebuilt Colors
+                      </h4>
+                      <p className="font-sans text-[12px] sm:text-[12.5px] text-[#402E1D]/65 font-medium mt-0.5">
+                        Choose from our 7 signature base finishes (with natural cream top), or create your custom colors below.
+                      </p>
                     </div>
 
-                    {paletteMode === "prebuilt" ? (
-                      /* 6 Prebuilt Pairs - Spacious Responsive Cards with Crisp Split Discs */
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3.5 pt-1">
-                        {PREBUILT_COLOR_PAIRS.map((pair) => {
-                          const isSelected = selectedPrebuiltId === pair.id;
-                          return (
-                            <button
-                              key={pair.id}
-                              type="button"
-                              onClick={() => setSelectedPrebuiltId(pair.id)}
-                              className={`p-2.5 sm:px-4 sm:py-3.5 rounded-xl sm:rounded-2xl text-left transition-all flex items-center gap-2 sm:gap-3 cursor-pointer border-0 font-sans ${
-                                isSelected
-                                  ? "bg-[#EFECE5] ring-2 ring-[#876540] shadow-xs"
-                                  : "bg-[#EFECE5] hover:bg-[#EAE6DD]"
+                    {/* 7 Signature Base Colors - Minimal Floating Swatches with Fluid Hover Expansion */}
+                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1">
+                      {PREBUILT_COLOR_PAIRS.map((pair) => {
+                        const isSelected = paletteMode === "prebuilt" && selectedPrebuiltId === pair.id;
+                        const isHovered = hoveredPairId === pair.id;
+                        const isExpanded = isSelected || isHovered;
+
+                        return (
+                          <button
+                            key={pair.id}
+                            type="button"
+                            onMouseEnter={() => setHoveredPairId(pair.id)}
+                            onMouseLeave={() => setHoveredPairId(null)}
+                            onClick={() => {
+                              setSelectedPrebuiltId(pair.id);
+                              setPaletteMode("prebuilt");
+                            }}
+                            style={isExpanded ? { backgroundColor: pair.baseColor } : undefined}
+                            className={`group relative h-9 sm:h-10 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center gap-2 p-1 cursor-pointer border-0 outline-none select-none ${
+                              isExpanded
+                                ? "text-white pr-3 sm:pr-3.5 scale-[1.02]"
+                                : "bg-transparent text-[#1E140D]"
+                            }`}
+                          >
+                            {/* Swatch Circle: Solid upperColor when expanded (hovered or active), split-disc when inactive */}
+                            <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden shrink-0 transition-transform duration-300 relative ${
+                              isExpanded ? "scale-105" : "hover:scale-105"
+                            }`}>
+                              <svg className="w-full h-full block" viewBox="0 0 36 36" fill="none">
+                                <circle cx="18" cy="18" r="18" fill={pair.upperColor} />
+                                {!isExpanded && (
+                                  <path d="M 0 18 A 18 18 0 0 0 36 18 Z" fill={pair.baseColor} />
+                                )}
+                              </svg>
+                            </div>
+
+                            {/* Fluidly Expanding Name Text */}
+                            <div
+                              className={`overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] whitespace-nowrap ${
+                                isExpanded
+                                  ? "max-w-[170px] opacity-100"
+                                  : "max-w-0 opacity-0"
                               }`}
                             >
-                              {/* Horizontal Upper Cushion / Lower Base Split Disc */}
-                              <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full overflow-hidden shrink-0 border border-black/10 shadow-xs relative">
-                                <svg className="w-full h-full block" viewBox="0 0 36 36" fill="none">
-                                  <circle cx="18" cy="18" r="18" fill={pair.upperColor} />
-                                  <path d="M 0 18 A 18 18 0 0 0 36 18 Z" fill={pair.baseColor} />
-                                </svg>
-                              </div>
-                              <span className="font-sans text-[11px] sm:text-[13px] font-semibold text-[#1E140D] leading-snug">
+                              <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold leading-none text-white">
                                 {pair.name}
                               </span>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    ) : (
-                      /* Custom Color Pickers - 3 Generously Spaced Cards */
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3.5 pt-1">
-                        {/* 1. Upper Cushion Fabric Picker */}
-                        <label className="relative px-3.5 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-[#EFECE5] hover:bg-[#EAE6DD] transition-all flex items-center gap-3 cursor-pointer border-0 group font-sans">
-                          <div
-                            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden shrink-0 border border-black/10 shadow-xs relative"
-                            style={{ backgroundColor: customUpper }}
-                          >
-                            <input
-                              type="color"
-                              value={customUpper}
-                              onChange={(e) => setCustomUpper(e.target.value)}
-                              className="opacity-0 absolute inset-0 w-full h-full cursor-pointer"
-                            />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="font-sans text-[12.5px] sm:text-[13px] font-semibold text-[#1E140D] leading-tight truncate">
-                              Upper Fabric
                             </div>
-                            <div className="font-sans text-[11px] sm:text-[11.5px] text-[#876540] font-semibold mt-0.5">
-                              {customUpper}
-                            </div>
-                          </div>
-                        </label>
+                          </button>
+                        );
+                      })}
+                    </div>
 
-                        {/* 2. Lower Cork Base Picker */}
-                        <label className="relative px-3.5 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-[#EFECE5] hover:bg-[#EAE6DD] transition-all flex items-center gap-3 cursor-pointer border-0 group font-sans">
-                          <div
-                            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden shrink-0 border border-black/10 shadow-xs relative"
+                    {/* Custom Colors - Minimal Floating Row */}
+                    <div className="pt-2 sm:pt-2.5">
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="font-sans text-[12.5px] sm:text-[13px] font-bold text-[#1E140D]">
+                          Or Create Custom Colors
+                        </h4>
+                        <span className="font-sans text-[10px] sm:text-[10.5px] text-[#402E1D]/55 font-medium">
+                          Optional: Upload reference photo
+                        </span>
+                      </div>
+
+                      {/* Single Floating Minimal Selector Row */}
+                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                        
+                        {/* 1. Base Color Selector */}
+                        <label
+                          onClick={() => setPaletteMode("custom")}
+                          className={`group relative h-9 sm:h-10 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center gap-2 p-1 cursor-pointer select-none ${
+                            paletteMode === "custom"
+                              ? "bg-[#EFECE5] text-[#1E140D] pr-3 sm:pr-3.5 ring-1.5 ring-[#876540]/35"
+                              : "bg-[#EFECE5]/60 hover:bg-[#EFECE5] text-[#1E140D] pr-2.5 sm:pr-3"
+                          }`}
+                        >
+                          <div 
+                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden shrink-0 relative transition-transform duration-300 group-hover:scale-105 border border-black/10"
                             style={{ backgroundColor: customBase }}
                           >
                             <input
                               type="color"
                               value={customBase}
-                              onChange={(e) => setCustomBase(e.target.value)}
+                              onChange={(e) => {
+                                setCustomBase(e.target.value);
+                                setPaletteMode("custom");
+                              }}
                               className="opacity-0 absolute inset-0 w-full h-full cursor-pointer"
                             />
                           </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="font-sans text-[12.5px] sm:text-[13px] font-semibold text-[#1E140D] leading-tight truncate">
-                              Lower Base
-                            </div>
-                            <div className="font-sans text-[11px] sm:text-[11.5px] text-[#876540] font-semibold mt-0.5">
+                          <div className="whitespace-nowrap flex items-center gap-1">
+                            <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold text-[#1E140D]">
+                              Base:
+                            </span>
+                            <span className="font-mono text-[10.5px] uppercase font-semibold text-[#876540]">
                               {customBase}
-                            </div>
+                            </span>
                           </div>
                         </label>
 
-                        {/* 3. Resulting Blend Preview */}
-                        <div className="px-3.5 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-[#EFECE5] ring-2 ring-[#876540] shadow-xs flex items-center gap-3 select-none font-sans">
-                          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden shrink-0 border border-black/10 shadow-xs relative">
+                        {/* 2. Top Color Selector */}
+                        <label
+                          onClick={() => setPaletteMode("custom")}
+                          className={`group relative h-9 sm:h-10 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center gap-2 p-1 cursor-pointer select-none ${
+                            paletteMode === "custom"
+                              ? "bg-[#EFECE5] text-[#1E140D] pr-3 sm:pr-3.5 ring-1.5 ring-[#876540]/35"
+                              : "bg-[#EFECE5]/60 hover:bg-[#EFECE5] text-[#1E140D] pr-2.5 sm:pr-3"
+                          }`}
+                        >
+                          <div 
+                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden shrink-0 relative transition-transform duration-300 group-hover:scale-105 border border-black/10"
+                            style={{ backgroundColor: customUpper }}
+                          >
+                            <input
+                              type="color"
+                              value={customUpper}
+                              onChange={(e) => {
+                                setCustomUpper(e.target.value);
+                                setPaletteMode("custom");
+                              }}
+                              className="opacity-0 absolute inset-0 w-full h-full cursor-pointer"
+                            />
+                          </div>
+                          <div className="whitespace-nowrap flex items-center gap-1">
+                            <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold text-[#1E140D]">
+                              Top:
+                            </span>
+                            <span className="font-mono text-[10.5px] uppercase font-semibold text-[#876540]">
+                              {customUpper}
+                            </span>
+                          </div>
+                        </label>
+
+                        {/* 3. Final Color Pair Result */}
+                        <button
+                          type="button"
+                          onClick={() => setPaletteMode("custom")}
+                          style={paletteMode === "custom" ? { backgroundColor: customBase } : undefined}
+                          className={`group relative h-9 sm:h-10 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center gap-2 p-1 cursor-pointer border-0 outline-none select-none ${
+                            paletteMode === "custom"
+                              ? "text-white pr-3 sm:pr-3.5"
+                              : "bg-transparent hover:bg-[#EFECE5] text-[#1E140D] hover:pr-3 sm:hover:pr-3.5"
+                          }`}
+                        >
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden shrink-0 relative">
                             <svg className="w-full h-full block" viewBox="0 0 36 36" fill="none">
                               <circle cx="18" cy="18" r="18" fill={customUpper} />
-                              <path d="M 0 18 A 18 18 0 0 0 36 18 Z" fill={customBase} />
+                              {paletteMode !== "custom" && (
+                                <path d="M 0 18 A 18 18 0 0 0 36 18 Z" fill={customBase} />
+                              )}
                             </svg>
                           </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="font-sans text-[12.5px] sm:text-[13px] font-semibold text-[#1E140D] leading-tight truncate">
-                              Custom Blend
+                          <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold leading-none whitespace-nowrap">
+                            Final Pair
+                          </span>
+                        </button>
+
+                        {/* 4. Color Reference Image Upload - Stretched to fill right space */}
+                        <div className="relative flex-1 min-w-[180px]">
+                          <input
+                            ref={colorRefInputRef}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleColorRefChange}
+                            className="hidden"
+                          />
+                          {colorRefPreview ? (
+                            <div className="h-9 sm:h-10 w-full rounded-full bg-[#FAF7F2] pl-2 pr-3 flex items-center justify-between gap-2 border border-[#876540]/30">
+                              <div className="flex items-center gap-2 min-w-0">
+                                <div className="w-6 h-6 rounded-full overflow-hidden shrink-0 border border-[#876540]/20">
+                                  <img src={colorRefPreview} alt="Custom color reference" className="w-full h-full object-cover" />
+                                </div>
+                                <span className="font-sans text-[11.5px] font-semibold text-[#1E140D] truncate">
+                                  {colorRefFile?.name || "Color Photo Reference"}
+                                </span>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={handleRemoveColorRef}
+                                aria-label="Remove image"
+                                className="w-5 h-5 rounded-full hover:bg-black/10 text-[#876540] hover:text-[#1E140D] flex items-center justify-center cursor-pointer transition-colors shrink-0"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
                             </div>
-                            <div className="font-sans text-[10.5px] sm:text-[11px] text-[#402E1D]/70 font-semibold mt-0.5">
-                              Active Pair
-                            </div>
-                          </div>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => colorRefInputRef.current?.click()}
+                              className="h-9 sm:h-10 w-full rounded-full bg-[#FAF7F2] hover:bg-[#F3EFE8] text-[#876540] hover:text-[#1E140D] px-3 sm:px-4 flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer border border-dashed border-[#876540]/40 hover:border-[#876540]"
+                            >
+                              <Upload className="w-3.5 h-3.5 shrink-0 text-[#876540]" />
+                              <span className="font-sans text-[11px] sm:text-[11.5px] font-semibold whitespace-nowrap truncate">
+                                Upload Color Image
+                              </span>
+                            </button>
+                          )}
                         </div>
+
                       </div>
-                    )}
+                    </div>
 
                     {/* Step 1 Continue Button (Signature Fused Pill Design) */}
-                    <div className="pt-4 sm:pt-7 flex justify-end">
+                    <div className="pt-2 sm:pt-4 flex justify-end">
                       <button
                         type="button"
                         onClick={() => setCurrentStep(2)}
                         className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer font-sans"
                       >
                         <svg
-                          className="w-[190px] sm:w-[224px] h-[42px] sm:h-[48px]"
+                          className="w-[218px] sm:w-[232px] h-[44px] sm:h-[46px] overflow-visible"
                           viewBox="0 0 236 46"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -449,13 +519,13 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                           />
                         </svg>
 
-                        <div className="absolute left-0 top-0 bottom-0 w-[155px] sm:w-[184px] flex items-center justify-center pointer-events-none px-2.5 font-sans">
+                        <div className="absolute left-0 top-0 bottom-0 w-[170px] sm:w-[182px] flex items-center justify-center pointer-events-none px-3 font-sans">
                           <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.01em] text-[#1E140D] whitespace-nowrap">
                             Next: Notes & Files
                           </span>
                         </div>
 
-                        <div className="absolute right-[3px] top-[3px] w-[36px] h-[36px] sm:w-[40px] sm:h-[40px] rounded-full bg-[#876540] flex items-center justify-center group-hover:bg-[#6D5133] transition-colors duration-300 shadow-sm">
+                        <div className="absolute right-[4px] top-[4px] w-[36px] h-[36px] sm:w-[38px] sm:h-[38px] rounded-full bg-[#876540] flex items-center justify-center group-hover:bg-[#6D5133] transition-colors duration-300 shadow-sm">
                           <ArrowRight className="w-[15px] h-[15px] text-white stroke-[2.4] transition-transform duration-300 group-hover:translate-x-0.5" />
                         </div>
                       </button>
@@ -465,101 +535,79 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
 
                 {/* STEP 2: UPLOADS & NOTES */}
                 {currentStep === 2 && (
-                  <div className="space-y-4 sm:space-y-6 animate-in fade-in duration-200">
-                    <div>
-                      <h4 className="font-sans text-[14px] sm:text-[15px] font-bold text-[#1E140D]">
-                        Uploads & Custom Requests
-                      </h4>
-                      <p className="font-sans text-[12px] sm:text-[13px] text-[#402E1D]/65 font-medium mt-0.5">
-                        Optional: attach embroidery artwork, reference swatches, or styling preferences.
-                      </p>
-                    </div>
+                  <div className="space-y-4 sm:space-y-5 animate-in fade-in duration-200">
+                    {/* 2-Column Hero Area: Left controls & Right Cushion Image */}
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-3.5 sm:gap-5">
+                      {/* Left: Title, Description & Logo Upload */}
+                      <div className="flex-1 w-full space-y-2.5 sm:space-y-3 min-w-0">
+                        <div>
+                          <h4 className="font-sans text-[14px] sm:text-[15px] font-bold text-[#1E140D]">
+                            Uploads & Custom Requests
+                          </h4>
+                          <p className="font-sans text-[11.5px] sm:text-[12px] text-[#402E1D]/65 font-medium mt-0.5 whitespace-nowrap truncate">
+                            Attach embroidery artwork or custom styling preferences.
+                          </p>
+                        </div>
 
-                    {/* File Uploads Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {/* Icon Upload */}
-                      <div>
-                        <input
-                          ref={iconInputRef}
-                          type="file"
-                          accept="image/*,.svg"
-                          onChange={handleIconChange}
-                          className="hidden"
-                        />
-                        {iconPreview ? (
-                          <div className="p-3.5 bg-[#EFECE5] rounded-xl sm:rounded-2xl flex items-center justify-between font-sans">
-                            <div className="flex items-center gap-3 truncate">
-                              <img src={iconPreview} alt="Icon" className="w-6 h-6 object-contain" />
-                              <span className="font-sans text-[12px] text-[#1E140D] font-semibold truncate">
-                                {iconFile?.name}
-                              </span>
+                        {/* Minimal Upload Logo Pill */}
+                        <div>
+                          <input
+                            ref={iconInputRef}
+                            type="file"
+                            accept="image/*,.svg"
+                            onChange={handleIconChange}
+                            className="hidden"
+                          />
+                          {iconPreview ? (
+                            <div className="h-10 sm:h-11 rounded-full bg-[#FAF7F2] pl-2.5 pr-3.5 flex items-center justify-between gap-2 border border-[#876540]/30 font-sans">
+                              <div className="flex items-center gap-2.5 truncate min-w-0">
+                                <div className="w-6.5 h-6.5 rounded-full overflow-hidden shrink-0 border border-[#876540]/20 flex items-center justify-center bg-white">
+                                  <img src={iconPreview} alt="Logo on cushion" className="w-4.5 h-4.5 object-contain" />
+                                </div>
+                                <span className="font-sans text-[12px] text-[#1E140D] font-semibold truncate">
+                                  {iconFile?.name || "Logo on cushion attached"}
+                                </span>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={handleRemoveIcon}
+                                aria-label="Remove logo"
+                                className="w-5 h-5 rounded-full hover:bg-black/10 text-[#876540] hover:text-[#1E140D] flex items-center justify-center cursor-pointer transition-colors shrink-0"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
                             </div>
+                          ) : (
                             <button
                               type="button"
-                              onClick={handleRemoveIcon}
-                              className="text-red-500 hover:text-red-700 p-1 cursor-pointer"
+                              onClick={() => iconInputRef.current?.click()}
+                              className="w-full h-10 sm:h-11 rounded-full bg-[#FAF7F2] hover:bg-[#F3EFE8] text-[#876540] hover:text-[#1E140D] px-4 border border-dashed border-[#876540]/40 hover:border-[#876540] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer font-sans"
                             >
-                              <Trash2 className="w-4 h-4" />
+                              <Upload className="w-4 h-4 shrink-0 text-[#876540]" />
+                              <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold whitespace-nowrap">
+                                Upload your logo on cushion
+                              </span>
                             </button>
-                          </div>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={() => iconInputRef.current?.click()}
-                            className="w-full py-3.5 sm:py-5 px-3.5 rounded-xl sm:rounded-2xl bg-[#EFECE5] hover:bg-[#EAE6DD] border-0 transition-colors flex items-center justify-center gap-2 text-[#402E1D]/80 hover:text-[#1E140D] cursor-pointer font-sans"
-                          >
-                            <Upload className="w-4 h-4 text-[#876540]" />
-                            <span className="font-sans text-[12.5px] sm:text-[13px] font-semibold">
-                              Upload Icon / Motif
-                            </span>
-                          </button>
-                        )}
+                          )}
+                        </div>
                       </div>
 
-                      {/* Color Ref Upload */}
-                      <div>
-                        <input
-                          ref={colorRefInputRef}
-                          type="file"
-                          accept="image/*"
-                          onChange={handleColorRefChange}
-                          className="hidden"
-                        />
-                        {colorRefPreview ? (
-                          <div className="p-3.5 bg-[#EFECE5] rounded-xl sm:rounded-2xl flex items-center justify-between font-sans">
-                            <div className="flex items-center gap-3 truncate">
-                              <img src={colorRefPreview} alt="Ref" className="w-6 h-6 object-cover rounded" />
-                              <span className="font-sans text-[12px] text-[#1E140D] font-semibold truncate">
-                                {colorRefFile?.name}
-                              </span>
-                            </div>
-                            <button
-                              type="button"
-                              onClick={handleRemoveColorRef}
-                              className="text-red-500 hover:text-red-700 p-1 cursor-pointer"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          </div>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={() => colorRefInputRef.current?.click()}
-                            className="w-full py-3.5 sm:py-5 px-3.5 rounded-xl sm:rounded-2xl bg-[#EFECE5] hover:bg-[#EAE6DD] border-0 transition-colors flex items-center justify-center gap-2 text-[#402E1D]/80 hover:text-[#1E140D] cursor-pointer font-sans"
-                          >
-                            <ImageIcon className="w-4 h-4 text-[#876540]" />
-                            <span className="font-sans text-[12.5px] sm:text-[13px] font-semibold">
-                              Color Ref Image
-                            </span>
-                          </button>
-                        )}
+                      {/* Right: Cushion Embroidery Preview Image (Matches Content Height) */}
+                      <div className="shrink-0 flex items-center justify-center self-center">
+                        <div className="w-[140px] sm:w-[160px] h-[95px] sm:h-[110px] rounded-2xl overflow-hidden relative shadow-xs">
+                          <img
+                            src="/images/materials/custom-embroidery-cushion.png"
+                            alt="Cushion embroidery detail"
+                            className="w-full h-full object-cover rounded-2xl"
+                          />
+                        </div>
                       </div>
                     </div>
 
-                    {/* Notes Textarea with Comfortable Height */}
+                    {/* Refined Minimal Notes Textarea */}
                     <div>
                       <label htmlFor="custom-notes" className="block font-sans text-[12.5px] sm:text-[13px] font-bold text-[#1E140D] mb-1.5">
-                        Notes <span className="text-[#402E1D]/60 font-medium lowercase">(optional)</span>
+                        Notes <span className="text-[#402E1D]/55 font-normal text-[11px]">(optional)</span>
                       </label>
                       <textarea
                         id="custom-notes"
@@ -567,19 +615,54 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Specific requests, embroidery placement, or room palette details..."
-                        className="w-full p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#EFECE5] border-0 font-sans text-[13px] sm:text-[13.5px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/50 placeholder:font-medium focus:outline-none focus:ring-2 focus:ring-[#876540]/30 min-h-[90px] sm:min-h-[120px] resize-y leading-relaxed"
+                        className="w-full p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#FAF7F2] border border-[#402E1D]/15 focus:border-[#876540]/50 font-sans text-[12.5px] sm:text-[13px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/45 placeholder:font-normal focus:outline-none min-h-[80px] sm:min-h-[95px] resize-y leading-relaxed transition-colors"
                       />
                     </div>
 
                     {/* Step 2 Back & Continue Buttons */}
                     <div className="pt-4 sm:pt-7 flex items-center justify-between">
+                      {/* Step 2 Back Button (Signature Fused Pill Design) */}
                       <button
                         type="button"
                         onClick={() => setCurrentStep(1)}
-                        className="px-3.5 py-2 rounded-full text-[#402E1D]/80 hover:text-[#1E140D] font-sans text-[12.5px] sm:text-[13px] font-semibold transition-colors cursor-pointer flex items-center gap-1"
+                        className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer font-sans"
                       >
-                        <ArrowLeft className="w-4 h-4" />
-                        <span>Back</span>
+                        <svg
+                          className="w-[110px] sm:w-[120px] h-[44px] sm:h-[46px] overflow-visible"
+                          viewBox="0 0 120 46"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <defs>
+                            <linearGradient id="btn-step2-back-fill" x1="0" y1="0" x2="120" y2="46" gradientUnits="userSpaceOnUse">
+                              <stop offset="0%" stopColor="#FAF7F2" />
+                              <stop offset="50%" stopColor="#F3EFE8" />
+                              <stop offset="100%" stopColor="#FAF7F2" />
+                            </linearGradient>
+                            <linearGradient id="btn-step2-back-border" x1="0" y1="0" x2="120" y2="46" gradientUnits="userSpaceOnUse">
+                              <stop offset="0%" stopColor="rgba(64, 46, 29, 0.25)" />
+                              <stop offset="50%" stopColor="rgba(135, 101, 64, 0.5)" />
+                              <stop offset="100%" stopColor="rgba(64, 46, 29, 0.2)" />
+                            </linearGradient>
+                          </defs>
+
+                          <path
+                            d="M 23 0 A 23 23 0 1 0 23 46 C 30 46 35 39 40 39 C 45 39 50 46 57 46 L 97 46 A 23 23 0 0 0 97 0 L 57 0 C 50 0 45 7 40 7 C 35 7 30 0 23 0 Z"
+                            fill="url(#btn-step2-back-fill)"
+                            stroke="url(#btn-step2-back-border)"
+                            strokeWidth="1.4"
+                          />
+                        </svg>
+
+                        <div className="absolute left-[4px] top-[4px] w-[36px] h-[36px] sm:w-[38px] sm:h-[38px] rounded-full bg-[#876540] flex items-center justify-center group-hover:bg-[#6D5133] transition-colors duration-300 shadow-sm">
+                          <ArrowLeft className="w-[15px] h-[15px] text-white stroke-[2.4] transition-transform duration-300 group-hover:-translate-x-0.5" />
+                        </div>
+
+                        <div className="absolute right-0 top-0 bottom-0 left-[44px] sm:left-[46px] flex items-center justify-center pointer-events-none pr-3 font-sans">
+                          <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.01em] text-[#1E140D] whitespace-nowrap">
+                            Back
+                          </span>
+                        </div>
                       </button>
 
                       {/* Step 2 Continue Button (Signature Fused Pill Design) */}
@@ -589,7 +672,7 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                         className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer font-sans"
                       >
                         <svg
-                          className="w-[170px] sm:w-[196px] h-[42px] sm:h-[48px]"
+                          className="w-[182px] sm:w-[196px] h-[44px] sm:h-[46px] overflow-visible"
                           viewBox="0 0 200 46"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -615,13 +698,13 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                           />
                         </svg>
 
-                        <div className="absolute left-0 top-0 bottom-0 w-[130px] sm:w-[148px] flex items-center justify-center pointer-events-none px-2.5 font-sans">
+                        <div className="absolute left-0 top-0 bottom-0 w-[136px] sm:w-[146px] flex items-center justify-center pointer-events-none px-3 font-sans">
                           <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.01em] text-[#1E140D] whitespace-nowrap">
                             Next: Finalize
                           </span>
                         </div>
 
-                        <div className="absolute right-[3px] top-[3px] w-[36px] h-[36px] sm:w-[40px] sm:h-[40px] rounded-full bg-[#876540] flex items-center justify-center group-hover:bg-[#6D5133] transition-colors duration-300 shadow-sm">
+                        <div className="absolute right-[4px] top-[4px] w-[36px] h-[36px] sm:w-[38px] sm:h-[38px] rounded-full bg-[#876540] flex items-center justify-center group-hover:bg-[#6D5133] transition-colors duration-300 shadow-sm">
                           <ArrowRight className="w-[15px] h-[15px] text-white stroke-[2.4] transition-transform duration-300 group-hover:translate-x-0.5" />
                         </div>
                       </button>
@@ -631,48 +714,45 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
 
                 {/* STEP 3: CONTACT & FINALIZE */}
                 {currentStep === 3 && (
-                  <div className="space-y-4 sm:space-y-6 animate-in fade-in duration-200">
-                    <div>
-                      <h4 className="font-sans text-[14px] sm:text-[15px] font-bold text-[#1E140D]">
-                        Contact Information & Confirmation
-                      </h4>
-                      <p className="font-sans text-[12px] sm:text-[13px] text-[#402E1D]/65 font-medium mt-0.5">
-                        Where should we send your digital rendering and proof?
-                      </p>
-                    </div>
+                  <div className="space-y-4 sm:space-y-5 animate-in fade-in duration-200">
+                    {/* Single Row: Title & Subtitle on Left, Summary Badge on Right */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div>
+                        <h4 className="font-sans text-[14px] sm:text-[15px] font-bold text-[#1E140D]">
+                          Contact Information & Confirmation
+                        </h4>
+                        <p className="font-sans text-[12px] sm:text-[12.5px] text-[#402E1D]/65 font-medium mt-0.5">
+                          Where should we send your digital rendering and proof?
+                        </p>
+                      </div>
 
-                    {/* Summary Card with Responsive Padding */}
-                    <div className="p-3.5 sm:p-5 bg-[#EFECE5] rounded-xl sm:rounded-2xl flex items-center justify-between">
-                      <div className="flex items-center gap-2.5 sm:gap-3">
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden shrink-0 border border-black/10 shadow-xs relative">
+                      {/* Minimal Borderless Summary Badge */}
+                      <div className="inline-flex items-center gap-2.5 bg-[#FAF7F2] px-3.5 py-1.5 sm:py-2 rounded-full shrink-0 self-start sm:self-auto font-sans">
+                        <div className="w-5 h-5 rounded-full overflow-hidden shrink-0 relative">
                           <svg className="w-full h-full block" viewBox="0 0 36 36" fill="none">
                             <circle cx="18" cy="18" r="18" fill={activeUpper} />
                             <path d="M 0 18 A 18 18 0 0 0 36 18 Z" fill={activeBase} />
                           </svg>
                         </div>
-                        <div>
-                          <div className="font-sans text-[13px] sm:text-[13.5px] font-bold text-[#1E140D]">
-                            {activePaletteName}
-                          </div>
-                          <div className="font-sans text-[10.5px] sm:text-[11.5px] text-[#402E1D]/70 font-medium mt-0.5">
-                            {iconFile ? "Custom Motif attached • " : ""}{colorRefFile ? "Ref image attached • " : ""}The Lotus Seat Custom
-                          </div>
-                        </div>
-                      </div>
-                      <div className="font-sans text-[14px] sm:text-[15px] font-bold text-[#876540]">
-                        €199
+                        <span className="font-sans text-[12px] sm:text-[12.5px] font-bold text-[#1E140D]">
+                          {activePaletteName}
+                        </span>
+                        <span className="text-[#876540]/40 font-bold">•</span>
+                        <span className="font-sans text-[12.5px] sm:text-[13px] font-bold text-[#876540]">
+                          €199
+                        </span>
                       </div>
                     </div>
 
-                    {/* Contact Inputs with Comfortable Height */}
-                    <div className="space-y-2.5 sm:space-y-3.5">
+                    {/* Refined Minimal Contact Inputs in 2 Columns */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 font-sans">
                       <input
                         type="text"
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Your Name *"
-                        className="w-full px-3.5 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl bg-[#EFECE5] border-0 font-sans text-[13px] sm:text-[13.5px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/50 placeholder:font-medium focus:outline-none focus:ring-2 focus:ring-[#876540]/30"
+                        className="w-full h-11 sm:h-12 px-4 rounded-xl sm:rounded-2xl bg-[#FAF7F2] border border-[#402E1D]/12 focus:border-[#876540]/60 font-sans text-[13px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/45 placeholder:font-normal focus:outline-none transition-colors"
                       />
                       <input
                         type="email"
@@ -680,26 +760,61 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email Address *"
-                        className="w-full px-3.5 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl bg-[#EFECE5] border-0 font-sans text-[13px] sm:text-[13.5px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/50 placeholder:font-medium focus:outline-none focus:ring-2 focus:ring-[#876540]/30"
+                        className="w-full h-11 sm:h-12 px-4 rounded-xl sm:rounded-2xl bg-[#FAF7F2] border border-[#402E1D]/12 focus:border-[#876540]/60 font-sans text-[13px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/45 placeholder:font-normal focus:outline-none transition-colors"
                       />
                       <input
                         type="tel"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="Phone Number (Optional)"
-                        className="w-full px-3.5 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl bg-[#EFECE5] border-0 font-sans text-[13px] sm:text-[13.5px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/50 placeholder:font-medium focus:outline-none focus:ring-2 focus:ring-[#876540]/30"
+                        className="w-full sm:col-span-2 h-11 sm:h-12 px-4 rounded-xl sm:rounded-2xl bg-[#FAF7F2] border border-[#402E1D]/12 focus:border-[#876540]/60 font-sans text-[13px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/45 placeholder:font-normal focus:outline-none transition-colors"
                       />
                     </div>
 
                     {/* Step 3 Back & Submit Action */}
                     <div className="pt-4 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+                      {/* Step 3 Back Button (Signature Fused Pill Design) */}
                       <button
                         type="button"
                         onClick={() => setCurrentStep(2)}
-                        className="px-4 py-2 rounded-full text-[#402E1D]/80 hover:text-[#1E140D] font-sans text-[12.5px] sm:text-[13px] font-semibold transition-colors cursor-pointer flex items-center gap-1.5 self-start sm:self-auto"
+                        className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer font-sans"
                       >
-                        <ArrowLeft className="w-4 h-4" />
-                        <span>Back</span>
+                        <svg
+                          className="w-[110px] sm:w-[120px] h-[44px] sm:h-[46px] overflow-visible"
+                          viewBox="0 0 120 46"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <defs>
+                            <linearGradient id="btn-step3-back-fill" x1="0" y1="0" x2="120" y2="46" gradientUnits="userSpaceOnUse">
+                              <stop offset="0%" stopColor="#FAF7F2" />
+                              <stop offset="50%" stopColor="#F3EFE8" />
+                              <stop offset="100%" stopColor="#FAF7F2" />
+                            </linearGradient>
+                            <linearGradient id="btn-step3-back-border" x1="0" y1="0" x2="120" y2="46" gradientUnits="userSpaceOnUse">
+                              <stop offset="0%" stopColor="rgba(64, 46, 29, 0.25)" />
+                              <stop offset="50%" stopColor="rgba(135, 101, 64, 0.5)" />
+                              <stop offset="100%" stopColor="rgba(64, 46, 29, 0.2)" />
+                            </linearGradient>
+                          </defs>
+
+                          <path
+                            d="M 23 0 A 23 23 0 1 0 23 46 C 30 46 35 39 40 39 C 45 39 50 46 57 46 L 97 46 A 23 23 0 0 0 97 0 L 57 0 C 50 0 45 7 40 7 C 35 7 30 0 23 0 Z"
+                            fill="url(#btn-step3-back-fill)"
+                            stroke="url(#btn-step3-back-border)"
+                            strokeWidth="1.4"
+                          />
+                        </svg>
+
+                        <div className="absolute left-[4px] top-[4px] w-[36px] h-[36px] sm:w-[38px] sm:h-[38px] rounded-full bg-[#876540] flex items-center justify-center group-hover:bg-[#6D5133] transition-colors duration-300 shadow-sm">
+                          <ArrowLeft className="w-[15px] h-[15px] text-white stroke-[2.4] transition-transform duration-300 group-hover:-translate-x-0.5" />
+                        </div>
+
+                        <div className="absolute right-0 top-0 bottom-0 left-[44px] sm:left-[46px] flex items-center justify-center pointer-events-none pr-3 font-sans">
+                          <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.01em] text-[#1E140D] whitespace-nowrap">
+                            Back
+                          </span>
+                        </div>
                       </button>
 
                       {/* Signature Fused Pill CTA */}
@@ -708,7 +823,7 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                         className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer font-sans"
                       >
                         <svg
-                          className="w-[245px] sm:w-[286px] h-[44px] sm:h-[50px]"
+                          className="w-[256px] sm:w-[272px] h-[44px] sm:h-[46px] overflow-visible"
                           viewBox="0 0 276 46"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -734,13 +849,13 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                           />
                         </svg>
 
-                        <div className="absolute left-0 top-0 bottom-0 w-[195px] sm:w-[230px] flex items-center justify-center pointer-events-none px-2 font-sans">
+                        <div className="absolute left-0 top-0 bottom-0 w-[210px] sm:w-[222px] flex items-center justify-center pointer-events-none px-2.5 font-sans">
                           <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.01em] text-[#1E140D] whitespace-nowrap">
                             {isSubmitting ? "Submitting..." : "Submit Customization • €199"}
                           </span>
                         </div>
 
-                        <div className="absolute right-[3px] top-[3px] w-[38px] h-[38px] sm:w-[40px] sm:h-[40px] rounded-full bg-[#876540] flex items-center justify-center group-hover:bg-[#6D5133] transition-colors duration-300 shadow-sm">
+                        <div className="absolute right-[4px] top-[4px] w-[36px] h-[36px] sm:w-[38px] sm:h-[38px] rounded-full bg-[#876540] flex items-center justify-center group-hover:bg-[#6D5133] transition-colors duration-300 shadow-sm">
                           <ArrowUpRight className="w-[15px] sm:w-[17px] h-[15px] sm:h-[17px] text-white stroke-[2.4] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </div>
                       </button>

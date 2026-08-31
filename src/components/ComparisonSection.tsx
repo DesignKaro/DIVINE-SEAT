@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import AnimatedHeading from "@/components/ui/AnimatedHeading";
 
 interface ComparisonRow {
   feature: string;
@@ -65,14 +65,26 @@ const comparisonData: ComparisonRow[] = [
 ];
 
 export default function ComparisonSection() {
-  const [tradHovered, setTradHovered] = useState(false);
-  const [lotusHovered, setLotusHovered] = useState(false);
   return (
     <section
       id="comparison"
       data-header-theme="light"
-      className="relative w-full bg-[#ECE7DE] text-[#402E1D] py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden"
+      className="relative w-full text-[#402E1D] py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden scroll-mt-16 sm:scroll-mt-24"
     >
+      {/* Full-cover Background Image */}
+      <Image
+        src="/images/about-bg.avif"
+        alt="Comparison section background"
+        fill
+        priority={false}
+        unoptimized
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+
+      {/* Warm overlay for legibility with section color */}
+      <div className="absolute inset-0 bg-[#ECE7DE]/45 backdrop-blur-[1px]" />
+
       {/* Background Sacred Mandala Motif (Centered Vertically and Horizontally) */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[720px] md:w-[850px] lg:w-[980px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">
         <Image
@@ -104,16 +116,11 @@ export default function ComparisonSection() {
               </span>
             </motion.div>
 
-            {/* Main Headline */}
-            <motion.h2
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+            {/* Main Headline with kinetic reveal */}
+            <AnimatedHeading
+              text="More than a softer place to sit."
               className="font-display font-semibold text-[32px] sm:text-[42px] md:text-[48px] lg:text-[52px] leading-[1.10] tracking-[-0.015em] text-[#402E1D]"
-            >
-              More than a softer place to sit.
-            </motion.h2>
+            />
           </div>
 
           {/* Right Lead Paragraph */}
@@ -176,15 +183,24 @@ export default function ComparisonSection() {
           {/* TABLET & DESKTOP TABLE VIEW (>= 640px) */}
           <div className="hidden sm:block w-full bg-white rounded-[28px] lg:rounded-[32px] border border-[#E8E1D5] overflow-hidden">
             <div className="overflow-x-auto">
-              {/* Relative wrapper so ghost overlay can be absolutely positioned */}
+              {/* Relative wrapper so ghost overlays and column background are positioned cleanly */}
               <div className="relative">
-                {/* Single ghost image covering the entire Traditional column */}
+                
+                {/* Background column highlight for The Lotus Seat column */}
                 <div
-                  className="absolute top-0 bottom-0 pointer-events-none z-50 transition-opacity duration-700"
+                  className="absolute top-0 bottom-0 pointer-events-none z-0 bg-[#FBF9F5]"
+                  style={{
+                    left: "63%",
+                    width: "37%",
+                  }}
+                />
+
+                {/* Single ghost image covering the entire Traditional column (Always on by default) */}
+                <div
+                  className="absolute top-0 bottom-0 pointer-events-none z-10"
                   style={{
                     left: "26%",
                     width: "37%",
-                    opacity: tradHovered ? 1 : 0,
                   }}
                 >
                   <div
@@ -196,22 +212,21 @@ export default function ComparisonSection() {
                   >
                     <Image
                       src="/images/traditional-cushion-ghost.avif"
-                      alt=""
+                      alt="Traditional Cushion Ghost"
                       width={320}
                       height={320}
-                      className="object-contain opacity-[0.22] mix-blend-multiply select-none"
+                      className="object-contain opacity-[0.24] mix-blend-multiply select-none"
                       unoptimized
                     />
                   </div>
                 </div>
 
-                {/* Single ghost image covering the entire Lotus Seat column */}
+                {/* Single ghost image covering the entire Lotus Seat column (Always on by default) */}
                 <div
-                  className="absolute top-0 bottom-0 pointer-events-none z-50 transition-opacity duration-700"
+                  className="absolute top-0 bottom-0 pointer-events-none z-10"
                   style={{
                     left: "63%",
                     width: "37%",
-                    opacity: lotusHovered ? 1 : 0,
                   }}
                 >
                   <div
@@ -223,79 +238,63 @@ export default function ComparisonSection() {
                   >
                     <Image
                       src="/images/lotus-seat-ghost.avif"
-                      alt=""
+                      alt="Lotus Seat Ghost"
                       width={320}
                       height={320}
-                      className="object-contain opacity-[0.35] select-none"
+                      className="object-contain opacity-[0.32] mix-blend-multiply select-none"
                       unoptimized
                     />
                   </div>
                 </div>
 
-                <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="border-b border-[#EBE4D8]/30">
-                    <th className="py-5 sm:py-6 px-6 sm:px-8 font-sans font-medium text-[13px] sm:text-[14px] text-[#876540] uppercase tracking-[0.08em] w-[26%]">
-                      Feature
-                    </th>
-                    <th
-                        className="py-5 sm:py-6 px-6 sm:px-8 font-display font-semibold text-[16px] sm:text-[18px] text-[#5C4D40] w-[37%]"
-                        onMouseEnter={() => setTradHovered(true)}
-                        onMouseLeave={() => setTradHovered(false)}
-                      >
+                <table className="w-full text-left border-collapse relative z-20">
+                  <thead>
+                    <tr className="border-b border-[#EBE4D8]/30">
+                      <th className="py-5 sm:py-6 px-6 sm:px-8 font-sans font-medium text-[13px] sm:text-[14px] text-[#876540] uppercase tracking-[0.08em] w-[26%]">
+                        Feature
+                      </th>
+                      <th className="py-5 sm:py-6 px-6 sm:px-8 font-display font-semibold text-[16px] sm:text-[18px] text-[#5C4D40] w-[37%]">
                         Traditional Cushion / Zafu
                       </th>
-                    <th
-                        className="py-5 sm:py-6 px-6 sm:px-8 font-display font-semibold text-[17px] sm:text-[19px] text-[#2C2016] bg-[#FBF9F5] w-[37%]"
-                        onMouseEnter={() => setLotusHovered(true)}
-                        onMouseLeave={() => setLotusHovered(false)}
-                      >
+                      <th className="py-5 sm:py-6 px-6 sm:px-8 font-display font-semibold text-[17px] sm:text-[19px] text-[#2C2016] w-[37%]">
                         <div className="flex items-center gap-2">
                           <span>The Lotus Seat</span>
                         </div>
                       </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#EBE4D8]/30 font-sans text-[14px] sm:text-[15px]">
-                  {comparisonData.map((row, idx) => (
-                    <tr
-                      key={idx}
-                      className="hover:bg-[#FAF7F2]/40 transition-colors duration-150"
-                    >
-                      {/* Feature Column */}
-                      <td className="py-5 sm:py-6 px-6 sm:px-8 font-semibold text-[#2C2016]">
-                        {row.feature}
-                      </td>
-
-                      {/* Traditional Cushion Column */}
-                      <td
-                        className="py-5 sm:py-6 px-6 sm:px-8 text-[#6B5A4D] leading-relaxed relative z-20"
-                        onMouseEnter={() => setTradHovered(true)}
-                        onMouseLeave={() => setTradHovered(false)}
-                      >
-                        {row.traditional}
-                      </td>
-
-                      {/* The Lotus Seat Column (Highlighted) */}
-                      <td
-                        className="py-5 sm:py-6 px-6 sm:px-8 font-medium text-[#2C2016] bg-[#FBF9F5] leading-relaxed relative z-20"
-                        onMouseEnter={() => setLotusHovered(true)}
-                        onMouseLeave={() => setLotusHovered(false)}
-                      >
-                        <div className="flex items-start gap-2.5">
-                          <span className="text-[#876540] mt-0.5 shrink-0">
-                            <Check className="w-4 h-4 stroke-[2.4]" />
-                          </span>
-                          <span>{row.lotusSeat}</span>
-                        </div>
-                      </td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-[#EBE4D8]/30 font-sans text-[14px] sm:text-[15px]">
+                    {comparisonData.map((row, idx) => (
+                      <tr
+                        key={idx}
+                        className="hover:bg-[#FAF7F2]/40 transition-colors duration-150"
+                      >
+                        {/* Feature Column */}
+                        <td className="py-5 sm:py-6 px-6 sm:px-8 font-semibold text-[#2C2016]">
+                          {row.feature}
+                        </td>
+
+                        {/* Traditional Cushion Column */}
+                        <td className="py-5 sm:py-6 px-6 sm:px-8 text-[#6B5A4D] leading-relaxed">
+                          {row.traditional}
+                        </td>
+
+                        {/* The Lotus Seat Column (Highlighted) */}
+                        <td className="py-5 sm:py-6 px-6 sm:px-8 font-medium text-[#2C2016] leading-relaxed">
+                          <div className="flex items-start gap-2.5">
+                            <span className="text-[#876540] mt-0.5 shrink-0">
+                              <Check className="w-4 h-4 stroke-[2.4]" />
+                            </span>
+                            <span>{row.lotusSeat}</span>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
 
         </motion.div>
 

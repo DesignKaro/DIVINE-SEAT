@@ -4,38 +4,54 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const TOTAL_FRAMES = 240;
+const TOTAL_FRAMES = 199;
 const FRAME_PATH = (n: number) =>
-  `/images/frames/frame_${String(n).padStart(6, "0")}.jpg`;
+  `/images/frames/frame_${String(n).padStart(6, "0")}.avif`;
 
 export default function RealThingSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
+  const [isCloseUpShot, setIsCloseUpShot] = useState(false);
   const [isWideShot, setIsWideShot] = useState(false);
-  const [isSeamShot, setIsSeamShot] = useState(false);
-  const [isPedestalShot, setIsPedestalShot] = useState(false);
+  const [isPracticeShot, setIsPracticeShot] = useState(false);
+  const [isBeginningShot, setIsBeginningShot] = useState(false);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const currentFrameRef = useRef(0);
   const rafRef = useRef<number | null>(null);
 
-  // Preload all frames
+  // Preload all frames progressively
   useEffect(() => {
-    const images: HTMLImageElement[] = [];
-    let loaded = 0;
+    const images: HTMLImageElement[] = new Array(TOTAL_FRAMES);
 
-    for (let i = 0; i < TOTAL_FRAMES; i++) {
+    // 1. Critical Wave: Load initial 25 frames immediately
+    const priorityCount = Math.min(25, TOTAL_FRAMES);
+    for (let i = 0; i < priorityCount; i++) {
       const img = new window.Image();
       img.src = FRAME_PATH(i);
       img.onload = () => {
-        loaded++;
-        // Draw first frame once it's ready
         if (i === 0 && canvasRef.current) {
           drawFrame(0);
         }
       };
-      images.push(img);
+      images[i] = img;
     }
+
+    // 2. Background Wave: Stream remaining frames smoothly
+    const loadRemaining = () => {
+      for (let i = priorityCount; i < TOTAL_FRAMES; i++) {
+        const img = new window.Image();
+        img.src = FRAME_PATH(i);
+        images[i] = img;
+      }
+    };
+
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      window.requestIdleCallback(loadRemaining, { timeout: 800 });
+    } else {
+      setTimeout(loadRemaining, 100);
+    }
+
     imagesRef.current = images;
 
     return () => {
@@ -73,7 +89,11 @@ export default function RealThingSection() {
     const imgAspect = img.naturalWidth / img.naturalHeight;
     const canvasAspect = cssWidth / cssHeight;
 
-    let sx = 0, sy = 0, sw = img.naturalWidth, sh = img.naturalHeight;
+    let sx = 0,
+      sy = 0,
+      sw = img.naturalWidth,
+      sh = img.naturalHeight;
+
     if (imgAspect > canvasAspect) {
       sw = img.naturalHeight * canvasAspect;
       sx = (img.naturalWidth - sw) / 2;
@@ -101,43 +121,46 @@ export default function RealThingSection() {
       const scrolled = Math.max(0, -rect.top);
       const progress = scrollable > 0 ? Math.min(scrolled / scrollable, 1) : 0;
 
-      // Title & label: Stays fully visible through the embroidered lotus close-up (frames 0 to ~45),
-      // then smoothly fades out as the wide view of the seat comes onto screen (frame 45 to 60, progress 0.18 -> 0.25).
-      // Once the wide seat is in view (progress >= 0.25), it stays completely hidden for all remaining frames.
-      if (titleRef.current) {
-        if (progress <= 0.18) {
-          titleRef.current.style.opacity = "1";
-          titleRef.current.style.transform = "translate3d(0, 0, 0)";
-          titleRef.current.style.visibility = "visible";
-        } else if (progress < 0.25) {
-          const t = (progress - 0.18) / (0.25 - 0.18);
-          const opacity = Math.max(0, 1 - t);
-          titleRef.current.style.opacity = String(opacity);
-          titleRef.current.style.transform = `translate3d(0, ${-t * 24}px, 0)`;
-          titleRef.current.style.visibility = opacity === 0 ? "hidden" : "visible";
-        } else {
-          titleRef.current.style.opacity = "0";
-          titleRef.current.style.transform = "translate3d(0, -24px, 0)";
-          titleRef.current.style.visibility = "hidden";
-        }
-      }
-
-      // Discrete trigger for Left & Right cards (wide seat shot: frame 55-115, progress 0.21 - 0.49)
-      const shouldShowWide = progress >= 0.21 && progress <= 0.49;
-      setIsWideShot((prev) => (prev !== shouldShowWide ? shouldShowWide : prev));
-
-      // Discrete trigger for Center Card (close-up seam shot: frame 120-175, progress 0.51 - 0.73)
-      const shouldShowSeam = progress >= 0.51 && progress <= 0.73;
-      setIsSeamShot((prev) => (prev !== shouldShowSeam ? shouldShowSeam : prev));
-
-      // Discrete trigger for Scene 4 Left & Right cards (pedestal shot: frame 178-240, progress 0.75 - 1.00)
-      const shouldShowPedestal = progress >= 0.75 && progress <= 1.0;
-      setIsPedestalShot((prev) => (prev !== shouldShowPedestal ? shouldShowPedestal : prev));
-
       const frameIndex = Math.min(
         Math.floor(progress * TOTAL_FRAMES),
         TOTAL_FRAMES - 1
       );
+
+      // Title & label: Fully visible during initial lotus embroidery (frames 0 to 18),
+      // smoothly fades out as camera pulls back (frames 18 to 30), and is completely hidden from frame 30 onwards.
+      if (titleRef.current) {
+        if (frameIndex < 18) {
+          titleRef.current.style.opacity = "1";
+          titleRef.current.style.transform = "translate3d(0, 0, 0)";
+          titleRef.current.style.visibility = "visible";
+        } else if (frameIndex < 30) {
+          const t = (frameIndex - 18) / 12;
+          const opacity = Math.max(0, 1 - t);
+          titleRef.current.style.opacity = String(opacity);
+          titleRef.current.style.transform = `translate3d(0, ${-t * 20}px, 0)`;
+          titleRef.current.style.visibility = opacity === 0 ? "hidden" : "visible";
+        } else {
+          titleRef.current.style.opacity = "0";
+          titleRef.current.style.transform = "translate3d(0, -20px, 0)";
+          titleRef.current.style.visibility = "hidden";
+        }
+      }
+
+      // Discrete trigger for Scene 2 Close-Up Cards: exactly from frame 30 to frame 57
+      const shouldShowCloseUp = frameIndex >= 30 && frameIndex <= 57;
+      setIsCloseUpShot((prev) => (prev !== shouldShowCloseUp ? shouldShowCloseUp : prev));
+
+      // Discrete trigger for Scene 3 Wide Seat Cards: frame 58 to frame 90 (hides after frame 90)
+      const shouldShowWide = frameIndex >= 58 && frameIndex <= 90;
+      setIsWideShot((prev) => (prev !== shouldShowWide ? shouldShowWide : prev));
+
+      // Discrete trigger for Scene 4 Practice Cards: frame 117 to frame 172
+      const shouldShowPractice = frameIndex >= 117 && frameIndex <= 172;
+      setIsPracticeShot((prev) => (prev !== shouldShowPractice ? shouldShowPractice : prev));
+
+      // Discrete trigger for Scene 5 Single Center Card: after frame 173 (frame 173 to 198)
+      const shouldShowBeginning = frameIndex >= 173 && frameIndex <= 198;
+      setIsBeginningShot((prev) => (prev !== shouldShowBeginning ? shouldShowBeginning : prev));
 
       if (frameIndex !== currentFrameRef.current) {
         currentFrameRef.current = frameIndex;
@@ -171,7 +194,7 @@ export default function RealThingSection() {
       ref={sectionRef}
       id="real-thing"
       data-header-theme="hidden"
-      className="relative"
+      className="relative scroll-mt-0"
       style={{ height: "500vh" }}
     >
       {/* Sticky inner — stays pinned while user scrolls */}
@@ -197,7 +220,73 @@ export default function RealThingSection() {
           </div>
         </div>
 
-        {/* Scene 2 Left Feature Card (Appears on wide seat shot) */}
+        {/* Scene 2 Left Feature Card (Appears on close-up embroidery shot, frame 30-57) */}
+        <div
+          className={`absolute left-3 sm:left-8 lg:left-14 top-14 sm:top-1/2 sm:-translate-y-1/2 z-20 select-none transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isCloseUpShot
+              ? "translate-x-0 pointer-events-auto"
+              : "-translate-x-[calc(100%+80px)] pointer-events-none"
+          }`}
+        >
+          <div className="relative w-[230px] min-[400px]:w-[260px] sm:w-[310px] md:w-[350px] lg:w-[380px] rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 transition-transform duration-500 hover:-translate-y-1">
+            {/* Always-Active Frosted Glass Background Layer - 0ms Blur Delay */}
+            <div
+              className="absolute inset-0 pointer-events-none rounded-2xl sm:rounded-3xl"
+              style={{
+                backdropFilter: "blur(32px) saturate(130%)",
+                WebkitBackdropFilter: "blur(32px) saturate(130%)",
+                transform: "translateZ(0)",
+                WebkitTransform: "translateZ(0)",
+                willChange: "transform, backdrop-filter",
+                background: "rgba(255, 255, 255, 0.14)",
+              }}
+            />
+
+            <div className="relative z-10">
+              <h3 className="font-display font-bold text-white text-[16px] min-[400px]:text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] tracking-[0.015em] leading-tight mb-1 sm:mb-2">
+                Made to be felt up close.
+              </h3>
+              <p className="font-sans text-[12px] min-[400px]:text-[12.5px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] leading-[1.5] sm:leading-[1.6] tracking-[0.01em] text-white/90 font-normal">
+                Carefully finished seams, tactile fabric and subtle embroidery bring softness and character to every detail.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Scene 2 Right Feature Card (Appears on close-up embroidery shot, frame 30-57) */}
+        <div
+          className={`absolute right-3 sm:right-8 lg:right-14 bottom-16 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 z-20 select-none transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isCloseUpShot
+              ? "translate-x-0 pointer-events-auto"
+              : "translate-x-[calc(100%+80px)] pointer-events-none"
+          }`}
+        >
+          <div className="relative w-[230px] min-[400px]:w-[260px] sm:w-[310px] md:w-[350px] lg:w-[380px] rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 transition-transform duration-500 hover:-translate-y-1">
+            {/* Always-Active Frosted Glass Background Layer - 0ms Blur Delay */}
+            <div
+              className="absolute inset-0 pointer-events-none rounded-2xl sm:rounded-3xl"
+              style={{
+                backdropFilter: "blur(32px) saturate(130%)",
+                WebkitBackdropFilter: "blur(32px) saturate(130%)",
+                transform: "translateZ(0)",
+                WebkitTransform: "translateZ(0)",
+                willChange: "transform, backdrop-filter",
+                background: "rgba(255, 255, 255, 0.14)",
+              }}
+            />
+
+            <div className="relative z-10">
+              <h3 className="font-display font-bold text-white text-[16px] min-[400px]:text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] tracking-[0.015em] leading-tight mb-1 sm:mb-2">
+                Removable. Washable. Replaceable.
+              </h3>
+              <p className="font-sans text-[12px] min-[400px]:text-[12.5px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] leading-[1.5] sm:leading-[1.6] tracking-[0.01em] text-white/90 font-normal">
+                A zippered cover made to come off easily — so it can be washed, refreshed or changed whenever needed.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Scene 3 Left Feature Card (Appears on wide seat shot, frame 58-90) */}
         <div
           className={`absolute left-3 sm:left-8 lg:left-14 top-14 sm:top-1/2 sm:-translate-y-1/2 z-20 select-none transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             isWideShot
@@ -220,20 +309,17 @@ export default function RealThingSection() {
             />
 
             <div className="relative z-10">
-              <span className="block font-sans text-[10.5px] sm:text-[11.5px] md:text-[12px] font-bold tracking-normal uppercase text-white/80 mb-1 sm:mb-1.5">
-                /CUSHION CORE
-              </span>
               <h3 className="font-display font-bold text-white text-[16px] min-[400px]:text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] tracking-[0.015em] leading-tight mb-1 sm:mb-2">
-                Ergonomic Latex Core
+                Responsive Natural Latex
               </h3>
               <p className="font-sans text-[12px] min-[400px]:text-[12.5px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] leading-[1.5] sm:leading-[1.6] tracking-[0.01em] text-white/90 font-normal">
-                Responsive botanical latex dissipates sit-bone pressure while maintaining upright pelvic balance.
+                Soft enough to relieve concentrated pressure, supportive enough to keep the body from sinking too deeply.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Scene 2 Right Feature Card (Appears on wide seat shot) */}
+        {/* Scene 3 Right Feature Card (Appears on wide seat shot, frame 58-90) */}
         <div
           className={`absolute right-3 sm:right-8 lg:right-14 bottom-16 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 z-20 select-none transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             isWideShot
@@ -256,28 +342,91 @@ export default function RealThingSection() {
             />
 
             <div className="relative z-10">
-              <span className="block font-sans text-[10.5px] sm:text-[11.5px] md:text-[12px] font-bold tracking-normal uppercase text-white/80 mb-1 sm:mb-1.5">
-                /FOUNDATION
-              </span>
               <h3 className="font-display font-bold text-white text-[16px] min-[400px]:text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] tracking-[0.015em] leading-tight mb-1 sm:mb-2">
-                8.5° Portuguese Cork Base
+                Inclined Cork Base
               </h3>
               <p className="font-sans text-[12px] min-[400px]:text-[12.5px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] leading-[1.5] sm:leading-[1.6] tracking-[0.01em] text-white/90 font-normal">
-                Calibrated forward tilt elevates hips above knees to align spine and relieve lumbar strain.
+                Gently elevates the pelvis, helping create a more balanced foundation for a naturally upright posture.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Scene 3 Center Feature Card (Appears on close-up seam shot, frame 120-175) */}
+        {/* Scene 4 Left Feature Card (Appears after frame 117, frame 117-172) */}
+        <div
+          className={`absolute left-3 sm:left-8 lg:left-14 top-14 sm:top-1/2 sm:-translate-y-1/2 z-20 select-none transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isPracticeShot
+              ? "translate-x-0 pointer-events-auto"
+              : "-translate-x-[calc(100%+80px)] pointer-events-none"
+          }`}
+        >
+          <div className="relative w-[230px] min-[400px]:w-[260px] sm:w-[310px] md:w-[350px] lg:w-[380px] rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 transition-transform duration-500 hover:-translate-y-1">
+            {/* Always-Active Frosted Glass Background Layer - 0ms Blur Delay */}
+            <div
+              className="absolute inset-0 pointer-events-none rounded-2xl sm:rounded-3xl"
+              style={{
+                backdropFilter: "blur(32px) saturate(130%)",
+                WebkitBackdropFilter: "blur(32px) saturate(130%)",
+                transform: "translateZ(0)",
+                WebkitTransform: "translateZ(0)",
+                willChange: "transform, backdrop-filter",
+                background: "rgba(255, 255, 255, 0.14)",
+              }}
+            />
+
+            <div className="relative z-10">
+              <h3 className="font-display font-bold text-white text-[16px] min-[400px]:text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] tracking-[0.015em] leading-tight mb-1 sm:mb-2">
+                Less distraction. More stillness.
+              </h3>
+              <p className="font-sans text-[12px] min-[400px]:text-[12.5px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] leading-[1.5] sm:leading-[1.6] tracking-[0.01em] text-white/90 font-normal">
+                Designed so the body can ask for less attention, leaving more of it for the practice.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Scene 4 Right Feature Card (Appears after frame 117, frame 117-172) */}
+        <div
+          className={`absolute right-3 sm:right-8 lg:right-14 bottom-16 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 z-20 select-none transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isPracticeShot
+              ? "translate-x-0 pointer-events-auto"
+              : "translate-x-[calc(100%+80px)] pointer-events-none"
+          }`}
+        >
+          <div className="relative w-[230px] min-[400px]:w-[260px] sm:w-[310px] md:w-[350px] lg:w-[380px] rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 transition-transform duration-500 hover:-translate-y-1">
+            {/* Always-Active Frosted Glass Background Layer - 0ms Blur Delay */}
+            <div
+              className="absolute inset-0 pointer-events-none rounded-2xl sm:rounded-3xl"
+              style={{
+                backdropFilter: "blur(32px) saturate(130%)",
+                WebkitBackdropFilter: "blur(32px) saturate(130%)",
+                transform: "translateZ(0)",
+                WebkitTransform: "translateZ(0)",
+                willChange: "transform, backdrop-filter",
+                background: "rgba(255, 255, 255, 0.14)",
+              }}
+            />
+
+            <div className="relative z-10">
+              <h3 className="font-display font-bold text-white text-[16px] min-[400px]:text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] tracking-[0.015em] leading-tight mb-1 sm:mb-2">
+                A place to return to.
+              </h3>
+              <p className="font-sans text-[12px] min-[400px]:text-[12.5px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] leading-[1.5] sm:leading-[1.6] tracking-[0.01em] text-white/90 font-normal">
+                Day after Day. Sit after sit. A familiar foundation for the practice that becomes your own.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Scene 5 Single Center Feature Card (Appears after frame 173, frame 173-198) */}
         <div
           className={`absolute left-1/2 top-1/2 -translate-x-1/2 z-20 select-none transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isSeamShot
+            isBeginningShot
               ? "-translate-y-1/2 pointer-events-auto"
               : "-translate-y-[calc(100vh+120px)] pointer-events-none"
           }`}
         >
-          <div className="relative w-[calc(100vw-36px)] max-w-[340px] sm:max-w-none sm:w-[460px] md:w-[540px] lg:w-[580px] rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-9 transition-transform duration-500 hover:-translate-y-1">
+          <div className="relative w-[calc(100vw-36px)] max-w-[340px] sm:max-w-none sm:w-[480px] md:w-[560px] lg:w-[600px] rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-9 transition-transform duration-500 hover:-translate-y-1">
             {/* Always-Active Frosted Glass Background Layer - 0ms Blur Delay */}
             <div
               className="absolute inset-0 pointer-events-none rounded-2xl sm:rounded-3xl"
@@ -292,86 +441,11 @@ export default function RealThingSection() {
             />
 
             <div className="relative z-10 text-center flex flex-col items-center">
-              <span className="block font-sans text-[11px] sm:text-[12px] md:text-[12.5px] font-bold tracking-normal uppercase text-white/80 mb-1.5 sm:mb-2">
-                /ARTISAN JOINERY
-              </span>
-              <h3 className="font-display font-bold text-white text-[18px] min-[400px]:text-[20px] sm:text-[24px] md:text-[28px] lg:text-[30px] tracking-[0.015em] leading-tight mb-1.5 sm:mb-3">
-                Precision Stitching & Dual-Textile Joinery
+              <h3 className="font-display font-bold text-white text-[18px] min-[400px]:text-[20px] sm:text-[24px] md:text-[28px] lg:text-[30px] tracking-[0.015em] leading-tight mb-2 sm:mb-3">
+                THE SEAT IS ONLY THE BEGINNING
               </h3>
-              <p className="font-sans text-[12.5px] min-[400px]:text-[13.5px] sm:text-[14.5px] md:text-[15.5px] lg:text-[16px] leading-[1.5] sm:leading-[1.6] tracking-[0.01em] text-white/90 font-normal max-w-[460px]">
-                Hand-tailored seam integrating breathable raw organic linen with supple micro-velvet upholstery for enduring, friction-free tactile comfort.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Scene 4 Left Feature Card (Appears on pedestal architectural shot, frame 178-240) */}
-        <div
-          className={`absolute left-3 sm:left-8 lg:left-14 top-14 sm:top-1/2 sm:-translate-y-1/2 z-20 select-none transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isPedestalShot
-              ? "translate-x-0 pointer-events-auto"
-              : "-translate-x-[calc(100%+80px)] pointer-events-none"
-          }`}
-        >
-          <div className="relative w-[230px] min-[400px]:w-[260px] sm:w-[310px] md:w-[350px] lg:w-[380px] rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 transition-transform duration-500 hover:-translate-y-1">
-            {/* Always-Active Frosted Glass Background Layer - 0ms Blur Delay */}
-            <div
-              className="absolute inset-0 pointer-events-none rounded-2xl sm:rounded-3xl"
-              style={{
-                backdropFilter: "blur(32px) saturate(130%)",
-                WebkitBackdropFilter: "blur(32px) saturate(130%)",
-                transform: "translateZ(0)",
-                WebkitTransform: "translateZ(0)",
-                willChange: "transform, backdrop-filter",
-                background: "rgba(255, 255, 255, 0.14)",
-              }}
-            />
-
-            <div className="relative z-10">
-              <span className="block font-sans text-[10.5px] sm:text-[11.5px] md:text-[12px] font-bold tracking-normal uppercase text-white/80 mb-1 sm:mb-1.5">
-                /SUSTAINABLE MATERIALS
-              </span>
-              <h3 className="font-display font-bold text-white text-[16px] min-[400px]:text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] tracking-[0.015em] leading-tight mb-1 sm:mb-2">
-                100% Biodegradable & FSC-Certified
-              </h3>
-              <p className="font-sans text-[12px] min-[400px]:text-[12.5px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] leading-[1.5] sm:leading-[1.6] tracking-[0.01em] text-white/90 font-normal">
-                Harvested from renewable Mediterranean cork and natural rubber tree sap with zero synthetic foams.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Scene 4 Right Feature Card (Appears on pedestal architectural shot, frame 178-240) */}
-        <div
-          className={`absolute right-3 sm:right-8 lg:right-14 bottom-16 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 z-20 select-none transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isPedestalShot
-              ? "translate-x-0 pointer-events-auto"
-              : "translate-x-[calc(100%+80px)] pointer-events-none"
-          }`}
-        >
-          <div className="relative w-[230px] min-[400px]:w-[260px] sm:w-[310px] md:w-[350px] lg:w-[380px] rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 transition-transform duration-500 hover:-translate-y-1">
-            {/* Always-Active Frosted Glass Background Layer - 0ms Blur Delay */}
-            <div
-              className="absolute inset-0 pointer-events-none rounded-2xl sm:rounded-3xl"
-              style={{
-                backdropFilter: "blur(32px) saturate(130%)",
-                WebkitBackdropFilter: "blur(32px) saturate(130%)",
-                transform: "translateZ(0)",
-                WebkitTransform: "translateZ(0)",
-                willChange: "transform, backdrop-filter",
-                background: "rgba(255, 255, 255, 0.14)",
-              }}
-            />
-
-            <div className="relative z-10">
-              <span className="block font-sans text-[10.5px] sm:text-[11.5px] md:text-[12px] font-bold tracking-normal uppercase text-white/80 mb-1 sm:mb-1.5">
-                /TIMELESS SANCTUARY
-              </span>
-              <h3 className="font-display font-bold text-white text-[16px] min-[400px]:text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] tracking-[0.015em] leading-tight mb-1 sm:mb-2">
-                Mindful Living Sanctuary
-              </h3>
-              <p className="font-sans text-[12px] min-[400px]:text-[12.5px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] leading-[1.5] sm:leading-[1.6] tracking-[0.01em] text-white/90 font-normal">
-                Architectural silhouette crafted to elevate your daily meditation ritual and blend harmoniously into any living space.
+              <p className="font-sans text-[13px] min-[400px]:text-[14px] sm:text-[15px] md:text-[16px] lg:text-[16.5px] leading-[1.5] sm:leading-[1.6] tracking-[0.01em] text-white/90 font-normal max-w-[480px]">
+                Comfort can support the body. Stillness comes from the practice.
               </p>
             </div>
           </div>

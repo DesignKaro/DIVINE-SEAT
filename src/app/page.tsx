@@ -35,10 +35,10 @@ const homeSchemas = {
       },
       offers: {
         "@type": "AggregateOffer",
-        priceCurrency: "USD",
-        lowPrice: "249",
-        highPrice: "349",
-        offerCount: "3",
+        priceCurrency: "EUR",
+        lowPrice: "149",
+        highPrice: "199",
+        offerCount: "2",
         availability: "https://schema.org/InStock",
         itemCondition: "https://schema.org/NewCondition",
         seller: {
@@ -112,9 +112,9 @@ export default function Home() {
       <SolutionSection />
       <RealThingSection />
       <PricingSection />
-      <BiomechanicalBenefitsSection />
-      <BiomechanicalChainSection />
+      {/* <BiomechanicalBenefitsSection /> - Hidden */}
       <AncientWisdomSection />
+      <BiomechanicalChainSection />
       <ComparisonSection />
       <TheAnswerSection />
       <Footer />
