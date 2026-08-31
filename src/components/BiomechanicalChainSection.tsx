@@ -114,7 +114,7 @@ export default function BiomechanicalChainSection() {
       onMouseLeave={() => setIsPaused(false)}
       className="relative w-full text-[#402E1D] py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden scroll-mt-16 sm:scroll-mt-24"
     >
-      {/* Full-cover Background Image */}
+      {/* Full-cover Background Image (Laterally Inverted) */}
       <Image
         src="/images/about-bg.avif"
         alt="Materials section background"
@@ -122,7 +122,7 @@ export default function BiomechanicalChainSection() {
         priority={false}
         unoptimized
         sizes="100vw"
-        className="object-cover object-center"
+        className="object-cover object-center scale-x-[-1]"
       />
 
       {/* Warm overlay for legibility with section color */}

@@ -13,7 +13,7 @@ export default function AncientWisdomSection() {
       data-header-theme="light"
       className="relative w-full text-[#402E1D] py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden scroll-mt-16 sm:scroll-mt-24"
     >
-      {/* Full-cover Background Image (Laterally Inverted) */}
+      {/* Full-cover Background Image (Normal Orientation) */}
       <Image
         src="/images/about-bg.avif"
         alt="Ancient wisdom section background"
@@ -21,7 +21,7 @@ export default function AncientWisdomSection() {
         priority={false}
         unoptimized
         sizes="100vw"
-        className="object-cover object-center scale-x-[-1]"
+        className="object-cover object-center"
       />
 
       {/* Warm overlay for legibility with section color */}
