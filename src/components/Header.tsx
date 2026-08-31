@@ -253,7 +253,7 @@ export default function Header() {
                     { label: "3D Experience", href: "/#real-thing" },
                     { label: "Choose Your Seat", href: "/#pricing" },
                     { label: "Materials", href: "/#materials" },
-                    { label: "Meditation & Posture", href: "/#ancient-wisdom" },
+                    { label: "Wisdom of Sitting", href: "/#ancient-wisdom" },
                     { label: "The Difference", href: "/#comparison" },
                     { label: "FAQ", href: "/#faq" },
                     { label: "Contact Us", href: "/contact" },
@@ -627,49 +627,57 @@ export default function Header() {
           </AnimatePresence>
           </div>
 
-          {/* Buy Now Action Button with Matching Fused Dumbbell Silhouette */}
+          {/* Wisdom of Sitting Action Button with Matching Fused Dumbbell Silhouette */}
           <Link
-            href="/#pricing"
+            href="/#ancient-wisdom"
+            onClick={(e) => {
+              const target = document.getElementById("ancient-wisdom");
+              if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: "smooth" });
+                window.history.pushState(null, "", "/#ancient-wisdom");
+              }
+            }}
             className="group relative hidden sm:inline-flex items-center select-none transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] cursor-pointer"
-            aria-label="Buy Now"
+            aria-label="Wisdom of Sitting"
           >
             <svg
-              className="w-[108px] sm:w-[136px] h-[34px] sm:h-[38px] transition-all duration-300"
-              viewBox="0 0 136 38"
+              className="w-[145px] sm:w-[192px] h-[34px] sm:h-[38px] transition-all duration-300"
+              viewBox="0 0 192 38"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <defs>
-                <clipPath id="clip-btn-buy">
-                  <path d="M 19 0 L 85 0 C 90.5 0 94.5 5.5 98.5 5.5 C 102.5 5.5 106.5 0 117 0 A 19 19 0 1 1 117 38 C 106.5 38 102.5 32.5 98.5 32.5 C 94.5 32.5 90.5 38 85 38 L 19 38 A 19 19 0 0 1 19 0 Z" />
+                <clipPath id="clip-btn-wisdom">
+                  <path d="M 19 0 L 141 0 C 146.5 0 150.5 5.5 154.5 5.5 C 158.5 5.5 162.5 0 173 0 A 19 19 0 1 1 173 38 C 162.5 38 158.5 32.5 154.5 32.5 C 150.5 32.5 146.5 38 141 38 L 19 38 A 19 19 0 0 1 19 0 Z" />
                 </clipPath>
 
-                <linearGradient id="btn-glass-fill-buy" x1="0" y1="0" x2="136" y2="38" gradientUnits="userSpaceOnUse">
+                <linearGradient id="btn-glass-fill-wisdom" x1="0" y1="0" x2="192" y2="38" gradientUnits="userSpaceOnUse">
                   <stop offset="0%" stopColor="rgba(255, 255, 255, 0.16)" />
                   <stop offset="50%" stopColor="rgba(255, 255, 255, 0.08)" />
                   <stop offset="100%" stopColor="rgba(255, 255, 255, 0.04)" />
                 </linearGradient>
-                <linearGradient id="btn-glass-border-buy" x1="0" y1="0" x2="136" y2="38" gradientUnits="userSpaceOnUse">
+                <linearGradient id="btn-glass-border-wisdom" x1="0" y1="0" x2="192" y2="38" gradientUnits="userSpaceOnUse">
                   <stop offset="0%" stopColor="rgba(255, 255, 255, 0.85)" />
                   <stop offset="35%" stopColor="rgba(255, 255, 255, 0.45)" />
                   <stop offset="70%" stopColor="rgba(216, 204, 189, 0.35)" />
                   <stop offset="100%" stopColor="rgba(255, 255, 255, 0.75)" />
                 </linearGradient>
 
-                <linearGradient id="btn-dark-fill-buy" x1="0" y1="0" x2="136" y2="38" gradientUnits="userSpaceOnUse">
+                <linearGradient id="btn-dark-fill-wisdom" x1="0" y1="0" x2="192" y2="38" gradientUnits="userSpaceOnUse">
                   <stop offset="0%" stopColor="#876540" />
                   <stop offset="50%" stopColor="#967355" />
                   <stop offset="100%" stopColor="#876540" />
                 </linearGradient>
-                <linearGradient id="btn-dark-border-buy" x1="0" y1="0" x2="136" y2="38" gradientUnits="userSpaceOnUse">
+                <linearGradient id="btn-dark-border-wisdom" x1="0" y1="0" x2="192" y2="38" gradientUnits="userSpaceOnUse">
                   <stop offset="0%" stopColor="rgba(255, 255, 255, 0.25)" />
                   <stop offset="50%" stopColor="rgba(216, 204, 189, 0.4)" />
                   <stop offset="100%" stopColor="rgba(255, 255, 255, 0.2)" />
                 </linearGradient>
               </defs>
 
-              <g clipPath="url(#clip-btn-buy)">
-                <foreignObject x="0" y="0" width="136" height="38" className="w-full h-full">
+              <g clipPath="url(#clip-btn-wisdom)">
+                <foreignObject x="0" y="0" width="192" height="38" className="w-full h-full">
                   <div
                     style={{
                       width: "100%",
@@ -682,18 +690,18 @@ export default function Header() {
               </g>
 
               <path
-                d="M 19 0 L 85 0 C 90.5 0 94.5 5.5 98.5 5.5 C 102.5 5.5 106.5 0 117 0 A 19 19 0 1 1 117 38 C 106.5 38 102.5 32.5 98.5 32.5 C 94.5 32.5 90.5 38 85 38 L 19 38 A 19 19 0 0 1 19 0 Z"
-                fill={isDarkTheme ? "url(#btn-glass-fill-buy)" : "url(#btn-dark-fill-buy)"}
-                stroke={isDarkTheme ? "url(#btn-glass-border-buy)" : "url(#btn-dark-border-buy)"}
+                d="M 19 0 L 141 0 C 146.5 0 150.5 5.5 154.5 5.5 C 158.5 5.5 162.5 0 173 0 A 19 19 0 1 1 173 38 C 162.5 38 158.5 32.5 154.5 32.5 C 150.5 32.5 146.5 38 141 38 L 19 38 A 19 19 0 0 1 19 0 Z"
+                fill={isDarkTheme ? "url(#btn-glass-fill-wisdom)" : "url(#btn-dark-fill-wisdom)"}
+                stroke={isDarkTheme ? "url(#btn-glass-border-wisdom)" : "url(#btn-dark-border-wisdom)"}
                 strokeWidth="1.2"
                 className="transition-all duration-300"
               />
             </svg>
 
             {/* Text */}
-            <div className="absolute left-0 top-0 bottom-0 w-[76px] sm:w-[98px] flex items-center justify-center pointer-events-none">
-              <span className="font-sans text-[11.5px] sm:text-[13px] font-bold text-white transition-colors duration-300">
-                Buy Now
+            <div className="absolute left-0 top-0 bottom-0 w-[112px] sm:w-[154px] flex items-center justify-center pointer-events-none px-2">
+              <span className="font-sans text-[10.5px] sm:text-[12px] font-bold uppercase tracking-[0.06em] text-white transition-colors duration-300 whitespace-nowrap">
+                WISDOM OF SITTING
               </span>
             </div>
 
