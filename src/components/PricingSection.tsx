@@ -122,7 +122,7 @@ export default function PricingSection() {
             transition={{ duration: 0.5 }}
             className="flex items-center justify-center gap-2 mb-3"
           >
-            <span className="font-sans text-[13.5px] sm:text-[15px] font-extrabold tracking-[0.12em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
+            <span className="font-sans text-[13.5px] sm:text-[15px] font-extrabold tracking-[0.03em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
               CHOOSE YOUR SEAT
             </span>
           </motion.div>
