@@ -374,7 +374,7 @@ export default function Header() {
             {/* Golden 3D Lotus Logo Icon */}
             <div className="relative w-16 h-5 sm:w-22 sm:h-7 md:w-28 md:h-10 flex items-center justify-center">
               <Image
-                src="/logo.png"
+                src="/logo.avif"
                 alt="Divine Lotus Logo"
                 fill
                 priority
@@ -384,8 +384,8 @@ export default function Header() {
                 className="object-contain"
                 onError={(e) => {
                   const target = e.currentTarget as HTMLImageElement;
-                  if (!target.src.includes("lotus_logo.jpeg")) {
-                    target.src = "/lotus_logo.jpeg";
+                  if (!target.src.includes("lotus_logo.avif")) {
+                    target.src = "/lotus_logo.avif";
                   }
                 }}
               />

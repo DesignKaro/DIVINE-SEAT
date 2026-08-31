@@ -83,7 +83,7 @@ export default function AncientWisdomSection() {
             className="lg:col-span-6 relative w-full aspect-[3/2] max-w-[580px] mx-auto group flex items-center justify-center"
           >
             <Image
-              src="/images/asana_steadiness_ease.png"
+              src="/images/asana_steadiness_ease.avif"
               alt="Siddhasana and Padmasana Classical Yogic Meditation Postures"
               fill
               unoptimized
@@ -245,7 +245,7 @@ export default function AncientWisdomSection() {
               className="lg:col-span-6 relative w-full aspect-[1300/1209] max-w-[540px] mx-auto group order-1 lg:order-2 flex items-center justify-center"
             >
               <Image
-                src="/images/subtle_anatomy_nadi_v2.png"
+                src="/images/subtle_anatomy_nadi_v2.avif"
                 alt="Posture, Breath and Subtle Energy Nadi Flow in Meditation"
                 fill
                 unoptimized
@@ -273,7 +273,7 @@ export default function AncientWisdomSection() {
               className="lg:col-span-6 relative w-full aspect-[3/2] max-w-[560px] mx-auto group flex items-center justify-center"
             >
               <Image
-                src="/images/ancient_wisdom_modern_comfort.png"
+                src="/images/ancient_wisdom_modern_comfort.avif"
                 alt="The Lotus Seat — Ancient Wisdom and Modern Ergonomic Support"
                 fill
                 unoptimized

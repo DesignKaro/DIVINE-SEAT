@@ -466,7 +466,7 @@ export default function RealThingSection() {
           >
             <div className="relative w-8 h-4 min-[400px]:w-9 min-[400px]:h-5 sm:w-12 sm:h-6 md:w-15 md:h-7 lg:w-16 lg:h-8 flex items-center justify-center">
               <Image
-                src="/logo.png"
+                src="/logo.avif"
                 alt="Divine Lotus Logo"
                 fill
                 priority
@@ -476,8 +476,8 @@ export default function RealThingSection() {
                 className="object-contain"
                 onError={(e) => {
                   const target = e.currentTarget as HTMLImageElement;
-                  if (!target.src.includes("lotus_logo.jpeg")) {
-                    target.src = "/lotus_logo.jpeg";
+                  if (!target.src.includes("lotus_logo.avif")) {
+                    target.src = "/lotus_logo.avif";
                   }
                 }}
               />

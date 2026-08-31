@@ -303,7 +303,7 @@ export default function SolutionSection() {
           {/* 1. Photorealistic Leather Book Background (Spine + Outer Stitching + Parchment Stack) */}
           <div className="absolute inset-0 pointer-events-none select-none z-0">
             <Image
-              src="/images/leather_book_cover.png"
+              src="/images/leather_book_cover.avif"
               alt="Handcrafted Leather Journal"
               fill
               priority

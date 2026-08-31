@@ -596,7 +596,7 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                       <div className="shrink-0 flex items-center justify-center self-center">
                         <div className="w-[140px] sm:w-[160px] h-[95px] sm:h-[110px] rounded-2xl overflow-hidden relative shadow-xs">
                           <img
-                            src="/images/materials/custom-embroidery-cushion.png"
+                            src="/images/materials/custom-embroidery-cushion.avif"
                             alt="Cushion embroidery detail"
                             className="w-full h-full object-cover rounded-2xl"
                           />

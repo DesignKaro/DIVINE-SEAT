@@ -33,7 +33,7 @@ const pricingTiers: PricingTier[] = [
     discountBadge: "30% OFF",
     price: "€149",
     priceSuffix: "+ shipping + applicable taxes",
-    image: "/images/ancient_wisdom_modern_comfort.png",
+    image: "/images/ancient_wisdom_modern_comfort.avif",
     features: [
       "Ergonomic meditation seat",
       "Natural latex cushioning",
@@ -225,7 +225,7 @@ export default function PricingSection() {
                         {/* Divine Lotus Brand Icon above the title with grand prominent size & complete opacity */}
                         <div className="relative w-32 h-16 sm:w-36 sm:h-18 lg:w-[160px] lg:h-[80px] mb-4 sm:mb-5">
                           <Image
-                            src="/logo.png"
+                            src="/logo.avif"
                             alt="Divine Lotus Icon"
                             fill
                             sizes="(max-width: 640px) 128px, (max-width: 1024px) 144px, 160px"
