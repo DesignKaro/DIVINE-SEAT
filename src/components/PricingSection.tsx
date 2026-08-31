@@ -107,8 +107,8 @@ export default function PricingSection() {
         <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
       </div>
 
-      {/* Background Sacred Mandala Motif (Half Bleed from Top Center) */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] sm:w-[620px] md:w-[760px] lg:w-[860px] aspect-square pointer-events-none select-none z-0 opacity-[0.11] mix-blend-multiply">
+      {/* Background Sacred Mandala Motif (Centered in Header Area, Preserving Full Geometry) */}
+      <div className="absolute top-4 sm:top-8 left-1/2 -translate-x-1/2 w-[440px] sm:w-[560px] md:w-[680px] lg:w-[760px] aspect-square pointer-events-none select-none z-0 opacity-[0.11] mix-blend-multiply">
         <Image
           src="/images/about.avif"
           alt="Sacred Mandala Top Center Motif"

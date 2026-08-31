@@ -71,6 +71,11 @@ export default function AboutFoundationSection() {
         <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
       </div>
 
+      {/* Boundary Connecting Mandala Motif (Completes with Problems section top-left) */}
+      <div className="absolute left-0 bottom-0 -translate-x-1/3 translate-y-1/2 w-[280px] sm:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">
+        <Image src="/images/about.avif" alt="" fill unoptimized sizes="440px" className="object-contain" />
+      </div>
+
       {/* Main Content Grid Container */}
       <div className="relative z-10 w-full max-w-[1360px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">

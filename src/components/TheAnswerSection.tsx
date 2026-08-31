@@ -234,9 +234,9 @@ export default function TheAnswerSection() {
         <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
       </div>
 
-      {/* Background Sacred Mandala Motifs (Compact Corner Motifs) */}
+      {/* Background Sacred Mandala Motifs (Preserving Full Circular Geometry) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute left-0 top-0 -translate-x-1/3 -translate-y-1/3 w-[260px] sm:w-[320px] md:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none opacity-[0.20] mix-blend-multiply">
+        <div className="absolute left-0 top-6 sm:top-10 -translate-x-1/3 w-[260px] sm:w-[320px] md:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none opacity-[0.20] mix-blend-multiply">
           <Image
             src="/images/about.avif"
             alt="Sacred Mandala Motif (Top Left)"
@@ -247,7 +247,7 @@ export default function TheAnswerSection() {
           />
         </div>
 
-        <div className="absolute right-0 bottom-0 translate-x-1/3 translate-y-1/3 w-[260px] sm:w-[320px] md:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none opacity-[0.20] mix-blend-multiply">
+        <div className="absolute right-0 bottom-6 sm:bottom-10 translate-x-1/3 w-[260px] sm:w-[320px] md:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none opacity-[0.20] mix-blend-multiply">
           <Image
             src="/images/about.avif"
             alt="Sacred Mandala Motif (Bottom Right)"

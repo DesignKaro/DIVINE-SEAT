@@ -261,6 +261,11 @@ export default function SolutionSection() {
         <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
       </div>
 
+      {/* Boundary Connecting Mandala Motif (Completes with Problems section bottom-right) */}
+      <div className="absolute right-0 top-0 translate-x-1/3 -translate-y-1/2 w-[280px] sm:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">
+        <Image src="/images/about.avif" alt="" fill unoptimized sizes="440px" className="object-contain" />
+      </div>
+
       {/* Section Container */}
       <div className="relative z-10 w-full max-w-[1360px] mx-auto flex flex-col items-center">
         
