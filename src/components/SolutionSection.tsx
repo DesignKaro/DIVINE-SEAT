@@ -261,8 +261,8 @@ export default function SolutionSection() {
           <div className="max-w-[640px]">
             {/* Eyebrow Label */}
             <AnimatedReveal delay={0.02} y={12} className="flex items-center gap-2 mb-2 sm:mb-3">
-              <span className="font-sans text-[11.5px] sm:text-[12.5px] font-bold tracking-[0.16em] uppercase text-[#876540]">
-                /THE SOLUTION
+              <span className="font-sans text-[13.5px] sm:text-[15px] font-extrabold tracking-[0.12em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
+                THE SOLUTION
               </span>
             </AnimatedReveal>
 

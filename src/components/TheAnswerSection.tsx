@@ -263,8 +263,8 @@ export default function TheAnswerSection() {
           <div>
             {/* Eyebrow */}
             <motion.div variants={headerVariants} className="flex items-center gap-2 mb-3 sm:mb-4">
-              <span className="font-sans text-[11.5px] sm:text-[12.5px] font-bold tracking-normal uppercase text-[#876540]">
-                /FAQS
+              <span className="font-sans text-[13.5px] sm:text-[15px] font-extrabold tracking-[0.12em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
+                FAQS
               </span>
             </motion.div>
 
