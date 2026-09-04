@@ -80,10 +80,16 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
+        url: "/images/ancient_wisdom_modern_comfort.avif",
+        width: 1536,
+        height: 1024,
+        alt: "The Lotus Seat  - Ancient Wisdom × Modern Comfort",
+      },
+      {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "The Lotus Seat  - Architectural Ergonomic Meditation Seat",
+        alt: "The Lotus Seat  - Ancient Wisdom × Modern Comfort",
       },
       {
         url: "/og-seat.png",
@@ -98,7 +104,7 @@ export const metadata: Metadata = {
     title: "Divine Lotus  - Architectural Ergonomic Meditation Seat",
     description:
       "Where ancient wisdom meets modern comfort. Handcrafted Portuguese cork foundation and botanical latex cushion for effortless spinal alignment.",
-    images: ["/og-image.png"],
+    images: ["/og-image.png", "/images/ancient_wisdom_modern_comfort.avif"],
     creator: "@divinelotus",
   },
   robots: {
@@ -132,7 +138,7 @@ const organizationSchema = {
         url: `${siteUrl}/lotus-favicon.png`,
         caption: "Divine Lotus Emblem",
       },
-      image: `${siteUrl}/og-image.png`,
+      image: `${siteUrl}/images/ancient_wisdom_modern_comfort.avif`,
       sameAs: [
         "https://www.instagram.com/divinelotus",
         "https://www.youtube.com/@divinelotus",
