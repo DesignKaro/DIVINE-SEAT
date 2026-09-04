@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Manrope, Cormorant_Garamond } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import CookieBanner from "@/components/CookieBanner";
@@ -202,6 +203,23 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${manrope.variable} ${cormorant.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
+        {/* Google tag (gtag.js) */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-ZSSGEY2MH8"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-ZSSGEY2MH8');
+            `,
+          }}
+        />
         <link rel="preload" href="/fonts/Glacier.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/hero_bg_poster.avif" as="image" type="image/avif" fetchPriority="high" />
         <link rel="icon" href="/favicon-48.png" type="image/png" />

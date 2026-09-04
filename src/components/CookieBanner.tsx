@@ -32,6 +32,12 @@ export default function CookieBanner() {
       if (saved) {
         const parsed = JSON.parse(saved);
         setPreferences(parsed);
+        if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+          (window as any).gtag("consent", "update", {
+            analytics_storage: parsed.analytics ? "granted" : "denied",
+            ad_storage: parsed.advertising ? "granted" : "denied",
+          });
+        }
       } else {
         // First visit: show simple banner after slight delay
         const timer = setTimeout(() => {
@@ -97,6 +103,12 @@ export default function CookieBanner() {
       });
     } catch {
       // Ignore localStorage errors in private modes
+    }
+    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+      (window as any).gtag("consent", "update", {
+        analytics_storage: prefs.analytics ? "granted" : "denied",
+        ad_storage: prefs.advertising ? "granted" : "denied",
+      });
     }
     setPreferences(prefs);
     setShowBanner(false);
