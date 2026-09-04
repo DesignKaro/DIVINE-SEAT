@@ -1,68 +1,61 @@
 # Divine Lotus — The Lotus Seat
 
-> Where ancient wisdom meets modern comfort. The Lotus Seat is an architectural ergonomic meditation foundation crafted with a sustainable Portuguese cork base, botanical latex cushioning, and removable velvet upholstery for effortless spinal alignment and pain-free meditation sitting.
+> Where ancient wisdom meets modern comfort. The Lotus Seat is an architectural ergonomic meditation foundation crafted with a sustainable Portuguese cork base, botanical latex cushioning, and removable velvet upholstery for effortless spinal alignment and pain-free sitting.
 
-## Website & Canonical Identity
-- **Website**: https://thedivinelotus.org
-- **Product Name**: The Lotus Seat
-- **Brand**: Divine Lotus Sanctuary
-- **Category**: Architectural Meditation Furniture / Ergonomic Meditation Seat
+## Core Pages
 
----
+- [Homepage](https://thedivinelotus.org/): Complete overview of The Lotus Seat, biomechanical chain, 3D interactive seat builder, sustainable materials, and pricing tiers.
+- [Contact & Support](https://thedivinelotus.org/contact): Direct assistance, customer service, bespoke design inquiries, and order support.
+- [Shipping Policy](https://thedivinelotus.org/shipping-policy): Delivery timelines, packaging standards, tracking, and international freight details.
+- [Warranty Policy](https://thedivinelotus.org/warranty-policy): Comprehensive 5-year structural warranty and material craft guarantee.
+- [Refund & Return Policy](https://thedivinelotus.org/refund-policy): 30-day mindful meditation trial, exchange procedures, and return guidelines.
+- [Terms of Service](https://thedivinelotus.org/terms): Purchase terms, conditions of use, and intellectual property notice.
+- [Privacy Policy](https://thedivinelotus.org/privacy-policy): Practitioner privacy protections, cookie preferences, and GDPR/CCPA compliance.
+- [Cookie Policy](https://thedivinelotus.org/cookie-policy): Cookie classification, analytical tracking policies, and consent controls.
+- [Medical & Wellness Disclaimer](https://thedivinelotus.org/disclaimer): Ergonomic sitting guidance, wellness usage, and medical considerations.
+- [XML Sitemap](https://thedivinelotus.org/sitemap.xml): Machine-readable XML index of all public canonical pages.
+
+## Product Identity
+
+- [The Lotus Seat](https://thedivinelotus.org/#customizer): Premium architectural meditation seat engineered for prolonged ease.
+- [Divine Lotus Sanctuary](https://thedivinelotus.org/): Brand and mindful design laboratory dedicated to biomechanically grounded meditation tools.
 
 ## The Philosophy: Ancient Wisdom × Modern Support
-For centuries, the way we sit has been an integral part of mindfulness and yogic practice:
-- **Asana: Steadiness & Ease**: Inspired by Yoga Sutra 2.46 (*"Sthira sukham asanam"*), meditation requires a seat that offers both unwavering stability and deep comfort.
-- **Subtle Anatomy & Prana**: Upright, relaxed posture facilitates natural breath flow through the principal energy channels (*Ida and Pingala nadis*) and the central channel (*Sushumna*).
-- **The Seat is Only the Beginning**: The physical seat supports the body so that attention can turn entirely inward without physical distraction or muscular strain.
 
----
+For centuries, how we sit has been central to contemplative practice:
+- **Asana (Steadiness & Ease)**: Inspired by Yoga Sutra 2.46 (*"Sthira sukham asanam"*), meditation requires a foundation providing unshakable stability alongside effortless ease.
+- **Subtle Anatomy & Prana**: An aligned, upright spine supports open breath channels (*Ida, Pingala, and Sushumna nadis*) without chest constriction.
+- **Support Allows Stillness**: Physical ease releases cognitive tension so awareness can settle inward without bodily distraction.
 
 ## Ergonomic Architecture & Engineering
-Traditional cushions (zafus) or hard floors compress the pelvis, round the lumbar spine, and cause numbness in the legs. The Lotus Seat solves this through precision anatomical engineering:
-1. **12° Forward Pelvic Incline**: Automatically tilts the sacrum forward to restore natural lumbar lordosis, stacking vertebrae vertically with zero effort.
-2. **Ischial Tuberosity Troughs**: Bilateral contoured depressions distribute body weight evenly across sit bones, eliminating pressure spikes.
-3. **Perineal & Coccyx Relief Channel**: Central recessed groove relieves pressure on delicate soft tissues, pelvic floor nerves, and tailbone.
-4. **Sub-Ankle Clearance**: Gentle elevation relieves ankle bone compression on hard floors, promoting sustained circulation during extended sessions.
 
----
+Traditional meditation cushions compress the pelvis and cause lower-back slump. The Lotus Seat solves this through targeted anatomical engineering:
+1. **12° Forward Pelvic Incline**: Restores natural lumbar lordosis, stacking vertebrae vertically with zero muscular exertion.
+2. **Ischial Tuberosity Troughs**: Bilateral depressions distribute weight evenly across sit bones, removing focal pressure spikes.
+3. **Perineal & Coccyx Relief Channel**: Recessed groove relieves pressure on delicate soft tissues, pelvic floor nerves, and the tailbone.
+4. **Sub-Ankle Clearance**: Gentle elevation prevents ankle and foot compression on hard floors, maintaining healthy circulation.
 
 ## Sustainable, Non-Toxic Materials
-- **Foundation**: Handcrafted, high-density 100% renewable Portuguese cork. Naturally antimicrobial, hypoallergenic, durable, and provides grounding stability without slipping.
-- **Cushion Core**: 100% natural botanical latex. Dual-density responsive cushioning that never sags, bunches, or flattens over years of daily practice.
-- **Upholstery**: Removable, machine-washable plush velvet cover featuring the signature golden embroidered Divine Lotus emblem.
-- **Non-Toxic & Chemical-Free**: Free from polyurethane foams, petrochemical off-gassing, flame retardants, or toxic glues.
 
----
+- **Foundation**: Handcrafted high-density 100% renewable Portuguese cork. Naturally antimicrobial, hypoallergenic, sound-dampening, and slip-resistant.
+- **Cushion Core**: 100% natural botanical latex. Dual-density responsive resilience that never compacts or sags.
+- **Upholstery**: Removable, machine-washable plush velvet cover with gold embroidered lotus motif.
+- **Zero Toxins**: Free from polyurethane foams, petrochemical off-gassing, flame retardants, or harmful adhesives.
 
 ## Technical Specifications
+
 - **Dimensions**: 450 mm (width) × 330 mm (depth) × 165 mm (peak rear elevation)
 - **Weight**: Approx. 2.8 kg (stable floor anchor yet portable)
 - **Weight Capacity**: Tested to support practitioners up to 160 kg (350 lbs)
 - **Supported Postures**: Burmese cross-legged, Siddhasana, Ardha Padmasana (half-lotus), Padmasana (full lotus), kneeling seiza, and open gentle cross-legged posture.
 
----
-
 ## Color Collections & Bespoke Customization
-The Lotus Seat is available in pre-built organic dual-tone harmonies and custom bespoke variations:
-1. **Slate Mist** (`#767D85` base with `#ECE7DE` upper cream)
-2. **Terracotta Rose** (`#B56764` base with `#ECE7DE` upper cream)
-3. **Ochre Gold** (`#CBB18D` base with `#ECE7DE` upper cream)
-4. **Warm Taupe** (`#B28C73` base with `#ECE7DE` upper cream)
-5. **Sapphire** (`#72B0AB` base with `#ECE7DE` upper cream)
-6. **Pistachio** (`#B89D47` base with `#ECE7DE` upper cream)
-- **Bespoke Customizer**: Allows practitioners to select custom hex colors for the upper cushion and foundation base, or upload custom interior fabric photos to generate bespoke matched editions.
 
----
-
-## Essential Links & Legal Pages
-- **Homepage**: https://thedivinelotus.org
-- **Contact & Support**: https://thedivinelotus.org/contact
-- **Shipping Policy**: https://thedivinelotus.org/shipping-policy
-- **Warranty Policy**: https://thedivinelotus.org/warranty-policy
-- **Refund & Return Policy**: https://thedivinelotus.org/refund-policy
-- **Terms of Service**: https://thedivinelotus.org/terms
-- **Privacy Policy**: https://thedivinelotus.org/privacy-policy
-- **Cookie Policy**: https://thedivinelotus.org/cookie-policy
-- **Medical & Wellness Disclaimer**: https://thedivinelotus.org/disclaimer
-- **XML Sitemap**: https://thedivinelotus.org/sitemap.xml
+Available in pre-curated natural earth palettes and bespoke combinations:
+- [Slate Mist](https://thedivinelotus.org/#customizer): Charcoal Slate base (`#767D85`) with Warm Cream upper.
+- [Terracotta Rose](https://thedivinelotus.org/#customizer): Warm Terracotta base (`#B56764`) with Warm Cream upper.
+- [Ochre Gold](https://thedivinelotus.org/#customizer): Deep Ochre base (`#CBB18D`) with Warm Cream upper.
+- [Warm Taupe](https://thedivinelotus.org/#customizer): Earth Taupe base (`#B28C73`) with Warm Cream upper.
+- [Sapphire](https://thedivinelotus.org/#customizer): Deep Teal-Sapphire base (`#72B0AB`) with Warm Cream upper.
+- [Pistachio](https://thedivinelotus.org/#customizer): Golden Pistachio base (`#B89D47`) with Warm Cream upper.
+- [Interactive 3D Customizer](https://thedivinelotus.org/#customizer): Visualizer allowing custom hex pairings or custom fabric color extraction.
