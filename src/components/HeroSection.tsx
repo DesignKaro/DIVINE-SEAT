@@ -124,6 +124,12 @@ export default function HeroSection() {
             {/* High-efficiency modern WebM first (saves ~700KB), with MP4 fallback for legacy WebKit */}
             <source src="/videos/hero_bg_video.webm" type="video/webm" />
             <source src="/videos/hero_bg_video.mp4" type="video/mp4" />
+            <track
+              kind="captions"
+              srcLang="en"
+              label="Ambient background without audio"
+              default
+            />
           </video>
 
         {/* Ambient Darkening & Contrast Scrim Overlay (Softened) */}

@@ -227,9 +227,9 @@ export default function AboutFoundationSection() {
                         whileHover={{ y: -2 }}
                         className={`flex flex-col justify-center transition-colors ${idx > 0 ? "pl-2 sm:pl-3 md:pl-4" : ""}`}
                       >
-                        <h4 className="font-display font-black text-[13.5px] sm:text-[16px] md:text-[17.5px] text-white leading-tight tracking-[0.03em] uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.12)]">
+                        <h3 className="font-display font-black text-[13.5px] sm:text-[16px] md:text-[17.5px] text-white leading-tight tracking-[0.03em] uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.12)]">
                           {feature.title}
-                        </h4>
+                        </h3>
                         <p className="font-sans text-[10.5px] sm:text-[12px] md:text-[12.5px] text-white/95 font-medium tracking-normal mt-0.5 leading-snug">
                           {feature.desc}
                         </p>

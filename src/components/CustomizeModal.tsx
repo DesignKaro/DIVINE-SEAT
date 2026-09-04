@@ -292,9 +292,9 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                       {/* Left: Prebuilt Colors Title & Swatches */}
                       <div className="flex-1 flex flex-col justify-between space-y-2 sm:space-y-2.5 min-w-0">
                         <div>
-                          <h4 className="font-sans text-[13.5px] sm:text-[14.5px] font-bold text-[#1E140D]">
+                          <h3 className="font-sans text-[13.5px] sm:text-[14.5px] font-bold text-[#1E140D]">
                             Prebuilt Colors
-                          </h4>
+                          </h3>
                           <p className="font-sans text-[11.5px] sm:text-[12.5px] text-[#402E1D]/65 font-medium mt-0.5">
                             Choose from our 6 signature base finishes (with natural cream top), or create your custom colors below.
                           </p>
@@ -373,9 +373,9 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                     {/* CUSTOM COLORS SECTION (Full Width of Modal Window) */}
                     <div className="pt-2 sm:pt-2.5 w-full">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-0.5 mb-2">
-                        <h4 className="font-sans text-[12.5px] sm:text-[13px] font-bold text-[#1E140D]">
+                        <h3 className="font-sans text-[12.5px] sm:text-[13px] font-bold text-[#1E140D]">
                           Or Create Custom Colors
-                        </h4>
+                        </h3>
                         <span className="font-sans text-[10.5px] sm:text-[11px] text-[#402E1D]/55 font-medium">
                           Optional: Upload reference photo
                         </span>
@@ -581,9 +581,9 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                       {/* Left: Title, Description & Logo Upload */}
                       <div className="flex-1 w-full space-y-2.5 sm:space-y-3 min-w-0">
                         <div>
-                          <h4 className="font-sans text-[14px] sm:text-[15px] font-bold text-[#1E140D]">
+                          <h3 className="font-sans text-[14px] sm:text-[15px] font-bold text-[#1E140D]">
                             Uploads & Custom Requests
-                          </h4>
+                          </h3>
                           <p className="font-sans text-[11.5px] sm:text-[12px] text-[#402E1D]/65 font-medium mt-0.5 whitespace-nowrap truncate">
                             Attach embroidery artwork or custom styling preferences.
                           </p>
@@ -758,9 +758,9 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                     {/* Single Row: Title & Subtitle on Left, Summary Badge on Right */}
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div>
-                        <h4 className="font-sans text-[14px] sm:text-[15px] font-bold text-[#1E140D]">
+                        <h3 className="font-sans text-[14px] sm:text-[15px] font-bold text-[#1E140D]">
                           Contact Information & Confirmation
-                        </h4>
+                        </h3>
                         <p className="font-sans text-[12px] sm:text-[12.5px] text-[#402E1D]/65 font-medium mt-0.5">
                           Where should we send your digital rendering and proof?
                         </p>

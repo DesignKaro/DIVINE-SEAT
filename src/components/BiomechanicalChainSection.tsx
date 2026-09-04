@@ -200,9 +200,9 @@ export default function BiomechanicalChainSection() {
                       </div>
 
                       {/* Right Title Only */}
-                      <h4 className="font-display font-semibold sm:font-bold text-[15px] xs:text-[16.5px] sm:text-[23px] lg:text-[25px] text-white leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                      <h3 className="font-display font-semibold sm:font-bold text-[15px] xs:text-[16.5px] sm:text-[23px] lg:text-[25px] text-white leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
                         {step.title}
-                      </h4>
+                      </h3>
                     </button>
                   );
                 })}

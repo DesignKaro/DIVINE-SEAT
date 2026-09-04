@@ -684,9 +684,9 @@ export default function Header() {
                       <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto bg-white/20 border border-white/40 text-white">
                         <CheckCircle2 className="w-5 h-5" />
                       </div>
-                      <h4 className="font-display font-bold text-[16px] text-white">
+                      <h3 className="font-display font-bold text-[16px] text-white">
                         You're on the list!
-                      </h4>
+                      </h3>
                       <p className="text-[12px] leading-relaxed text-white/90">
                         We'll notify you as soon as Divine Lotus reservations go live.
                       </p>
@@ -696,9 +696,9 @@ export default function Header() {
                     <div className="space-y-3 animate-in fade-in zoom-in-95 duration-200">
                       {/* Country Picker Header */}
                       <div className="flex items-center justify-between">
-                        <h4 className="font-display font-bold text-[15px] text-white">
+                        <h3 className="font-display font-bold text-[15px] text-white">
                           Select Country
-                        </h4>
+                        </h3>
                         <button
                           type="button"
                           onClick={() => {
@@ -772,9 +772,9 @@ export default function Header() {
                       {/* Header */}
                       <div className="flex items-start justify-between mb-4">
                         <div>
-                          <h4 className="font-display font-bold text-[16px] sm:text-[17px] mb-1 text-white">
+                          <h3 className="font-display font-bold text-[16px] sm:text-[17px] mb-1 text-white">
                             Get Early Access
-                          </h4>
+                          </h3>
                           <p className="text-[11.5px] leading-snug text-white/90">
                             Reserve priority allocation and receive launch updates.
                           </p>
