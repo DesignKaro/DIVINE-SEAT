@@ -217,3 +217,11 @@
   scrollbar-width: none;
 }
 
+/* Hide floating Google reCAPTCHA v3 badge */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+
