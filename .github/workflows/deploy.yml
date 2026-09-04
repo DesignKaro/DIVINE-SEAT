@@ -42,6 +42,17 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
+            # Ensure .env file exists for production build
+            if [ ! -f .env ]; then
+              echo "Creating default .env file..."
+              cat << 'EOF' > .env
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=6LeSxagtAAAAAKeIROu1U9IDNiSg_82B47wY69rK
+RECAPTCHA_SECRET_KEY=6LeSxagtAAAAAN5YAIwTPSuzpIxvPBlB4ryeh_2K
+NEXT_PUBLIC_WORDPRESS_URL=https://api.thedivinelotus.org
+NEXT_PUBLIC_SITE_URL=https://thedivinelotus.org
+EOF
+            fi
+
             # Install dependencies
             echo "📦 Installing npm dependencies..."
             npm install --production=false
