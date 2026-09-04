@@ -3,7 +3,7 @@
 > Where ancient wisdom meets modern comfort. The Lotus Seat is an architectural ergonomic meditation foundation crafted with a sustainable Portuguese cork base, botanical latex cushioning, and removable velvet upholstery for effortless spinal alignment and pain-free meditation sitting.
 
 ## Website & Canonical Identity
-- **Website**: https://divinelotus.com
+- **Website**: https://thedivinelotus.org
 - **Product Name**: The Lotus Seat
 - **Brand**: Divine Lotus Sanctuary
 - **Category**: Architectural Meditation Furniture / Ergonomic Meditation Seat
@@ -56,13 +56,13 @@ The Lotus Seat is available in pre-built organic dual-tone harmonies and custom 
 ---
 
 ## Essential Links & Legal Pages
-- **Homepage**: https://divinelotus.com
-- **Contact & Support**: https://divinelotus.com/contact
-- **Shipping Policy**: https://divinelotus.com/shipping-policy
-- **Warranty Policy**: https://divinelotus.com/warranty-policy
-- **Refund & Return Policy**: https://divinelotus.com/refund-policy
-- **Terms of Service**: https://divinelotus.com/terms
-- **Privacy Policy**: https://divinelotus.com/privacy-policy
-- **Cookie Policy**: https://divinelotus.com/cookie-policy
-- **Medical & Wellness Disclaimer**: https://divinelotus.com/disclaimer
-- **XML Sitemap**: https://divinelotus.com/sitemap.xml
+- **Homepage**: https://thedivinelotus.org
+- **Contact & Support**: https://thedivinelotus.org/contact
+- **Shipping Policy**: https://thedivinelotus.org/shipping-policy
+- **Warranty Policy**: https://thedivinelotus.org/warranty-policy
+- **Refund & Return Policy**: https://thedivinelotus.org/refund-policy
+- **Terms of Service**: https://thedivinelotus.org/terms
+- **Privacy Policy**: https://thedivinelotus.org/privacy-policy
+- **Cookie Policy**: https://thedivinelotus.org/cookie-policy
+- **Medical & Wellness Disclaimer**: https://thedivinelotus.org/disclaimer
+- **XML Sitemap**: https://thedivinelotus.org/sitemap.xml

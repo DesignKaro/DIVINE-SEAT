@@ -3,5 +3,5 @@ Allow: /
 Disallow: /api/
 
 # Sitemaps and AI indexing context
-Sitemap: https://divinelotus.com/sitemap.xml
-LLMs-Txt: https://divinelotus.com/llms.txt
+Sitemap: https://thedivinelotus.org/sitemap.xml
+LLMs-Txt: https://thedivinelotus.org/llms.txt

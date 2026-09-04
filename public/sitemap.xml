@@ -2,60 +2,60 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://divinelotus.com/</loc>
+    <loc>https://thedivinelotus.org/</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://divinelotus.com/og-image.png</image:loc>
+      <image:loc>https://thedivinelotus.org/og-image.png</image:loc>
       <image:title>The Lotus Seat - Architectural Ergonomic Meditation Seat</image:title>
       <image:caption>The Lotus Seat by Divine Lotus, handcrafted with Portuguese cork and botanical latex cushion</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://divinelotus.com/contact</loc>
+    <loc>https://thedivinelotus.org/contact</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://divinelotus.com/shipping-policy</loc>
+    <loc>https://thedivinelotus.org/shipping-policy</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://divinelotus.com/refund-policy</loc>
+    <loc>https://thedivinelotus.org/refund-policy</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://divinelotus.com/warranty-policy</loc>
+    <loc>https://thedivinelotus.org/warranty-policy</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://divinelotus.com/terms</loc>
+    <loc>https://thedivinelotus.org/terms</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://divinelotus.com/privacy-policy</loc>
+    <loc>https://thedivinelotus.org/privacy-policy</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://divinelotus.com/cookie-policy</loc>
+    <loc>https://thedivinelotus.org/cookie-policy</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://divinelotus.com/disclaimer</loc>
+    <loc>https://thedivinelotus.org/disclaimer</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
