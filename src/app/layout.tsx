@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Manrope, Cormorant_Garamond } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import CookieBanner from "@/components/CookieBanner";
@@ -204,13 +203,12 @@ export default function RootLayout({
     <html lang="en" className={`${manrope.variable} ${cormorant.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
         {/* Google tag (gtag.js) */}
-        <Script
-          strategy="afterInteractive"
+        <script
+          async
           src="https://www.googletagmanager.com/gtag/js?id=G-ZSSGEY2MH8"
         />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
+        <script
+          id="google-tag-init"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
