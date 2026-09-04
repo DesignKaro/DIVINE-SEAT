@@ -25,6 +25,7 @@
 *.pem
 *.zip
 .archive/
+public/_image_backups/
 
 # debug
 npm-debug.log*
