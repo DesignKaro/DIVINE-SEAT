@@ -682,7 +682,7 @@ export default function RealThingSection() {
         </div>
 
         {/* Bottom Right Glass Card with Logo Icon (Hidden on phone view, visible on sm and up) */}
-        <div className="hidden sm:block absolute sm:bottom-10 sm:right-10 md:bottom-14 md:right-16 lg:bottom-16 lg:right-20 z-20 select-none pointer-events-auto">
+        <div className="hidden sm:block absolute sm:bottom-[50px] sm:right-10 md:bottom-[66px] md:right-16 lg:bottom-[74px] lg:right-20 z-20 select-none pointer-events-auto">
           {/* Pure Colorless Frosted Glass Card - Square Dimension, No Border, No Shadows */}
           <div
             className="w-[52px] h-[52px] min-[400px]:w-[58px] min-[400px]:h-[58px] sm:w-[74px] sm:h-[74px] md:w-[88px] md:h-[88px] lg:w-[96px] lg:h-[96px] rounded-xl sm:rounded-2xl md:rounded-3xl flex items-center justify-center bg-white/[0.12] transition-transform duration-500 hover:-translate-y-1"
