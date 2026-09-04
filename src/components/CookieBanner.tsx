@@ -54,9 +54,47 @@ export default function CookieBanner() {
     };
   }, []);
 
-  const saveConsent = (prefs: CookiePreferences) => {
+  const saveConsent = (
+    prefs: CookiePreferences,
+    status: "accept_all" | "reject_non_essential" | "custom" = "custom"
+  ) => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+
+      // Asynchronously transmit consent decision & device telemetry to WordPress DB
+      const wpUrl =
+        process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://api.thedivinelotus.org";
+      let consentUuid = localStorage.getItem("divine_lotus_consent_uuid");
+      if (!consentUuid) {
+        consentUuid =
+          typeof crypto !== "undefined" && crypto.randomUUID
+            ? crypto.randomUUID()
+            : "usr_" + Math.random().toString(36).substring(2, 15);
+        localStorage.setItem("divine_lotus_consent_uuid", consentUuid);
+      }
+
+      fetch(`${wpUrl}/wp-json/divine/v1/consent`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          consent_uuid: consentUuid,
+          consent_status: status,
+          preferences: {
+            essential: prefs.essential,
+            analytics: prefs.analytics,
+            advertising: prefs.advertising,
+          },
+          screen_resolution:
+            typeof window !== "undefined"
+              ? `${window.screen.width}x${window.screen.height}`
+              : "",
+          page_url: typeof window !== "undefined" ? window.location.href : "",
+          referrer: typeof document !== "undefined" ? document.referrer : "",
+        }),
+        keepalive: true,
+      }).catch(() => {
+        // Fail silently if plugin is inactive or during offline testing
+      });
     } catch {
       // Ignore localStorage errors in private modes
     }
@@ -66,29 +104,38 @@ export default function CookieBanner() {
   };
 
   const handleAcceptAll = () => {
-    saveConsent({
-      essential: true,
-      analytics: true,
-      advertising: true,
-      hasConsented: true,
-    });
+    saveConsent(
+      {
+        essential: true,
+        analytics: true,
+        advertising: true,
+        hasConsented: true,
+      },
+      "accept_all"
+    );
   };
 
   const handleRejectNonEssential = () => {
-    saveConsent({
-      essential: true,
-      analytics: false,
-      advertising: false,
-      hasConsented: true,
-    });
+    saveConsent(
+      {
+        essential: true,
+        analytics: false,
+        advertising: false,
+        hasConsented: true,
+      },
+      "reject_non_essential"
+    );
   };
 
   const handleSaveCustom = () => {
-    saveConsent({
-      ...preferences,
-      essential: true,
-      hasConsented: true,
-    });
+    saveConsent(
+      {
+        ...preferences,
+        essential: true,
+        hasConsented: true,
+      },
+      "custom"
+    );
   };
 
   if (!mounted) return null;
