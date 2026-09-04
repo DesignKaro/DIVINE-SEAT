@@ -188,10 +188,10 @@ export default function BiomechanicalChainSection() {
                       aria-label={`Select ${step.title}`}
                     >
                       {/* Left Circle Image (Borderless, compact on mobile) */}
-                      <div className="relative w-8 h-8 sm:w-13 sm:h-13 rounded-full overflow-hidden shrink-0 transition-transform duration-300">
+                      <div className="relative w-8 h-8 sm:w-13 sm:h-13 rounded-full overflow-hidden shrink-0 transition-transform duration-300" aria-hidden="true">
                         <Image
                           src={step.image}
-                          alt={step.title}
+                          alt=""
                           fill
                           unoptimized
                           sizes="(max-width: 640px) 32px, 56px"
@@ -227,7 +227,7 @@ export default function BiomechanicalChainSection() {
                     >
                       <Image
                         src={currentItem.image}
-                        alt={currentItem.title}
+                        alt={`${currentItem.title}  - ${currentItem.role} of The Lotus Seat`}
                         fill
                         unoptimized
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 340px, 360px"

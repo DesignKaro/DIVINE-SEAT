@@ -354,7 +354,7 @@ export default function PricingSection() {
                             <div className="relative w-[160px] sm:w-[200px] lg:w-[240px] h-[125px] sm:h-[150px] lg:h-[170px] shrink-0 self-center sm:self-end pointer-events-none select-none transition-transform duration-500 hover:scale-105">
                               <Image
                                 src={tier.image}
-                                alt={tier.name}
+                                alt={`${tier.name} ergonomic meditation seat`}
                                 fill
                                 sizes="(max-width: 640px) 160px, (max-width: 1024px) 200px, 240px"
                                 className="object-contain object-center"
