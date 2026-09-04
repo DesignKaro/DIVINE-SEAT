@@ -16,53 +16,53 @@ const tasks = [
     fit: 'inside',
     quality: 80,
   },
-  // 2. Solution steps
+  // 2. Solution steps (Section card display: 348x348 desktop, 298x298 mobile)
   ...[1, 2, 3, 4, 5, 6].map((i) => ({
     relPath: `images/solution/solution_step_${i}.avif`,
-    width: 700,
-    height: 700,
+    width: 350,
+    height: 350,
     fit: 'cover',
-    quality: 75,
+    quality: 72,
   })),
-  // 3. Problems
+  // 3. Problems (Section card display: aspect-square, ~390x390 desktop, ~180x180 mobile)
   ...['problem_v2_1.avif', 'problem_v2_2.avif', 'problem_v2_3.avif', 'problem_v2_4.avif', 'problem_v2_readjustment.avif', 'problem_v2_slouching.avif'].map((name) => ({
     relPath: `images/problems/${name}`,
-    width: 960,
-    height: 640,
+    width: 400,
+    height: 400,
     fit: 'cover',
-    quality: 76,
+    quality: 72,
   })),
-  // 4. About lifestyle
+  // 4. About lifestyle (Section frame display: max 540x540 desktop, 380x380 mobile)
   {
     relPath: 'images/about_seat_lifestyle_v7.avif',
-    width: 800,
-    height: 800,
-    fit: 'cover',
-    quality: 75,
-  },
-  // 5. Leather book cover
-  {
-    relPath: 'images/leather_book_cover.avif',
-    width: 1340,
-    height: 754,
-    fit: 'cover',
-    quality: 75,
-  },
-  // 6. About mandala pattern
-  {
-    relPath: 'images/about.avif',
     width: 500,
     height: 500,
-    fit: 'inside',
-    quality: 75,
+    fit: 'cover',
+    quality: 72,
   },
-  // 7. Hero bg poster
+  // 5. Leather book cover (Displayed: ~1239x697)
+  {
+    relPath: 'images/leather_book_cover.avif',
+    width: 1240,
+    height: 698,
+    fit: 'cover',
+    quality: 72,
+  },
+  // 6. About mandala pattern (Displayed: 380x380 watermark)
+  {
+    relPath: 'images/about.avif',
+    width: 380,
+    height: 380,
+    fit: 'inside',
+    quality: 68,
+  },
+  // 7. Hero bg poster (Video fallback poster)
   {
     relPath: 'hero_bg_poster.avif',
-    width: 1536,
-    height: 864,
+    width: 960,
+    height: 540,
     fit: 'cover',
-    quality: 75,
+    quality: 70,
   },
   // 8. Custom color swatches
   ...[1, 2, 3, 4, 5, 6, 7].map((i) => ({
