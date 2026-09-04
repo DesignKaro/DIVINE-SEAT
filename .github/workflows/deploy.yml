@@ -1,0 +1,67 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy Application to VPS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          script: |
+            set -e
+            echo "🚀 Starting deployment on VPS..."
+
+            # Navigate to project directory (default: /var/www/divine-lotus)
+            APP_DIR="${{ secrets.VPS_APP_PATH || '/var/www/divine-lotus' }}"
+            if [ ! -d "$APP_DIR" ]; then
+              echo "Directory $APP_DIR does not exist. Creating and cloning..."
+              mkdir -p "$APP_DIR"
+              git clone https://github.com/DesignKaro/DIVINE-SEAT.git "$APP_DIR"
+            fi
+
+            cd "$APP_DIR"
+
+            # Pull latest changes from main branch
+            echo "📥 Pulling latest changes from GitHub..."
+            git fetch origin main
+            git reset --hard origin/main
+
+            # Install dependencies
+            echo "📦 Installing npm dependencies..."
+            npm install --production=false
+
+            # Build production bundle
+            echo "🔨 Building Next.js application..."
+            npm run build
+
+            # Reload or start PM2 process using ecosystem config
+            echo "🔄 Reloading PM2 process..."
+            if pm2 list | grep -q "divine-lotus"; then
+              pm2 reload ecosystem.config.cjs --update-env
+            else
+              pm2 start ecosystem.config.cjs
+            fi
+            pm2 save
+
+            # Verify local response
+            echo "🩺 Verifying application health on port 3001..."
+            sleep 2
+            curl -I http://127.0.0.1:3001/ || true
+
+            echo "✅ Deployment completed successfully!"
