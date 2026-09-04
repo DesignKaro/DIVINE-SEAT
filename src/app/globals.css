@@ -217,11 +217,20 @@
   scrollbar-width: none;
 }
 
-/* Hide floating Google reCAPTCHA v3 badge */
+/* Google reCAPTCHA v3 badge - Hidden by default, smoothly shows ONLY when a form is visible on screen */
 .grecaptcha-badge {
   visibility: hidden !important;
   opacity: 0 !important;
   pointer-events: none !important;
+  transform: translateY(24px) !important;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s !important;
+}
+
+body.show-recaptcha .grecaptcha-badge {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translateY(0) !important;
 }
 
 
