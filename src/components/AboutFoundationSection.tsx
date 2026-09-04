@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import AnimatedHeading from "@/components/ui/AnimatedHeading";
+import AnimatedReveal from "@/components/ui/AnimatedReveal";
 
 const leftContainerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -47,35 +48,8 @@ export default function AboutFoundationSection() {
     <section 
       id="the-seat" 
       data-header-theme="light"
-      className="relative w-full min-h-screen bg-[#E6DFD4] text-[#402E1D] py-14 sm:py-24 lg:py-36 px-4 sm:px-10 lg:px-16 overflow-hidden flex items-center justify-center scroll-mt-16 sm:scroll-mt-24"
+      className="relative w-full min-h-[90vh] bg-transparent text-[#402E1D] py-16 sm:py-20 lg:py-24 px-4 sm:px-10 lg:px-16 flex items-center justify-center scroll-mt-16 sm:scroll-mt-24"
     >
-      {/* Full-cover Background Image with Soft Edge Blending */}
-      <div 
-        className="absolute inset-0 z-0 overflow-hidden"
-        style={{
-          maskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
-        }}
-      >
-        <Image
-          src="/images/about-bg.avif"
-          alt="About section background"
-          fill
-          priority
-          unoptimized
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-
-        {/* Warm overlay for legibility with increased opacity */}
-        <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
-      </div>
-
-      {/* Boundary Connecting Mandala Motif (Completes with Problems section top-left) */}
-      <div className="absolute left-0 bottom-0 -translate-x-1/3 translate-y-1/2 w-[280px] sm:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">
-        <Image src="/images/about.avif" alt="" fill unoptimized sizes="440px" className="object-contain" />
-      </div>
-
       {/* Main Content Grid Container */}
       <div className="relative z-10 w-full max-w-[1360px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
@@ -85,15 +59,15 @@ export default function AboutFoundationSection() {
             variants={leftContainerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.25 }}
+            viewport={{ once: true, amount: 0.15 }}
             className="lg:col-span-6 flex flex-col justify-center items-start"
           >
             {/* Category Eyebrow Tag */}
-            <motion.div variants={leftItemVariants} className="flex items-center gap-2 mb-3 sm:mb-4">
+            <AnimatedReveal delay={0.03} y={12} className="flex items-center gap-2 mb-3 sm:mb-4">
               <span className="font-sans text-[13.5px] sm:text-[15px] font-extrabold tracking-[0.03em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
                 ABOUT THE LOTUS SEAT
               </span>
-            </motion.div>
+            </AnimatedReveal>
 
             {/* Large Bold Editorial Headline with kinetic masked reveal */}
             <AnimatedHeading
@@ -102,17 +76,18 @@ export default function AboutFoundationSection() {
             />
 
             {/* Editorial Narrative Copy */}
-            <motion.div 
-              variants={leftItemVariants}
-              className="space-y-3.5 sm:space-y-4 font-sans text-[14.5px] sm:text-[16px] leading-[1.7] text-[#402E1D]/85 font-normal max-w-[520px] mb-7 sm:mb-9"
+            <AnimatedReveal 
+              delay={0.18}
+              y={18}
+              className="space-y-3.5 sm:space-y-4 font-sans text-[16px] sm:text-[17.5px] lg:text-[18.5px] leading-[1.65] sm:leading-[1.7] text-[#402E1D]/85 font-normal max-w-[560px] mb-7 sm:mb-9"
             >
               <p>
-                The Lotus Seat is an ergonomically designed meditation seat made for longer, more comfortable sitting—helping reduce physical distractions such as back discomfort, pressure, numbness and constant readjustment.
+                The Lotus Seat is an ergonomically designed meditation seat made for longer, more comfortable sitting  - helping reduce physical distractions such as back discomfort, pressure, numbness and constant readjustment.
               </p>
-            </motion.div>
+            </AnimatedReveal>
 
             {/* Signature Fused Pill Capsule Action Button */}
-            <motion.div variants={leftItemVariants} className="relative inline-flex items-center">
+            <AnimatedReveal delay={0.3} y={20} className="relative inline-flex items-center">
               <a
                 href="#the-solution"
                 className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
@@ -157,7 +132,7 @@ export default function AboutFoundationSection() {
                   <ArrowUpRight className="w-[17px] h-[17px] text-white stroke-[2.4] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
               </a>
-            </motion.div>
+            </AnimatedReveal>
 
           </motion.div>
 
@@ -166,7 +141,7 @@ export default function AboutFoundationSection() {
             variants={rightFrameVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.25 }}
+            viewport={{ once: true, amount: 0.15 }}
             className="lg:col-span-6 relative flex flex-col items-center lg:items-end w-full"
           >
             {/* Background Sacred Mandala Motif */}
@@ -192,7 +167,7 @@ export default function AboutFoundationSection() {
               
               {/* Featured High-Res Editorial Photography */}
               <Image
-                src="/images/about_seat_lifestyle_v6.avif"
+                src="/images/about_seat_lifestyle_v7.avif"
                 alt="The Divine Lotus in Minimalist Japanese Sanctuary"
                 fill
                 priority
@@ -209,7 +184,7 @@ export default function AboutFoundationSection() {
                 <motion.div
                   initial={{ opacity: 0, y: 16, scale: 0.98 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: false, amount: 0.25 }}
+                  viewport={{ once: true, amount: 0.15 }}
                   transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                   className="relative py-2.5 sm:py-3.5 px-3 sm:px-4 md:px-5 rounded-[16px] sm:rounded-[22px] overflow-hidden border border-white/80 pointer-events-auto w-full"
                   style={{
@@ -247,7 +222,7 @@ export default function AboutFoundationSection() {
                         key={idx}
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: false, amount: 0.25 }}
+                        viewport={{ once: true, amount: 0.15 }}
                         transition={{ duration: 0.6, delay: 0.3 + idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
                         whileHover={{ y: -2 }}
                         className={`flex flex-col justify-center transition-colors ${idx > 0 ? "pl-2 sm:pl-3 md:pl-4" : ""}`}

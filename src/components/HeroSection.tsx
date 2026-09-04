@@ -1,14 +1,51 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useInView, type Variants } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Box, ArrowRight } from "lucide-react";
 
 export default function HeroSection() {
   const [imageLoaded, setImageLoaded] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const isInView = useInView(sectionRef, { amount: 0.15 });
+
+  // Guarantee iOS Safari / Mobile WebKit autoplay
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Direct DOM property enforcement required by iOS WebKit
+    video.defaultMuted = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+
+    const playVideo = () => {
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise
+          .then(() => setImageLoaded(true))
+          .catch(() => {
+            // If iOS Low Power Mode restricts autoplay, resume on first user touch or swipe
+            const unlockPlay = () => {
+              video.play().catch(() => {});
+              window.removeEventListener("touchstart", unlockPlay);
+              window.removeEventListener("touchend", unlockPlay);
+              window.removeEventListener("scroll", unlockPlay);
+            };
+            window.addEventListener("touchstart", unlockPlay, { once: true, passive: true });
+            window.addEventListener("touchend", unlockPlay, { once: true, passive: true });
+            window.addEventListener("scroll", unlockPlay, { once: true, passive: true });
+          });
+      }
+    };
+
+    playVideo();
+  }, []);
 
   const textLines = [
     ["Sit", "better."],
@@ -70,19 +107,24 @@ export default function HeroSection() {
       
       {/* 1. Background Video Layer (Autoplaying, seamless loop with poster fallback) */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="relative w-full h-full">
           <video
+            ref={videoRef}
             autoPlay
             loop
             muted
             playsInline
+            preload="metadata"
             poster="/hero_bg_poster.avif"
-            className="w-full h-full object-cover object-center"
+            // @ts-ignore
+            webkit-playsinline="true"
+            x5-playsinline="true"
+            className="w-full h-full object-cover object-center pointer-events-none"
             onLoadedData={() => setImageLoaded(true)}
           >
+            {/* High-efficiency modern WebM first (saves ~700KB), with MP4 fallback for legacy WebKit */}
+            <source src="/videos/hero_bg_video.webm" type="video/webm" />
             <source src="/videos/hero_bg_video.mp4" type="video/mp4" />
           </video>
-        </div>
 
         {/* Ambient Darkening & Contrast Scrim Overlay (Softened) */}
         <div className="absolute inset-0 bg-black/18 pointer-events-none" />
@@ -195,8 +237,8 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* 3. Bottom Right Glass Card with Logo Icon (Default static without entrance delay) */}
-      <div className="absolute bottom-4 right-4 sm:bottom-10 sm:right-10 md:bottom-14 md:right-16 lg:bottom-16 lg:right-20 z-20 select-none pointer-events-auto">
+      {/* 3. Bottom Right Glass Card with Logo Icon (Hidden on phone view, visible on sm and up) */}
+      <div className="hidden sm:block absolute sm:bottom-10 sm:right-10 md:bottom-14 md:right-16 lg:bottom-16 lg:right-20 z-20 select-none pointer-events-auto">
         {/* Pure Colorless Frosted Glass Card - Square Dimension, No Border, No Shadows */}
         <div
           className="w-[52px] h-[52px] min-[400px]:w-[58px] min-[400px]:h-[58px] sm:w-[74px] sm:h-[74px] md:w-[88px] md:h-[88px] lg:w-[96px] lg:h-[96px] rounded-xl sm:rounded-2xl md:rounded-3xl flex items-center justify-center bg-white/[0.12] transition-transform duration-500 hover:-translate-y-1"
@@ -227,6 +269,153 @@ export default function HeroSection() {
             />
           </div>
         </div>
+      </div>
+
+      {/* 4. Mobile Bottom Action Buttons: 3D Experience (Left) & Wisdom of Sitting (Right) - Phone View Only */}
+      <div className="sm:hidden absolute bottom-4 xs:bottom-5 inset-x-0 z-20 flex items-center justify-between px-3.5 xs:px-4.5 pointer-events-auto select-none max-w-[440px] mx-auto">
+        {/* Left: 3D Experience Button */}
+        <Link
+          href="/#real-thing"
+          onClick={(e) => {
+            const target = document.getElementById("real-thing");
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: "smooth", block: "start" });
+              window.history.pushState(null, "", "/#real-thing");
+            }
+          }}
+          className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] cursor-pointer"
+          aria-label="3D Experience"
+        >
+          <svg
+            className="w-[124px] h-[34px] transition-all duration-300"
+            viewBox="0 0 176 38"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <clipPath id="clip-hero-exp-mob">
+                <path d="M 19 0 L 125 0 C 130.5 0 134.5 5.5 138.5 5.5 C 142.5 5.5 146.5 0 157 0 A 19 19 0 1 1 157 38 C 146.5 38 142.5 32.5 138.5 32.5 C 134.5 32.5 130.5 38 125 38 L 19 38 A 19 19 0 0 1 19 0 Z" />
+              </clipPath>
+
+              <linearGradient id="hero-btn-dark-fill-exp" x1="0" y1="0" x2="176" y2="38" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="#876540" />
+                <stop offset="50%" stopColor="#967355" />
+                <stop offset="100%" stopColor="#876540" />
+              </linearGradient>
+              <linearGradient id="hero-btn-dark-border-exp" x1="0" y1="0" x2="176" y2="38" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="rgba(255, 255, 255, 0.4)" />
+                <stop offset="50%" stopColor="rgba(216, 204, 189, 0.55)" />
+                <stop offset="100%" stopColor="rgba(255, 255, 255, 0.35)" />
+              </linearGradient>
+            </defs>
+
+            <g clipPath="url(#clip-hero-exp-mob)">
+              <foreignObject x="0" y="0" width="176" height="38" className="w-full h-full">
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    backdropFilter: "blur(24px) saturate(140%) brightness(1.04)",
+                    WebkitBackdropFilter: "blur(24px) saturate(140%) brightness(1.04)",
+                  }}
+                />
+              </foreignObject>
+            </g>
+
+            <path
+              d="M 19 0 L 125 0 C 130.5 0 134.5 5.5 138.5 5.5 C 142.5 5.5 146.5 0 157 0 A 19 19 0 1 1 157 38 C 146.5 38 142.5 32.5 138.5 32.5 C 134.5 32.5 130.5 38 125 38 L 19 38 A 19 19 0 0 1 19 0 Z"
+              fill="url(#hero-btn-dark-fill-exp)"
+              stroke="url(#hero-btn-dark-border-exp)"
+              strokeWidth="1.2"
+              className="transition-all duration-300"
+            />
+          </svg>
+
+          {/* Text */}
+          <div className="absolute left-0 top-0 bottom-0 w-[94px] flex items-center justify-center pointer-events-none pl-1">
+            <span className="font-sans text-[11px] font-semibold text-white transition-colors duration-300">
+              3D Experience
+            </span>
+          </div>
+
+          {/* Box Icon */}
+          <div className="absolute right-0 top-0 bottom-0 w-[30px] flex items-center justify-center pointer-events-none pr-0.5">
+            <Box className="w-[13px] h-[13px] stroke-[2.2] text-white transition-colors duration-300 group-hover:rotate-12 group-hover:scale-110" />
+          </div>
+        </Link>
+
+        {/* Right: Wisdom of Sitting Button */}
+        <Link
+          href="/#ancient-wisdom"
+          onClick={(e) => {
+            const target = document.getElementById("ancient-wisdom");
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: "smooth" });
+              window.history.pushState(null, "", "/#ancient-wisdom");
+            }
+          }}
+          className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] cursor-pointer"
+          aria-label="Wisdom of Sitting"
+        >
+          <svg
+            className="w-[136px] h-[34px] transition-all duration-300"
+            viewBox="0 0 192 38"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <clipPath id="clip-hero-wisdom-mob">
+                <path d="M 19 0 L 141 0 C 146.5 0 150.5 5.5 154.5 5.5 C 158.5 5.5 162.5 0 173 0 A 19 19 0 1 1 173 38 C 162.5 38 158.5 32.5 154.5 32.5 C 150.5 32.5 146.5 38 141 38 L 19 38 A 19 19 0 0 1 19 0 Z" />
+              </clipPath>
+
+              <linearGradient id="hero-btn-dark-fill-wisdom" x1="0" y1="0" x2="192" y2="38" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="#876540" />
+                <stop offset="50%" stopColor="#967355" />
+                <stop offset="100%" stopColor="#876540" />
+              </linearGradient>
+              <linearGradient id="hero-btn-dark-border-wisdom" x1="0" y1="0" x2="192" y2="38" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="rgba(255, 255, 255, 0.4)" />
+                <stop offset="50%" stopColor="rgba(216, 204, 189, 0.55)" />
+                <stop offset="100%" stopColor="rgba(255, 255, 255, 0.35)" />
+              </linearGradient>
+            </defs>
+
+            <g clipPath="url(#clip-hero-wisdom-mob)">
+              <foreignObject x="0" y="0" width="192" height="38" className="w-full h-full">
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    backdropFilter: "blur(24px) saturate(140%) brightness(1.04)",
+                    WebkitBackdropFilter: "blur(24px) saturate(140%) brightness(1.04)",
+                  }}
+                />
+              </foreignObject>
+            </g>
+
+            <path
+              d="M 19 0 L 141 0 C 146.5 0 150.5 5.5 154.5 5.5 C 158.5 5.5 162.5 0 173 0 A 19 19 0 1 1 173 38 C 162.5 38 158.5 32.5 154.5 32.5 C 150.5 32.5 146.5 38 141 38 L 19 38 A 19 19 0 0 1 19 0 Z"
+              fill="url(#hero-btn-dark-fill-wisdom)"
+              stroke="url(#hero-btn-dark-border-wisdom)"
+              strokeWidth="1.2"
+              className="transition-all duration-300"
+            />
+          </svg>
+
+          {/* Text */}
+          <div className="absolute left-0 top-0 bottom-0 w-[104px] flex items-center justify-center pointer-events-none pl-1">
+            <span className="font-sans text-[11px] font-medium text-white transition-colors duration-300 whitespace-nowrap">
+              Wisdom of Sitting
+            </span>
+          </div>
+
+          {/* Arrow Icon */}
+          <div className="absolute right-0 top-0 bottom-0 w-[30px] flex items-center justify-center pointer-events-none pr-0.5">
+            <ArrowRight className="w-[13px] h-[13px] stroke-[2.4] text-white transition-colors duration-300 group-hover:translate-x-0.5 group-hover:scale-110" />
+          </div>
+        </Link>
       </div>
 
     </section>

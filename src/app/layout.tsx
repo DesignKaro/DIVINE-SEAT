@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, Cormorant_Garamond } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
+import CookieBanner from "@/components/CookieBanner";
+import RecaptchaProvider from "@/components/RecaptchaProvider";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -17,7 +19,7 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://divinelotus.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://thedivinelotus.org";
 
 export const viewport: Viewport = {
   themeColor: "#ECE7DE",
@@ -29,7 +31,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Divine Lotus — Architectural Ergonomic Meditation Seat",
+    default: "Divine Lotus  - Architectural Ergonomic Meditation Seat",
     template: "%s | Divine Lotus",
   },
   description:
@@ -60,16 +62,16 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/lotus-favicon.png", type: "image/png" },
+      { url: "/favicon-48.png", type: "image/png" },
       { url: "/favicon.ico", sizes: "any" },
     ],
-    shortcut: ["/lotus-favicon.png"],
+    shortcut: ["/favicon-48.png"],
     apple: [
-      { url: "/lotus-favicon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
   openGraph: {
-    title: "Divine Lotus — Architectural Ergonomic Meditation Seat",
+    title: "Divine Lotus  - Architectural Ergonomic Meditation Seat",
     description:
       "Where ancient wisdom meets modern comfort. Handcrafted Portuguese cork foundation and botanical latex cushion for effortless spinal alignment and pain-free meditation.",
     url: siteUrl,
@@ -78,19 +80,25 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/lotus-favicon.png",
-        width: 512,
-        height: 512,
-        alt: "Divine Lotus Golden Emblem",
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "The Lotus Seat  - Architectural Ergonomic Meditation Seat",
+      },
+      {
+        url: "/og-seat.png",
+        width: 408,
+        height: 302,
+        alt: "The Lotus Seat by Divine Lotus",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Divine Lotus — Architectural Ergonomic Meditation Seat",
+    title: "Divine Lotus  - Architectural Ergonomic Meditation Seat",
     description:
       "Where ancient wisdom meets modern comfort. Handcrafted Portuguese cork foundation and botanical latex cushion for effortless spinal alignment.",
-    images: ["/lotus-favicon.png"],
+    images: ["/og-image.png"],
     creator: "@divinelotus",
   },
   robots: {
@@ -113,19 +121,58 @@ const organizationSchema = {
       "@type": "Organization",
       "@id": `${siteUrl}/#organization`,
       name: "Divine Lotus",
+      legalName: "Divine Lotus Sanctuary",
       url: siteUrl,
+      slogan: "Where ancient wisdom meets modern comfort.",
+      description:
+        "Architectural mindfulness design bridging ancient yogic biomechanics with contemporary ergonomic engineering.",
       logo: {
         "@type": "ImageObject",
         "@id": `${siteUrl}/#logo`,
         url: `${siteUrl}/lotus-favicon.png`,
-        caption: "Divine Lotus",
+        caption: "Divine Lotus Emblem",
       },
-      contactPoint: {
-        "@type": "ContactPoint",
-        email: "care@divinelotus.com",
-        contactType: "customer service",
-        availableLanguage: ["English"],
-      },
+      image: `${siteUrl}/og-image.png`,
+      sameAs: [
+        "https://www.instagram.com/divinelotus",
+        "https://www.youtube.com/@divinelotus",
+        "https://twitter.com/divinelotus",
+      ],
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          email: "theedivinelotuss@gmail.com",
+          contactType: "customer service",
+          availableLanguage: ["English"],
+          hoursAvailable: {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+            ],
+            opens: "09:00",
+            closes: "18:00",
+          },
+        },
+      ],
+      knowsAbout: [
+        "Meditation Ergonomics",
+        "Spinal Posture Alignment",
+        "Botanical Natural Latex Craft",
+        "Sustainable Portuguese Cork",
+        "Mindful Living Furniture",
+      ],
+    },
+    {
+      "@type": "Brand",
+      "@id": `${siteUrl}/#brand`,
+      name: "Divine Lotus",
+      url: siteUrl,
+      logo: `${siteUrl}/lotus-favicon.png`,
+      slogan: "Where ancient wisdom meets modern comfort.",
     },
     {
       "@type": "WebSite",
@@ -134,6 +181,14 @@ const organizationSchema = {
       name: "Divine Lotus",
       publisher: {
         "@id": `${siteUrl}/#organization`,
+      },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${siteUrl}/#pricing?q={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
       },
     },
   ],
@@ -148,13 +203,16 @@ export default function RootLayout({
     <html lang="en" className={`${manrope.variable} ${cormorant.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
         <link rel="preload" href="/fonts/Glacier.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="icon" href="/lotus-favicon.png" type="image/png" />
-        <link rel="shortcut icon" href="/lotus-favicon.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/lotus-favicon.png" />
+        <link rel="preload" href="/hero_bg_poster.avif" as="image" type="image/avif" fetchPriority="high" />
+        <link rel="icon" href="/favicon-48.png" type="image/png" />
+        <link rel="shortcut icon" href="/favicon-48.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <JsonLd data={organizationSchema} />
       </head>
       <body suppressHydrationWarning className="min-h-screen bg-[#F6F3ED] text-[#402E1D] font-sans antialiased selection:bg-[#876540]/20 selection:text-[#402E1D]">
         {children}
+        <CookieBanner />
+        <RecaptchaProvider />
       </body>
     </html>
   );

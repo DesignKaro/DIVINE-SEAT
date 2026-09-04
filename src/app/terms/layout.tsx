@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions",
+  title: "Terms & Conditions  - Divine Lotus",
   description:
-    "Review our terms of sale, 3-year structural warranty, natural materials notice, and small-batch production reservation policies.",
+    "Review the official Terms & Conditions for Divine Lotus, covering product information, ordering, batch production, meditation and wellness guidance, intellectual property, and governing law.",
   alternates: {
     canonical: "/terms",
   },
   openGraph: {
     title: "Terms & Conditions | Divine Lotus",
     description:
-      "Review our terms of sale, 3-year structural warranty, natural materials notice, and small-batch production reservation policies.",
+      "Review the official Terms & Conditions for Divine Lotus, covering product information, ordering, batch production, meditation and wellness guidance, intellectual property, and governing law.",
     url: "/terms",
   },
 };

@@ -13,6 +13,8 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import React from "react";
+import AnimatedHeading from "@/components/ui/AnimatedHeading";
+import AnimatedReveal from "@/components/ui/AnimatedReveal";
 
 interface BenefitCard {
   icon: React.ReactNode;
@@ -65,12 +67,13 @@ const containerVariants: Variants = {
 };
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 28, scale: 0.98 },
   visible: {
     opacity: 1,
     y: 0,
+    scale: 1,
     transition: {
-      duration: 0.65,
+      duration: 0.75,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -100,43 +103,35 @@ export default function BiomechanicalBenefitsSection() {
       <div className="relative z-10 w-full max-w-[1280px] mx-auto">
         
         {/* Section Header (Matches Solution Section Header Layout & Typography) */}
-        <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-12 lg:mb-14">
-          <div className="max-w-[640px]">
-            {/* Eyebrow Label */}
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="flex items-center gap-2 mb-3 sm:mb-4"
-            >
-              <span className="font-sans text-[11.5px] sm:text-[12.5px] font-bold tracking-[0.16em] uppercase text-[#876540]">
-                /BENEFITS
-              </span>
-            </motion.div>
-
-            {/* Headline */}
-            <motion.h2
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: 0.05 }}
-              className="font-display font-semibold text-[32px] sm:text-[42px] md:text-[46px] lg:text-[50px] leading-[1.12] tracking-[-0.015em] text-[#402E1D]"
-            >
-              What Changes When You Sit
-            </motion.h2>
-          </div>
-
-          {/* Description Paragraph on Right */}
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55, delay: 0.1 }}
-            className="font-sans text-[14px] sm:text-[15px] leading-[1.65] text-[#402E1D]/80 font-normal max-w-[420px] md:pb-1"
+        <div className="w-full mb-8 sm:mb-12 lg:mb-14">
+          {/* Eyebrow Label */}
+          <AnimatedReveal
+            delay={0.03}
+            y={12}
+            className="flex items-center gap-2 mb-3 sm:mb-4"
           >
-            Seven tangible structural shifts that occur the moment your pelvis meets the seat.
-          </motion.p>
+            <span className="font-sans text-[11.5px] sm:text-[12.5px] font-bold tracking-[0.16em] uppercase text-[#876540]">
+              /BENEFITS
+            </span>
+          </AnimatedReveal>
+
+          <div className="w-full flex flex-col md:flex-row md:items-start justify-between gap-6 sm:gap-10">
+            <div className="max-w-[640px]">
+              {/* Headline */}
+              <AnimatedHeading
+                text="What Changes When You Sit"
+                as="h2"
+                className="font-display font-semibold text-[32px] sm:text-[42px] md:text-[46px] lg:text-[50px] leading-[1.12] tracking-[-0.015em] text-[#402E1D]"
+              />
+            </div>
+
+            {/* Description Paragraph on Right */}
+            <AnimatedReveal delay={0.18} y={18}>
+              <p className="font-sans text-[16px] sm:text-[17.5px] lg:text-[18.5px] leading-[1.65] sm:leading-[1.7] text-[#402E1D]/85 font-normal max-w-[500px] md:pt-1.5">
+                Seven tangible structural shifts that occur the moment your pelvis meets the seat.
+              </p>
+            </AnimatedReveal>
+          </div>
         </div>
 
         {/* 6 Grid Cards (3 Columns) */}
@@ -187,10 +182,10 @@ export default function BiomechanicalBenefitsSection() {
 
         {/* 7th Feature Card (Full Width Hero Bar, Shadowless) */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 28, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           whileHover={{ y: -4 }}
           className="group relative bg-white rounded-[26px] sm:rounded-[30px] p-7 sm:p-8 lg:p-9 border border-[#402E1D]/6 transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-6 overflow-hidden"
         >
@@ -219,7 +214,7 @@ export default function BiomechanicalBenefitsSection() {
 
               {/* Card Description */}
               <p className="font-sans text-[13.5px] sm:text-[14px] leading-[1.68] text-[#402E1D]/75 font-normal">
-                When the body asks for less attention, more attention remains for the practice. The seat does not meditate for us—it simply helps remove unnecessary physical friction.
+                When the body asks for less attention, more attention remains for the practice. The seat does not meditate for us  - it simply helps remove unnecessary physical friction.
               </p>
             </div>
           </div>

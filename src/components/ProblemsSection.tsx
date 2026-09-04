@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { Zap, Compass, Flame, Activity, TrendingDown, RefreshCw } from "lucide-react";
 import AnimatedHeading from "@/components/ui/AnimatedHeading";
+import AnimatedReveal from "@/components/ui/AnimatedReveal";
 
 interface ProblemItem {
   number: string;
@@ -27,7 +28,7 @@ const problems: ProblemItem[] = [
   {
     number: "02",
     title: "Hip Tightness",
-    desc: "Without the right support, the hips can't settle — creating tension that builds through the whole sit.",
+    desc: "Without the right support, the hips can't settle  - creating tension that builds through the whole sit.",
     image: "/images/problems/problem_v2_2.avif",
     alt: "Hip tightness and tension during meditation sitting",
     icon: Compass,
@@ -35,7 +36,7 @@ const problems: ProblemItem[] = [
   {
     number: "03",
     title: "Knee Pressure",
-    desc: "When the hips can't open freely, the knees carry the strain — making longer sits increasingly uncomfortable.",
+    desc: "When the hips can't open freely, the knees carry the strain  - making longer sits increasingly uncomfortable.",
     image: "/images/problems/problem_v2_3.avif",
     alt: "Knee pressure and strain during cross-legged sitting",
     icon: Flame,
@@ -43,7 +44,7 @@ const problems: ProblemItem[] = [
   {
     number: "04",
     title: "Tailbone & Lower Back",
-    desc: "All body weight concentrates at the base of the spine — the spot that tends to ache first and longest.",
+    desc: "All body weight concentrates at the base of the spine  - the spot that tends to ache first and longest.",
     image: "/images/problems/problem_v2_4.avif",
     alt: "Tailbone and lower back ache during meditation",
     icon: Activity,
@@ -59,7 +60,7 @@ const problems: ProblemItem[] = [
   {
     number: "06",
     title: "Constant Readjustment",
-    desc: "Each shift to find comfort pulls attention away from the practice — making stillness harder to reach.",
+    desc: "Each shift to find comfort pulls attention away from the practice  - making stillness harder to reach.",
     image: "/images/problems/problem_v2_readjustment.avif",
     alt: "Constant readjustment and distraction during meditation",
     icon: RefreshCw,
@@ -100,75 +101,44 @@ export default function ProblemsSection() {
     <section
       id="the-problem"
       data-header-theme="light"
-      className="relative w-full bg-[#E6DFD4] text-[#402E1D] py-14 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 overflow-hidden flex flex-col items-center justify-center scroll-mt-16 sm:scroll-mt-24"
+      className="relative w-full bg-transparent text-[#402E1D] py-14 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center scroll-mt-16 sm:scroll-mt-24"
     >
-      {/* Full-cover Background Image with Soft Edge Blending (Laterally Inverted) */}
-      <div 
-        className="absolute inset-0 z-0 overflow-hidden"
-        style={{
-          maskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
-        }}
-      >
-        <Image
-          src="/images/about-bg.avif"
-          alt="Problems section background"
-          fill
-          priority={false}
-          unoptimized
-          sizes="100vw"
-          className="object-cover object-center scale-x-[-1]"
-        />
-
-        {/* Warm overlay for legibility with increased opacity */}
-        <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
-      </div>
-
-      {/* Boundary Connecting Mandala Motifs */}
-      <div className="absolute left-0 top-0 -translate-x-1/3 -translate-y-1/2 w-[280px] sm:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">
-        <Image src="/images/about.avif" alt="" fill unoptimized sizes="440px" className="object-contain" />
-      </div>
-      <div className="absolute right-0 bottom-0 translate-x-1/3 translate-y-1/2 w-[280px] sm:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">
-        <Image src="/images/about.avif" alt="" fill unoptimized sizes="440px" className="object-contain" />
-      </div>
-
       <div className="relative z-10 w-full max-w-[1440px] mx-auto">
 
-        {/* Section Header */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.25 }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-14"
-        >
-          <div className="max-w-[660px]">
-            <motion.div variants={headerVariants} className="flex items-center gap-2 mb-3 sm:mb-4">
-              <span className="font-sans text-[13.5px] sm:text-[15px] font-extrabold tracking-[0.03em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
-                THE PROBLEM
-              </span>
-            </motion.div>
-            <AnimatedHeading
-              text="Meditation shouldn't have to become a test of endurance."
-              className="font-display font-semibold text-[32px] sm:text-[40px] md:text-[44px] lg:text-[48px] leading-[1.12] tracking-[-0.015em] text-[#402E1D]"
-            />
+        <div className="w-full mb-10 sm:mb-14">
+          <AnimatedReveal delay={0.03} y={12} className="flex items-center gap-2 mb-3 sm:mb-4">
+            <span className="font-sans text-[13.5px] sm:text-[15px] font-extrabold tracking-[0.03em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
+              THE PROBLEM
+            </span>
+          </AnimatedReveal>
+
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 sm:gap-10">
+            <div className="max-w-[660px]">
+              <AnimatedHeading
+                text="Meditation shouldn't have to become a test of endurance."
+                className="font-display font-semibold text-[32px] sm:text-[40px] md:text-[44px] lg:text-[48px] leading-[1.12] tracking-[-0.015em] text-[#402E1D]"
+              />
+            </div>
+
+            <AnimatedReveal
+              delay={0.18}
+              y={18}
+              className="max-w-[560px] md:pt-1.5"
+            >
+              <p className="font-sans text-[16px] sm:text-[17.5px] lg:text-[18.5px] leading-[1.65] sm:leading-[1.7] text-[#402E1D]/85 font-normal">
+                Longer periods of meditation can bring physical discomfort  - numb legs, tightness in the hips, pressure around the knees, aching through the tailbone and lower back, and a posture that gradually begins to slump. As the body becomes uncomfortable, the need to constantly readjust makes stillness harder to maintain.
+              </p>
+            </AnimatedReveal>
           </div>
+        </div>
 
-          <motion.p
-            variants={headerVariants}
-            className="font-sans text-[14px] sm:text-[15px] leading-[1.65] text-[#402E1D]/80 font-normal max-w-[500px] md:pb-1"
-          >
-            Longer periods of meditation can bring physical discomfort — numb legs, tightness in the hips, pressure around the knees, aching through the tailbone and lower back, and a posture that gradually begins to slump. As the body becomes uncomfortable, the need to constantly readjust makes stillness harder to maintain.
-          </motion.p>
-        </motion.div>
-
-        {/* 3x2 Animated Grid (Centered & Scaled Down) */}
+        {/* 2-Column Mobile & 3-Column Desktop Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.12 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7 max-w-[1140px] mx-auto w-full"
+          viewport={{ once: true, amount: 0.12 }}
+          className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6 lg:gap-7 max-w-[1140px] mx-auto w-full"
         >
           {problems.map((item, idx) => {
             const isExpanded = expandedIndex === idx;
@@ -180,7 +150,7 @@ export default function ProblemsSection() {
                 variants={cardVariants}
                 whileHover={{ y: -8 }}
                 onClick={() => setExpandedIndex((p) => (p === idx ? null : idx))}
-                className="group relative rounded-[24px] sm:rounded-[28px] overflow-hidden bg-[#E2DCD2] border border-[#402E1D]/10 cursor-pointer select-none shadow-[0_16px_36px_rgba(64,46,29,0.06)] hover:shadow-[0_24px_50px_rgba(64,46,29,0.12)] transition-shadow duration-500 aspect-square w-full"
+                className="group relative rounded-[18px] sm:rounded-[28px] overflow-hidden bg-[#E2DCD2] border border-[#402E1D]/10 cursor-pointer select-none shadow-[0_12px_28px_rgba(64,46,29,0.06)] hover:shadow-[0_24px_50px_rgba(64,46,29,0.12)] transition-shadow duration-500 aspect-square w-full"
               >
                 {/* Background Photography */}
                 <Image
@@ -188,17 +158,17 @@ export default function ProblemsSection() {
                   alt={item.alt}
                   fill
                   unoptimized
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover object-center transition-transform duration-700 ease-out will-change-transform group-hover:scale-106"
                 />
 
                 {/* Ambient Scrim Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent pointer-events-none" />
 
                 {/* Floating Frosted Glass Label Card */}
-                <div className="absolute bottom-3 sm:bottom-3.5 inset-x-3 sm:inset-x-3.5 z-20">
+                <div className="absolute bottom-2 sm:bottom-3.5 inset-x-2 sm:inset-x-3.5 z-20">
                   <div
-                    className="relative p-3.5 sm:p-4 rounded-[18px] sm:rounded-[22px] overflow-hidden border border-white/80 transition-all duration-500 ease-out"
+                    className="relative p-2.5 sm:p-4 rounded-[14px] sm:rounded-[22px] overflow-hidden border border-white/80 transition-all duration-500 ease-out"
                     style={{
                       backdropFilter: "blur(28px) saturate(140%) brightness(1.04)",
                       WebkitBackdropFilter: "blur(28px) saturate(140%) brightness(1.04)",
@@ -210,19 +180,19 @@ export default function ProblemsSection() {
                   >
                     {/* Specular Curved Sheen */}
                     <div
-                      className="absolute inset-0 pointer-events-none rounded-[18px] sm:rounded-[22px]"
+                      className="absolute inset-0 pointer-events-none rounded-[14px] sm:rounded-[22px]"
                       style={{ background: "radial-gradient(120% 90% at 85% 10%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 40%, transparent 70%)" }}
                     />
 
                     {/* Title + Relevant Icon Badge (No Icon Border) */}
-                    <div className="relative z-10 flex items-center justify-between gap-2.5">
-                      <h3 className="font-display font-bold text-[15.5px] sm:text-[17px] text-white leading-tight tracking-[0.015em]">
+                    <div className="relative z-10 flex items-center justify-between gap-1.5 sm:gap-2.5">
+                      <h3 className="font-display font-bold text-[13px] xs:text-[14.5px] sm:text-[17px] text-white leading-tight tracking-[0.01em]">
                         {item.title}
                       </h3>
 
-                      {/* Icon Circle on Right Side of Title (No Border) */}
-                      <div className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 text-white group-hover:bg-white group-hover:text-[#876540] group-hover:scale-110 transition-all duration-300">
-                        <IconComponent className="w-3.5 h-3.5 stroke-[2.2]" />
+                      {/* Icon Circle on Right Side of Title */}
+                      <div className="w-5.5 h-5.5 xs:w-6 xs:h-6 sm:w-7.5 sm:h-7.5 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 text-white group-hover:bg-white group-hover:text-[#876540] group-hover:scale-110 transition-all duration-300">
+                        <IconComponent className="w-2.5 h-2.5 xs:w-3 xs:h-3 sm:w-3.5 sm:h-3.5 stroke-[2.2]" />
                       </div>
                     </div>
 
@@ -231,7 +201,7 @@ export default function ProblemsSection() {
                       isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr] sm:group-hover:grid-rows-[1fr]"
                     }`}>
                       <div className="overflow-hidden">
-                        <p className={`font-sans text-[12.5px] sm:text-[13px] leading-[1.6] text-white/90 font-normal pt-2.5 transition-opacity duration-300 delay-75 ${
+                        <p className={`font-sans text-[10.5px] xs:text-[11.5px] sm:text-[13px] leading-[1.45] sm:leading-[1.6] text-white/90 font-normal pt-1.5 sm:pt-2.5 transition-opacity duration-300 delay-75 ${
                           isExpanded ? "opacity-100" : "opacity-0 sm:group-hover:opacity-100"
                         }`}>
                           {item.desc}

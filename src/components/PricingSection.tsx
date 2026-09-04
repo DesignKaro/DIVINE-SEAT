@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { motion, Variants } from "framer-motion";
 import { Check, ArrowUpRight } from "lucide-react";
-import CustomizeModal from "./CustomizeModal";
 import AnimatedHeading from "@/components/ui/AnimatedHeading";
+import AnimatedReveal from "@/components/ui/AnimatedReveal";
+
+const CustomizeModal = dynamic(() => import("./CustomizeModal"), { ssr: false });
 
 interface PricingTier {
   id: string;
@@ -46,7 +49,7 @@ const pricingTiers: PricingTier[] = [
   },
   {
     id: "custom",
-    name: "The Lotus Seat — Custom",
+    name: "The Lotus Seat  - Custom",
     description: "The same ergonomic Lotus Seat with the ability to personalize its appearance.",
     originalPrice: "€285",
     discountBadge: "30% OFF",
@@ -83,72 +86,32 @@ export default function PricingSection() {
     <section
       id="choose-seat"
       data-header-theme="light"
-      className="relative w-full bg-[#E6DFD4] text-[#402E1D] py-16 sm:py-20 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center overflow-hidden scroll-mt-16 sm:scroll-mt-24"
+      className="relative w-full bg-transparent text-[#402E1D] py-16 sm:py-20 lg:py-28 px-4 sm:px-8 lg:px-14 flex flex-col items-center justify-center scroll-mt-16 sm:scroll-mt-24"
     >
-      {/* Full-cover Background Image with Soft Edge Blending (Laterally Inverted) */}
-      <div 
-        className="absolute inset-0 z-0 overflow-hidden"
-        style={{
-          maskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
-        }}
-      >
-        <Image
-          src="/images/about-bg.avif"
-          alt="Pricing section background"
-          fill
-          priority={false}
-          unoptimized
-          sizes="100vw"
-          className="object-cover object-center scale-x-[-1]"
-        />
-
-        {/* Warm overlay for legibility with increased opacity */}
-        <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
-      </div>
-
-      {/* Background Sacred Mandala Motif (Centered in Header Area, Preserving Full Geometry) */}
-      <div className="absolute top-4 sm:top-8 left-1/2 -translate-x-1/2 w-[440px] sm:w-[560px] md:w-[680px] lg:w-[760px] aspect-square pointer-events-none select-none z-0 opacity-[0.11] mix-blend-multiply">
-        <Image
-          src="/images/about.avif"
-          alt="Sacred Mandala Top Center Motif"
-          fill
-          unoptimized
-          sizes="(max-width: 1024px) 80vw, 55vw"
-          className="object-contain object-center"
-        />
-      </div>
-
       <div className="relative z-10 w-full max-w-[1240px] mx-auto">
         
         {/* Section Header */}
         <div className="text-center max-w-[720px] mx-auto mb-12 sm:mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+          <AnimatedReveal
+            delay={0.03}
+            y={12}
             className="flex items-center justify-center gap-2 mb-3"
           >
             <span className="font-sans text-[13.5px] sm:text-[15px] font-extrabold tracking-[0.03em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
               CHOOSE YOUR SEAT
             </span>
-          </motion.div>
+          </AnimatedReveal>
 
           <AnimatedHeading
             text="Choose your Lotus Seat."
             className="font-display font-bold text-[34px] sm:text-[46px] md:text-[52px] leading-[1.08] tracking-[-0.015em] text-[#1E140D] mb-3.5 flex justify-center"
           />
 
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55, delay: 0.1 }}
-            className="font-sans text-[14.5px] sm:text-[15.5px] leading-[1.65] text-[#402E1D]/80 font-normal max-w-[580px] mx-auto"
-          >
-            The same support, comfort and thoughtful design. Choose the finish that feels right for your practice and your space.
-          </motion.p>
+          <AnimatedReveal delay={0.18} y={18}>
+            <p className="font-sans text-[16px] sm:text-[17.5px] lg:text-[18.5px] leading-[1.65] sm:leading-[1.7] text-[#402E1D]/85 font-normal max-w-[620px] mx-auto">
+              The same support, comfort and thoughtful design. Choose the finish that feels right for your practice and your space.
+            </p>
+          </AnimatedReveal>
         </div>
 
         {/* Structured Two-Column Wide Pricing Cards Stack */}
@@ -210,15 +173,30 @@ export default function PricingSection() {
 
                   {/* Watermark layer clipped to card */}
                   <div className="absolute inset-0 rounded-[32px] sm:rounded-[38px] overflow-hidden pointer-events-none z-0">
+                    {/* Ghost Cushion in Left Column for Custom Card: Horizontally centered on phone view */}
+                    {!isLeftCard && (
+                      <div className="absolute left-1/2 -translate-x-1/2 sm:left-4 sm:translate-x-0 top-[28%] sm:top-1/2 -translate-y-1/2 w-[270px] xs:w-[310px] sm:w-[280px] lg:w-[330px] aspect-[1536/1024] pointer-events-none select-none opacity-[0.09] mix-blend-multiply">
+                        <Image
+                          src="/images/ancient_wisdom_modern_comfort.avif"
+                          alt="Lotus Seat Cushion Ghost"
+                          fill
+                          unoptimized
+                          sizes="(max-width: 640px) 310px, (max-width: 1024px) 30vw, 22vw"
+                          className="object-contain object-center sm:object-left"
+                        />
+                      </div>
+                    )}
+
+                    {/* Pattern Mandala Image: Hidden on phone view to prevent overlap, active on desktop */}
                     <div
-                      className="absolute top-1/2 -translate-y-1/2 -right-16 sm:right-0 sm:translate-x-1/4 w-[420px] sm:w-[520px] lg:w-[600px] aspect-square pointer-events-none select-none opacity-[0.10] mix-blend-multiply"
+                      className="hidden sm:block absolute top-1/2 -translate-y-1/2 -right-12 sm:right-0 sm:translate-x-1/4 w-[280px] sm:w-[360px] lg:w-[420px] aspect-square pointer-events-none select-none opacity-[0.08] mix-blend-multiply"
                     >
                       <Image
                         src="/images/about.avif"
                         alt="Sacred Mandala Background Motif"
                         fill
                         unoptimized
-                        sizes="(max-width: 1024px) 50vw, 40vw"
+                        sizes="(max-width: 1024px) 35vw, 28vw"
                         className="object-contain object-center"
                       />
                     </div>
@@ -230,27 +208,31 @@ export default function PricingSection() {
                     {/* LEFT COLUMN: Title, Description, (Pricing + CTA) with Showcase Image in Empty Space */}
                     <div className="md:col-span-7 lg:col-span-7 flex flex-col justify-between">
                       <div>
-                        {/* Divine Lotus Brand Icon above the title with grand prominent size & complete opacity */}
-                        <div className="relative w-32 h-16 sm:w-36 sm:h-18 lg:w-[160px] lg:h-[80px] mb-4 sm:mb-5">
+                        {/* Divine Lotus Brand Icon above the title with refined luxury scale */}
+                        <div className="relative w-24 h-12 sm:w-28 sm:h-14 lg:w-[120px] lg:h-[60px] mb-3.5 sm:mb-4">
                           <Image
                             src="/logo.avif"
                             alt="Divine Lotus Icon"
                             fill
-                            sizes="(max-width: 640px) 128px, (max-width: 1024px) 144px, 160px"
+                            sizes="(max-width: 640px) 96px, (max-width: 1024px) 112px, 120px"
                             className="object-contain object-left"
                           />
                         </div>
 
                         {/* Title & Description */}
-                        <h3 className="font-display font-bold text-[28px] sm:text-[34px] lg:text-[38px] text-[#1E140D] tracking-[-0.015em] mb-2.5">
-                          {tier.name}
-                        </h3>
-                        <p className="font-sans text-[14px] sm:text-[15px] leading-relaxed text-[#402E1D]/75 mb-6 sm:mb-8 max-w-none">
-                          {tier.description}
-                        </p>
+                        <AnimatedHeading
+                          text={tier.name}
+                          as="h3"
+                          className="font-display font-bold text-[28px] sm:text-[34px] lg:text-[38px] text-[#1E140D] tracking-[-0.015em] mb-2.5"
+                        />
+                        <AnimatedReveal delay={0.12} y={14}>
+                          <p className="font-sans text-[16px] sm:text-[17.5px] lg:text-[18.5px] leading-relaxed text-[#402E1D]/80 mb-6 sm:mb-8 max-w-none">
+                            {tier.description}
+                          </p>
+                        </AnimatedReveal>
 
                         {/* Interactive Content & Image Flex Layout */}
-                        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-2">
+                        <AnimatedReveal delay={0.16} y={16} className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-2">
                           {/* Price & CTA Button Stack */}
                           <div className="flex flex-col">
                             {/* Price Row: Original Price & Active Price in Same Row with Matching Big Size */}
@@ -319,15 +301,14 @@ export default function PricingSection() {
                                   if (tier.id === "custom") {
                                     setIsCustomizeOpen(true);
                                   } else {
-                                    const notifyBtn = document.querySelector('[aria-label="Notify Me"]') as HTMLButtonElement;
-                                    if (notifyBtn) notifyBtn.click();
+                                    setIsCustomizeOpen(true);
                                   }
                                 }}
                                 className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
                               >
                                 {/* SVG Fused Pill + Pinched Neck + Circle Background */}
                                 <svg
-                                  className="w-[218px] sm:w-[232px] h-[44px] sm:h-[46px]"
+                                  className="w-[215px] sm:w-[230px] h-[44px] sm:h-[46px]"
                                   viewBox="0 0 236 46"
                                   fill="none"
                                   xmlns="http://www.w3.org/2000/svg"
@@ -380,36 +361,38 @@ export default function PricingSection() {
                               />
                             </div>
                           )}
-                        </div>
+                        </AnimatedReveal>
                       </div>
                     </div>
 
                     {/* RIGHT COLUMN: Features List and Included Bonus Box */}
                     <div className="md:col-span-5 lg:col-span-5 flex flex-col justify-between md:border-l md:border-[#402E1D]/8 md:pl-8 lg:pl-10 pt-6 md:pt-0 border-t md:border-t-0 border-[#402E1D]/8">
                       <div>
-                        <p className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.14em] uppercase text-[#876540] mb-4 sm:mb-5">
+                        <p className="font-sans text-[13px] sm:text-[14.5px] font-extrabold tracking-[0.12em] uppercase text-[#876540] mb-4 sm:mb-5">
                           What&apos;s Included
                         </p>
 
                         {/* Features List */}
-                        <div className="space-y-3 sm:space-y-3.5">
+                        <AnimatedReveal delay={0.2} y={14} className="space-y-3.5 sm:space-y-4">
                           {tier.features.map((feature, fIdx) => (
                             <div key={fIdx} className="flex items-start gap-3">
-                              <div className="w-5 h-5 rounded-full bg-[#876540]/10 flex items-center justify-center shrink-0 mt-0.5">
-                                <Check className="w-3.5 h-3.5 text-[#876540] stroke-[2.6]" />
+                              <div className="w-5 sm:w-6 h-5 sm:h-6 rounded-full bg-[#876540]/10 flex items-center justify-center shrink-0 mt-0.5">
+                                <Check className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-[#876540] stroke-[2.6]" />
                               </div>
-                              <span className="font-sans text-[13.5px] sm:text-[14.5px] text-[#1E140D]/90 font-normal leading-snug">
+                              <span className="font-sans text-[15.5px] sm:text-[16.5px] lg:text-[17px] text-[#1E140D]/90 font-medium leading-snug">
                                 {feature}
                               </span>
                             </div>
                           ))}
-                        </div>
+                        </AnimatedReveal>
                       </div>
 
                       {/* Included Bonus Box */}
-                      <div className="w-full bg-[#F6F3ED] rounded-2xl px-4 sm:px-5 py-3.5 mt-6 sm:mt-8 text-[13px] sm:text-[13.5px] text-[#402E1D]/85 leading-snug font-sans border border-[#876540]/10">
-                        <span className="font-bold text-[#876540]">Bonus:</span> {tier.bonus}
-                      </div>
+                      <AnimatedReveal delay={0.25} y={12}>
+                        <div className="w-full bg-[#F6F3ED] rounded-2xl px-4 sm:px-5 py-3.5 mt-6 sm:mt-8 text-[14.5px] sm:text-[15.5px] text-[#402E1D]/90 leading-relaxed font-sans border border-[#876540]/10">
+                          <span className="font-bold text-[#876540]">Bonus:</span> {tier.bonus}
+                        </div>
+                      </AnimatedReveal>
                     </div>
 
                   </div>
@@ -422,10 +405,12 @@ export default function PricingSection() {
       </div>
 
       {/* Bespoke Customization Studio Modal */}
-      <CustomizeModal
-        isOpen={isCustomizeOpen}
-        onClose={() => setIsCustomizeOpen(false)}
-      />
+      {isCustomizeOpen && (
+        <CustomizeModal
+          isOpen={isCustomizeOpen}
+          onClose={() => setIsCustomizeOpen(false)}
+        />
+      )}
     </section>
   );
 }

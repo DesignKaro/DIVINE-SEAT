@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import AnimatedHeading from "@/components/ui/AnimatedHeading";
+import AnimatedReveal from "@/components/ui/AnimatedReveal";
 import { ArrowUpRight } from "lucide-react";
 
 interface FAQItem {
@@ -210,93 +211,47 @@ export default function TheAnswerSection() {
     <section
       id="faq"
       data-header-theme="light"
-      className="relative w-full bg-[#E6DFD4] text-[#402E1D] py-14 sm:py-20 lg:py-24 px-4 sm:px-10 lg:px-16 flex flex-col items-center justify-center scroll-mt-16 sm:scroll-mt-24"
+      className="relative w-full bg-transparent text-[#402E1D] py-14 sm:py-20 lg:py-24 px-4 sm:px-10 lg:px-16 flex flex-col items-center justify-center scroll-mt-16 sm:scroll-mt-24"
     >
-      {/* Full-cover Background Image with Soft Edge Blending (Laterally Inverted) */}
-      <div 
-        className="absolute inset-0 z-0 overflow-hidden"
-        style={{
-          maskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
-        }}
-      >
-        <Image
-          src="/images/about-bg.avif"
-          alt="FAQ section background"
-          fill
-          priority={false}
-          unoptimized
-          sizes="100vw"
-          className="object-cover object-center scale-x-[-1]"
-        />
-
-        {/* Warm overlay for legibility with increased opacity */}
-        <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
-      </div>
-
-      {/* Background Sacred Mandala Motifs (Preserving Full Circular Geometry) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute left-0 top-6 sm:top-10 -translate-x-1/3 w-[260px] sm:w-[320px] md:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none opacity-[0.20] mix-blend-multiply">
-          <Image
-            src="/images/about.avif"
-            alt="Sacred Mandala Motif (Top Left)"
-            fill
-            unoptimized
-            sizes="(max-width: 1024px) 30vw, 20vw"
-            className="object-contain object-center"
-          />
-        </div>
-
-        <div className="absolute right-0 bottom-6 sm:bottom-10 translate-x-1/3 w-[260px] sm:w-[320px] md:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none opacity-[0.20] mix-blend-multiply">
-          <Image
-            src="/images/about.avif"
-            alt="Sacred Mandala Motif (Bottom Right)"
-            fill
-            unoptimized
-            sizes="(max-width: 1024px) 30vw, 20vw"
-            className="object-contain object-center"
-          />
-        </div>
-      </div>
-
       <div className="relative z-10 w-full max-w-[1280px] mx-auto">
         {/* TOP SECTION HEADER */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.25 }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-12 lg:mb-14"
-        >
-          <div>
-            {/* Eyebrow */}
-            <motion.div variants={headerVariants} className="flex items-center gap-2 mb-3 sm:mb-4">
-              <span className="font-sans text-[13.5px] sm:text-[15px] font-extrabold tracking-[0.03em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
-                FAQS
-              </span>
-            </motion.div>
+        <div className="w-full mb-8 sm:mb-12 lg:mb-14">
+          {/* Eyebrow */}
+          <AnimatedReveal delay={0.03} y={12} className="flex items-center gap-2 mb-3 sm:mb-4">
+            <span className="font-sans text-[13.5px] sm:text-[15px] font-extrabold tracking-[0.03em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
+              FAQS
+            </span>
+          </AnimatedReveal>
 
-            {/* Main Headline with kinetic reveal */}
-            <AnimatedHeading
-              text="Everything you might want to know."
-              className="font-display font-bold text-[34px] sm:text-[44px] md:text-[50px] lg:text-[56px] leading-[1.06] tracking-[-0.015em] text-[#1E140D] max-w-[480px]"
-            />
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 sm:gap-10">
+            <div>
+              {/* Main Headline with kinetic reveal */}
+              <AnimatedHeading
+                text="Everything you might want to know."
+                className="font-display font-bold text-[34px] sm:text-[44px] md:text-[50px] lg:text-[56px] leading-[1.06] tracking-[-0.015em] text-[#1E140D] max-w-[480px]"
+              />
+            </div>
+
+            {/* Narrative Paragraph on Right */}
+            <AnimatedReveal delay={0.18} y={18} className="max-w-[520px] md:pt-1.5">
+              <p className="font-sans text-[16px] sm:text-[17.5px] lg:text-[18.5px] leading-[1.65] sm:leading-[1.7] text-[#402E1D]/85 font-normal">
+                From how it feels to shipping, care and returns - here are the details before you decide.
+              </p>
+            </AnimatedReveal>
           </div>
-
-          {/* Narrative Paragraph on Right */}
-          <motion.p
-            variants={headerVariants}
-            className="font-sans text-[14px] sm:text-[15.5px] leading-[1.68] text-[#402E1D]/80 font-normal max-w-[460px] md:pb-1"
-          >
-            From how it feels to shipping, care and returns - here are the details before you decide.
-          </motion.p>
-        </motion.div>
+        </div>
 
         {/* 2-COLUMN CATEGORIZED FAQ GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 items-start">
+        <motion.div
+          initial={{ opacity: 0, y: 32, scale: 0.985 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{ duration: 0.85, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 items-start"
+        >
           {renderFAQColumn("THE SEAT & PRACTICE", seatAndPracticeFAQs)}
           {renderFAQColumn("ORDERING & OWNERSHIP", orderingAndOwnershipFAQs)}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

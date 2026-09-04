@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 import AnimatedHeading from "@/components/ui/AnimatedHeading";
 import AnimatedReveal from "@/components/ui/AnimatedReveal";
 
@@ -18,51 +19,51 @@ interface SolutionStep {
 const solutionSteps: SolutionStep[] = [
   {
     number: "01",
-    badge: "Pelvic Support",
-    title: "A stable foundation from the pelvis up.",
-    desc: "Supports the base of the posture so the spine can rise more naturally.",
+    badge: "Numbness",
+    title: "More comfort through longer sits",
+    desc: "The natural latex gently cushions the sitting area and spreads pressure more evenly, helping the legs stay comfortable for longer.",
     image: "/images/solution/solution_step_1.avif",
-    alt: "Pelvic support foundation for natural spine alignment",
+    alt: "Numbness relief through natural latex cushioning",
   },
   {
     number: "02",
-    badge: "Hip Elevation",
-    title: "More room for the hips to settle.",
-    desc: "Gentle elevation makes cross-legged sitting less demanding on the hips.",
+    badge: "Hip Tightness",
+    title: "A little more space for the hips",
+    desc: "The slightly elevated sitting position gives the hips more room to relax into a cross-legged posture, making the position feel easier and more natural.",
     image: "/images/solution/solution_step_2.avif",
-    alt: "Hip elevation for comfortable cross-legged sitting",
+    alt: "Hip tightness relief with elevated posture space",
   },
   {
     number: "03",
-    badge: "Knee Comfort",
-    title: "Less strain through the legs.",
-    desc: "A more balanced sitting position gives the knees more freedom to settle naturally.",
+    badge: "Knee Pressure",
+    title: "A more comfortable position for the knees",
+    desc: "As the hips sit slightly higher, the legs can rest more naturally, reducing some of the pressure that can build around the knees during longer meditation.",
     image: "/images/solution/solution_step_3.avif",
-    alt: "Knee comfort and reduced leg strain",
+    alt: "Comfortable knee position with elevated hips",
   },
   {
     number: "04",
-    badge: "Tailbone & Lower-Back Comfort",
-    title: "Support where long sitting is often felt most.",
-    desc: "Responsive cushioning helps distribute pressure around the pelvis and sitting area.",
+    badge: "Tailbone & Lower Back",
+    title: "Comfort where it matters most",
+    desc: "The shaped cushion supports the pelvis and softens pressure around the tailbone and sitting area, making longer periods of sitting easier on the lower back.",
     image: "/images/solution/solution_step_4.avif",
-    alt: "Tailbone and lower back pressure relief",
+    alt: "Tailbone and lower back pelvic comfort support",
   },
   {
     number: "05",
-    badge: "Naturally Upright Posture",
-    title: "Upright without being held upright.",
-    desc: "The seat supports the foundation of the posture rather than relying on a backrest.",
+    badge: "Slouching",
+    title: "Sitting upright feels more natural",
+    desc: "With the pelvis gently supported and elevated, the spine can settle into an upright position without constantly trying to hold the body straight.",
     image: "/images/solution/solution_step_5.avif",
-    alt: "Natural upright posture support without backrest",
+    alt: "Effortless natural upright sitting posture without slouching",
   },
   {
     number: "06",
-    badge: "Less Readjustment",
-    title: "Settle in and stay with it.",
-    desc: "A stable, comfortable sitting position means less need to keep shifting in search of comfort.",
+    badge: "Constant Readjustment",
+    title: "More time simply sitting",
+    desc: "When the hips, legs, back and sitting area are more comfortable, there is less reason to keep shifting and searching for another position.",
     image: "/images/solution/solution_step_6.avif",
-    alt: "Stable sitting position with less need to readjust",
+    alt: "Deep meditation stability with no need for constant readjustment",
   },
 ];
 
@@ -237,66 +238,45 @@ export default function SolutionSection() {
     <section
       id="the-solution"
       data-header-theme="light"
-      className="relative w-full bg-[#E6DFD4] text-[#402E1D] py-12 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-12 overflow-hidden flex flex-col items-center justify-center scroll-mt-16 sm:scroll-mt-24"
+      className="relative w-full bg-transparent text-[#402E1D] py-12 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-12 flex flex-col items-center justify-center scroll-mt-16 sm:scroll-mt-24"
     >
-      {/* Full-cover Background Image with Soft Edge Blending */}
-      <div 
-        className="absolute inset-0 z-0 overflow-hidden"
-        style={{
-          maskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%)",
-        }}
-      >
-        <Image
-          src="/images/about-bg.avif"
-          alt="Solution section background"
-          fill
-          priority={false}
-          unoptimized
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-
-        {/* Warm overlay for legibility with increased opacity */}
-        <div className="absolute inset-0 bg-[#E6DFD4]/78 backdrop-blur-[1px]" />
-      </div>
-
-      {/* Boundary Connecting Mandala Motif (Completes with Problems section bottom-right) */}
-      <div className="absolute right-0 top-0 translate-x-1/3 -translate-y-1/2 w-[280px] sm:w-[380px] lg:w-[440px] aspect-square pointer-events-none select-none z-0 opacity-[0.20] mix-blend-multiply">
-        <Image src="/images/about.avif" alt="" fill unoptimized sizes="440px" className="object-contain" />
-      </div>
-
       {/* Section Container */}
       <div className="relative z-10 w-full max-w-[1360px] mx-auto flex flex-col items-center">
         
         {/* Section Header */}
-        <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-6 sm:mb-10 lg:mb-12">
-          <div className="max-w-[640px]">
-            {/* Eyebrow Label */}
-            <AnimatedReveal delay={0.02} y={12} className="flex items-center gap-2 mb-2 sm:mb-3">
-              <span className="font-sans text-[13.5px] sm:text-[15px] font-extrabold tracking-[0.03em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
-                THE SOLUTION
-              </span>
-            </AnimatedReveal>
-
-            {/* Headline with kinetic character reveal */}
-            <AnimatedHeading
-              text="Designed to help the body settle."
-              className="font-display font-semibold text-[24px] sm:text-[36px] md:text-[44px] lg:text-[48px] leading-[1.22] sm:leading-[1.28] lg:leading-[1.3] tracking-[-0.015em] text-[#402E1D]"
-            />
-          </div>
-
-          {/* Description Paragraph */}
-          <AnimatedReveal delay={0.15} y={16} className="max-w-[460px] md:pb-1">
-            <p className="font-sans text-[13px] sm:text-[15px] leading-[1.65] sm:leading-[1.7] text-[#402E1D]/80 font-normal">
-              The Lotus Seat brings support, elevation and comfort together in one foundation — helping the body find a naturally upright position, settle comfortably, and stay there with less need to readjust.
-            </p>
+        <div className="w-full mb-6 sm:mb-10 lg:mb-12">
+          {/* Eyebrow Label */}
+          <AnimatedReveal delay={0.02} y={12} className="flex items-center gap-2 mb-2 sm:mb-3">
+            <span className="font-sans text-[13.5px] sm:text-[15px] font-extrabold tracking-[0.03em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
+              THE SOLUTION
+            </span>
           </AnimatedReveal>
+
+          <div className="w-full flex flex-col md:flex-row md:items-start justify-between gap-4 sm:gap-8">
+            <div className="max-w-[640px]">
+              {/* Headline with kinetic character reveal */}
+              <AnimatedHeading
+                text="Designed to help the body settle."
+                className="font-display font-semibold text-[24px] sm:text-[36px] md:text-[44px] lg:text-[48px] leading-[1.22] sm:leading-[1.28] lg:leading-[1.3] tracking-[-0.015em] text-[#402E1D]"
+              />
+            </div>
+
+            {/* Description Paragraph */}
+            <AnimatedReveal delay={0.15} y={16} className="max-w-[560px] md:pt-1.5">
+              <p className="font-sans text-[15.5px] sm:text-[17px] lg:text-[18px] leading-[1.65] sm:leading-[1.7] text-[#402E1D]/85 font-normal">
+                The Lotus Seat is designed around the physical discomforts that often interrupt longer sitting  - numbness, hip tightness, pressure around the knees, tailbone and lower-back discomfort, slouching and the constant need to readjust. Its elevated, supportive shape and responsive cushioning work together to create a more comfortable and naturally upright foundation for meditation.
+              </p>
+            </AnimatedReveal>
+          </div>
         </div>
 
         {/* ================= DESKTOP VIEW: PHOTOREALISTIC LEATHER JOURNAL (md and above) ================= */}
-        <div 
+        <motion.div 
           ref={bookContainerRef}
+          initial={{ opacity: 0, y: 32, scale: 0.985 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.85, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           onPointerDown={(e) => {
             const rect = bookContainerRef.current?.getBoundingClientRect();
             if (rect) handleGenericPointerDown(e.clientX, rect);
@@ -309,7 +289,7 @@ export default function SolutionSection() {
           onPointerLeave={handleGenericPointerUp}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
-          className={`hidden md:block relative w-full max-w-[1240px] aspect-[1683/935] min-h-[350px] sm:min-h-[430px] lg:min-h-[490px] select-none [perspective:2400px] ${
+          className={`hidden md:block relative w-full max-w-[1240px] aspect-[1672/941] min-h-[350px] sm:min-h-[430px] lg:min-h-[490px] select-none [perspective:2400px] ${
             isDragging ? "cursor-grabbing" : "cursor-grab"
           }`}
         >
@@ -326,21 +306,19 @@ export default function SolutionSection() {
           </div>
 
           {/* 2. Dynamic Content Spread (Starts at Left Page Margin past Spine) */}
-          <div className="absolute left-[20.6%] top-[15.6%] right-[7.55%] bottom-[20.1%] z-10 overflow-hidden rounded-r-[20px] sm:rounded-r-[26px]">
+          {/* 2. Dynamic Content Spread (Starts at Left Page Margin past Spine & Rings) */}
+          <div className="absolute left-[20.6%] top-[15.2%] right-[6.8%] bottom-[18.6%] z-10 overflow-hidden rounded-r-[18px] sm:rounded-r-[24px]">
             
             {/* LAYER 1: BASE PAGE (Only during transition) */}
             {isFlipping && (
               <div 
                 style={{
-                  background: "linear-gradient(to right, transparent 0%, rgba(250, 246, 238, 0.3) 1.5%, #FAF6EE 4%, #FAF6EE 100%)",
+                  background: "linear-gradient(to right, transparent 0%, rgba(242, 236, 224, 0.3) 1.5%, #F2ECE0 4%, #F2ECE0 100%)",
                 }}
-                className="absolute inset-0 pl-6 sm:pl-10 lg:pl-14 pr-4 sm:pr-8 lg:pr-10 py-3 sm:py-5 flex items-center z-0"
+                className="absolute inset-0 pl-8 sm:pl-12 lg:pl-16 pr-4 sm:pr-8 lg:pr-10 py-3 sm:py-5 flex items-center z-0"
               >
-                {/* Soft Left Spine Crease Blend Shadow */}
-                <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#2A150A]/10 to-transparent pointer-events-none z-20" />
-
                 {/* Sacred Mandala Motif */}
-                <div className="absolute -left-6 -top-6 w-[200px] sm:w-[280px] aspect-square pointer-events-none select-none z-0 opacity-[0.09] mix-blend-multiply">
+                <div className="absolute -left-6 -top-6 w-[200px] sm:w-[280px] aspect-square pointer-events-none select-none z-0 opacity-[0.07] mix-blend-multiply">
                   <Image
                     src="/images/about.avif"
                     alt="Sacred Mandala Motif"
@@ -354,23 +332,23 @@ export default function SolutionSection() {
                 <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-6 lg:gap-8 items-center w-full h-full">
                   <div className="w-full md:col-span-7 flex flex-col justify-center pr-0 sm:pr-4">
                     <div className="flex items-center gap-2 mb-2.5 sm:mb-3.5 lg:mb-4">
-                      <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-[#876540]/10 text-[#876540] font-sans text-[9.5px] sm:text-[11px] lg:text-[12px] font-bold tracking-wider uppercase">
+                      <span className="font-sans text-[12px] sm:text-[13.5px] font-extrabold tracking-[0.03em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
                         SOLUTION {baseData.number}
                       </span>
-                      <span className="font-sans text-[11px] sm:text-[12.5px] lg:text-[13.5px] font-semibold text-[#876540]/90">
+                      <span className="font-sans text-[12px] sm:text-[13.5px] font-semibold text-[#876540]/90">
                         {baseData.badge}
                       </span>
                     </div>
-                    <h3 className="font-display font-bold text-[18px] sm:text-[23px] md:text-[25px] lg:text-[29px] text-[#1E140D] leading-[1.24] sm:leading-[1.26] tracking-[-0.015em] mb-2 sm:mb-3 lg:mb-3.5">
+                    <h3 className="font-display font-bold text-[20px] sm:text-[25px] md:text-[28px] lg:text-[32px] text-[#1E140D] leading-[1.18] sm:leading-[1.20] tracking-[-0.015em] mb-2.5 sm:mb-3 lg:mb-3.5">
                       {baseData.title}
                     </h3>
-                    <p className="font-sans text-[11.5px] sm:text-[13px] lg:text-[14.5px] leading-[1.65] text-[#402E1D]/85 font-normal max-w-[440px]">
+                    <p className="font-sans text-[13.5px] sm:text-[15.5px] lg:text-[17px] leading-[1.65] text-[#402E1D]/85 font-normal max-w-[460px]">
                       {baseData.desc}
                     </p>
                   </div>
 
                   <div className="w-full md:col-span-5 h-full flex items-center justify-center md:justify-end py-1">
-                    <div className="relative w-full max-w-[280px] md:max-w-none h-full max-h-[260px] sm:max-h-[310px] lg:max-h-[350px] aspect-[4/3.8] rounded-[14px] sm:rounded-[20px] overflow-hidden shadow-[0_8px_22px_rgba(40,20,10,0.12)] border border-black/5">
+                    <div className="relative w-full max-w-[280px] md:max-w-none h-full max-h-[260px] sm:max-h-[310px] lg:max-h-[350px] aspect-[4/3.8] rounded-[14px] sm:rounded-[20px] overflow-hidden shadow-[0_12px_28px_rgba(40,20,10,0.14)] border border-[#73512E]/15 ring-1 ring-[#73512E]/10">
                       <Image
                         src={baseData.image}
                         alt={baseData.alt}
@@ -393,17 +371,16 @@ export default function SolutionSection() {
                   ? `perspective(1200px) rotateY(${flipDirection === 1 ? -flipProgress * 10 : -(1 - flipProgress) * 10}deg)`
                   : "none",
                 transformOrigin: "0% 50%",
-                background: "linear-gradient(to right, transparent 0%, rgba(250, 246, 238, 0.3) 1.5%, #FAF6EE 4%, #FAF6EE 100%)",
+                background: isFlipping
+                  ? "linear-gradient(to right, transparent 0%, rgba(242, 236, 224, 0.3) 1.5%, #F2ECE0 4%, #F2ECE0 100%)"
+                  : "transparent",
               }}
-              className={`relative w-full h-full pl-6 sm:pl-10 lg:pl-14 pr-4 sm:pr-8 lg:pr-10 py-3 sm:py-5 flex items-center z-10 ${
+              className={`relative w-full h-full pl-8 sm:pl-12 lg:pl-16 pr-4 sm:pr-8 lg:pr-10 py-3 sm:py-5 flex items-center z-10 ${
                 isFlipping ? "shadow-[0_6px_20px_rgba(20,10,4,0.10)]" : ""
               }`}
             >
-              {/* Soft Left Spine Crease Blend Shadow */}
-              <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#2A150A]/10 to-transparent pointer-events-none z-20" />
-              
               {/* Sacred Mandala Motif */}
-              <div className="absolute -left-6 -top-6 w-[200px] sm:w-[280px] aspect-square pointer-events-none select-none z-0 opacity-[0.09] mix-blend-multiply">
+              <div className="absolute -left-6 -top-6 w-[200px] sm:w-[280px] aspect-square pointer-events-none select-none z-0 opacity-[0.07] mix-blend-multiply">
                 <Image
                   src="/images/about.avif"
                   alt="Sacred Mandala Motif"
@@ -417,23 +394,23 @@ export default function SolutionSection() {
               <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-6 lg:gap-8 items-center w-full h-full">
                 <div className="w-full md:col-span-7 flex flex-col justify-center pr-0 sm:pr-4">
                   <div className="flex items-center gap-2 mb-2.5 sm:mb-3.5 lg:mb-4">
-                    <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-[#876540]/10 text-[#876540] font-sans text-[9.5px] sm:text-[11px] lg:text-[12px] font-bold tracking-wider uppercase">
+                    <span className="font-sans text-[12px] sm:text-[13.5px] font-extrabold tracking-[0.03em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
                       SOLUTION {overlayData.number}
                     </span>
-                    <span className="font-sans text-[11px] sm:text-[12.5px] lg:text-[13.5px] font-semibold text-[#876540]/90">
+                    <span className="font-sans text-[12px] sm:text-[13.5px] font-semibold text-[#876540]/90">
                       {overlayData.badge}
                     </span>
                   </div>
-                  <h3 className="font-display font-bold text-[18px] sm:text-[23px] md:text-[25px] lg:text-[29px] text-[#1E140D] leading-[1.24] sm:leading-[1.26] tracking-[-0.015em] mb-2 sm:mb-3 lg:mb-3.5">
+                  <h3 className="font-display font-bold text-[20px] sm:text-[25px] md:text-[28px] lg:text-[32px] text-[#1E140D] leading-[1.18] sm:leading-[1.20] tracking-[-0.015em] mb-2.5 sm:mb-3 lg:mb-3.5">
                     {overlayData.title}
                   </h3>
-                  <p className="font-sans text-[11.5px] sm:text-[13px] lg:text-[14.5px] leading-[1.65] text-[#402E1D]/85 font-normal max-w-[440px]">
+                  <p className="font-sans text-[13.5px] sm:text-[15.5px] lg:text-[17px] leading-[1.65] text-[#402E1D]/85 font-normal max-w-[460px]">
                     {overlayData.desc}
                   </p>
                 </div>
 
                 <div className="w-full md:col-span-5 h-full flex items-center justify-center md:justify-end py-1">
-                  <div className="relative w-full max-w-[280px] md:max-w-none h-full max-h-[260px] sm:max-h-[310px] lg:max-h-[350px] aspect-[4/3.8] rounded-[14px] sm:rounded-[20px] overflow-hidden shadow-[0_8px_22px_rgba(40,20,10,0.12)] border border-black/5">
+                  <div className="relative w-full max-w-[280px] md:max-w-none h-full max-h-[260px] sm:max-h-[310px] lg:max-h-[350px] aspect-[4/3.8] rounded-[14px] sm:rounded-[20px] overflow-hidden shadow-[0_12px_28px_rgba(40,20,10,0.14)] border border-[#73512E]/15 ring-1 ring-[#73512E]/10">
                     <Image
                       src={overlayData.image}
                       alt={overlayData.alt}
@@ -459,7 +436,7 @@ export default function SolutionSection() {
               >
                 {/* The Back-side of the Parchment Sheet */}
                 <div 
-                  className="w-full h-full bg-gradient-to-br from-[#F5EDE0] via-[#EFE5D4] to-[#E3D6C1] relative"
+                  className="w-full h-full bg-gradient-to-br from-[#F2ECE0] via-[#EAE2D4] to-[#DDD2C0] relative"
                   style={{
                     transform: `rotateY(${flipDirection === 1 ? -180 * flipProgress : 180 * (1 - flipProgress)}deg)`,
                     transformOrigin: creaseX + " 50%",
@@ -498,11 +475,15 @@ export default function SolutionSection() {
 
           </div>
 
-        </div>
+        </motion.div>
 
         {/* ================= MOBILE VIEW: 3D REALISTIC FOLDING LEATHER JOURNAL CARD (< md) ================= */}
-        <div 
+        <motion.div 
           ref={mobileContainerRef}
+          initial={{ opacity: 0, y: 28, scale: 0.985 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           onPointerDown={(e) => {
             const rect = mobileContainerRef.current?.getBoundingClientRect();
             if (rect) handleGenericPointerDown(e.clientX, rect);
@@ -537,7 +518,7 @@ export default function SolutionSection() {
 
                 <div className="relative z-10 flex flex-col">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#876540]/10 text-[#876540] font-sans text-[10px] font-bold tracking-wider uppercase">
+                    <span className="font-sans text-[11px] sm:text-[12px] font-extrabold tracking-[0.03em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
                       SOLUTION {baseData.number}
                     </span>
                     <span className="font-sans text-[11.5px] font-semibold text-[#876540]/90">
@@ -546,7 +527,7 @@ export default function SolutionSection() {
                   </div>
 
                   <div className="min-h-[50px] sm:min-h-[56px] flex items-center mb-2.5">
-                    <h3 className="font-display font-bold text-[18.5px] sm:text-[21px] text-[#1E140D] leading-[1.24] tracking-[-0.015em]">
+                    <h3 className="font-display font-bold text-[20px] sm:text-[22.5px] text-[#1E140D] leading-[1.2] tracking-[-0.015em]">
                       {baseData.title}
                     </h3>
                   </div>
@@ -563,7 +544,7 @@ export default function SolutionSection() {
                   </div>
 
                   <div className="min-h-[44px] sm:min-h-[48px] flex items-start">
-                    <p className="font-sans text-[12.5px] sm:text-[13.5px] leading-[1.58] text-[#402E1D]/85 font-normal">
+                    <p className="font-sans text-[13.5px] sm:text-[14.5px] leading-[1.6] text-[#402E1D]/85 font-normal">
                       {baseData.desc}
                     </p>
                   </div>
@@ -597,7 +578,7 @@ export default function SolutionSection() {
 
               <div className="relative z-10 flex flex-col">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2.5 py-0.5 rounded-full bg-[#876540]/10 text-[#876540] font-sans text-[10px] font-bold tracking-wider uppercase">
+                  <span className="font-sans text-[11px] sm:text-[12px] font-extrabold tracking-[0.03em] uppercase text-[#73512E] underline underline-offset-4 decoration-2 decoration-[#876540]/80 pb-0.5">
                     SOLUTION {overlayData.number}
                   </span>
                   <span className="font-sans text-[11.5px] font-semibold text-[#876540]/90">
@@ -606,7 +587,7 @@ export default function SolutionSection() {
                 </div>
 
                 <div className="min-h-[50px] sm:min-h-[56px] flex items-center mb-2.5">
-                  <h3 className="font-display font-bold text-[18.5px] sm:text-[21px] text-[#1E140D] leading-[1.24] tracking-[-0.015em]">
+                  <h3 className="font-display font-bold text-[20px] sm:text-[22.5px] text-[#1E140D] leading-[1.2] tracking-[-0.015em]">
                     {overlayData.title}
                   </h3>
                 </div>
@@ -624,7 +605,7 @@ export default function SolutionSection() {
                 </div>
 
                 <div className="min-h-[44px] sm:min-h-[48px] flex items-start">
-                  <p className="font-sans text-[12.5px] sm:text-[13.5px] leading-[1.58] text-[#402E1D]/85 font-normal">
+                  <p className="font-sans text-[13.5px] sm:text-[14.5px] leading-[1.6] text-[#402E1D]/85 font-normal">
                     {overlayData.desc}
                   </p>
                 </div>
@@ -678,10 +659,10 @@ export default function SolutionSection() {
             )}
 
           </div>
-        </div>
+        </motion.div>
 
         {/* BOTTOM NAVIGATION: Minimal Prev / Next Arrows */}
-        <div className="relative z-20 flex items-center justify-center gap-3 mt-4 sm:mt-5 md:-mt-4 lg:-mt-12">
+        <AnimatedReveal delay={0.2} y={12} className="relative z-20 flex items-center justify-center gap-3 mt-4 sm:mt-5 md:-mt-4 lg:-mt-12">
           <button
             onClick={() => paginate(-1)}
             disabled={isFlipping}
@@ -704,7 +685,14 @@ export default function SolutionSection() {
           >
             <ChevronRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 stroke-[2.4]" />
           </button>
-        </div>
+        </AnimatedReveal>
+
+        {/* Section Ending Statement */}
+        <AnimatedReveal delay={0.15} y={15} className="mt-8 sm:mt-10 md:mt-8 lg:mt-10 text-center max-w-2xl px-4">
+          <p className="font-display font-medium text-[20px] sm:text-[23px] md:text-[26px] text-[#402E1D] leading-snug tracking-[-0.01em]">
+            Less time thinking about the discomfort. More time with the meditation.
+          </p>
+        </AnimatedReveal>
 
       </div>
     </section>

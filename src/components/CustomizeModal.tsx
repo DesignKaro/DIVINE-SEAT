@@ -2,6 +2,7 @@
 
 import { useState, useRef, ChangeEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { 
   X, 
   Upload, 
@@ -16,6 +17,7 @@ import {
   PenTool,
   ShoppingBag
 } from "lucide-react";
+import { validateName, validateEmail, validatePhone } from "@/lib/validation";
 
 export interface ColorPair {
   id: string;
@@ -29,43 +31,37 @@ export const PREBUILT_COLOR_PAIRS: ColorPair[] = [
     id: "slate-mist",
     name: "Slate Mist",
     upperColor: "#ECE7DE",
-    baseColor: "#777E86",
+    baseColor: "#767D85",
   },
   {
     id: "terracotta-rose",
     name: "Terracotta Rose",
     upperColor: "#ECE7DE",
-    baseColor: "#B66865",
+    baseColor: "#B56764",
   },
   {
     id: "ochre-gold",
     name: "Ochre Gold",
     upperColor: "#ECE7DE",
-    baseColor: "#CBB28D",
-  },
-  {
-    id: "natural-sand",
-    name: "Natural Sand",
-    upperColor: "#ECE7DE",
-    baseColor: "#D2BA96",
-  },
-  {
-    id: "ivory-cream",
-    name: "Ivory Cream",
-    upperColor: "#ECE7DE",
-    baseColor: "#C7B7A8",
+    baseColor: "#CBB18D",
   },
   {
     id: "warm-taupe",
     name: "Warm Taupe",
     upperColor: "#ECE7DE",
-    baseColor: "#B08A70",
+    baseColor: "#B28C73",
   },
   {
-    id: "espresso-earth",
-    name: "Espresso Earth",
+    id: "sapphire",
+    name: "Sapphire",
     upperColor: "#ECE7DE",
-    baseColor: "#6D5450",
+    baseColor: "#72B0AB",
+  },
+  {
+    id: "pistachio",
+    name: "Pistachio",
+    upperColor: "#ECE7DE",
+    baseColor: "#B89D47",
   },
 ];
 
@@ -98,6 +94,7 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<{ name?: string; email?: string; phone?: string }>({});
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -145,8 +142,22 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email) return;
 
+    const nameCheck = validateName(name);
+    const emailCheck = validateEmail(email);
+    const phoneCheck = validatePhone(phone, false);
+
+    const errors: { name?: string; email?: string; phone?: string } = {};
+    if (!nameCheck.isValid) errors.name = nameCheck.error;
+    if (!emailCheck.isValid) errors.email = emailCheck.error;
+    if (!phoneCheck.isValid) errors.phone = phoneCheck.error;
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      return;
+    }
+
+    setFieldErrors({});
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
@@ -166,7 +177,7 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 lg:p-8 overflow-y-auto">
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 xs:p-3.5 sm:p-6 lg:p-8 overflow-y-auto">
         {/* Minimal Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -182,13 +193,13 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 8 }}
           transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-[720px] bg-white text-[#402E1D] rounded-[26px] sm:rounded-[36px] border border-[#402E1D]/10 overflow-hidden z-10 my-auto flex flex-col max-h-[94vh]"
+          className="relative w-full max-w-[680px] sm:max-w-[730px] lg:max-w-[760px] bg-white text-[#402E1D] rounded-[22px] sm:rounded-[36px] border border-[#402E1D]/10 overflow-hidden z-10 my-auto flex flex-col max-h-[94vh]"
         >
           {/* Header with Responsive Padding */}
-          <div className="px-5 sm:px-10 lg:px-12 pt-5 sm:pt-9 pb-3 sm:pb-4 flex items-center justify-between">
+          <div className="px-4 xs:px-5 sm:px-8 lg:px-9 pt-4 xs:pt-5 sm:pt-8 pb-2.5 sm:pb-4 flex items-center justify-between">
             <div>
-              <h2 className="font-display font-bold text-[20px] sm:text-[28px] text-[#1E140D] tracking-tight">
-                The Lotus Seat — Custom
+              <h2 className="font-display font-bold text-[18px] xs:text-[20px] sm:text-[26px] text-[#1E140D] tracking-tight">
+                The Lotus Seat  - Custom
               </h2>
             </div>
 
@@ -203,7 +214,7 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
 
           {/* Borderless Minimal Atelier Tab Navigation (Full Width) */}
           {!isSuccess && (
-            <div className="px-5 sm:px-10 lg:px-12 pb-3 sm:pb-4.5">
+            <div className="px-4 xs:px-5 sm:px-8 lg:px-9 pb-2.5 sm:pb-4">
               <div className="w-full grid grid-cols-3 gap-1 sm:gap-1.5 bg-[#F5F2EC] p-1 sm:p-1.5 rounded-full select-none font-sans">
                 {[
                   { step: 1, label: "Color Palette", shortLabel: "Palette", icon: Palette },
@@ -218,7 +229,7 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                       key={item.step}
                       type="button"
                       onClick={() => setCurrentStep(item.step as 1 | 2 | 3)}
-                      className={`relative w-full h-8 sm:h-8.5 rounded-full transition-all duration-200 ease-out flex items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-3.5 cursor-pointer select-none border-0 outline-none ${
+                      className={`relative w-full h-8 sm:h-8.5 rounded-full transition-all duration-200 ease-out flex items-center justify-center gap-1.5 sm:gap-2 px-1.5 sm:px-3.5 cursor-pointer select-none border-0 outline-none ${
                         isActive
                           ? "bg-white text-[#1E140D]"
                           : "bg-transparent text-[#402E1D]/55 hover:text-[#1E140D] hover:bg-white/40"
@@ -232,7 +243,7 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                       />
 
                       {/* Label Text for All Tabs */}
-                      <span className={`font-sans text-[11.5px] sm:text-[12px] leading-none whitespace-nowrap ${
+                      <span className={`font-sans text-[11px] xs:text-[11.5px] sm:text-[12px] leading-none whitespace-nowrap ${
                         isActive ? "font-bold text-[#1E140D]" : "font-semibold"
                       }`}>
                         <span className="sm:hidden">{item.shortLabel}</span>
@@ -246,7 +257,7 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
           )}
 
           {/* Modal Body with Generous Responsive Padding */}
-          <div className="overflow-y-auto px-5 sm:px-10 lg:px-12 pt-1 pb-6 sm:pb-10 flex-1 font-sans">
+          <div className="overflow-y-auto px-4 xs:px-5 sm:px-8 lg:px-9 pt-1 pb-5 sm:pb-8 flex-1 font-sans">
             {isSuccess ? (
               <div className="py-12 sm:py-14 text-center space-y-4 animate-in fade-in duration-300 font-sans">
                 <div className="w-14 h-14 rounded-full bg-[#876540]/10 text-[#876540] flex items-center justify-center mx-auto">
@@ -273,127 +284,117 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                 
                 {/* STEP 1: COLOR PALETTE */}
                 {currentStep === 1 && (
-                  <div className="space-y-4 sm:space-y-4.5 animate-in fade-in duration-200">
-                    <div>
-                      <h4 className="font-sans text-[13.5px] sm:text-[14.5px] font-bold text-[#1E140D]">
-                        Prebuilt Colors
-                      </h4>
-                      <p className="font-sans text-[12px] sm:text-[12.5px] text-[#402E1D]/65 font-medium mt-0.5">
-                        Choose from our 7 signature base finishes (with natural cream top), or create your custom colors below.
-                      </p>
+                  <div className="space-y-3.5 sm:space-y-4.5 animate-in fade-in duration-200 relative">
+                    
+                    {/* PREBUILT COLORS SECTION (Responsive flex col on mobile, row on tablet/desktop) */}
+                    <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3.5 sm:gap-5">
+                      
+                      {/* Left: Prebuilt Colors Title & Swatches */}
+                      <div className="flex-1 flex flex-col justify-between space-y-2 sm:space-y-2.5 min-w-0">
+                        <div>
+                          <h4 className="font-sans text-[13.5px] sm:text-[14.5px] font-bold text-[#1E140D]">
+                            Prebuilt Colors
+                          </h4>
+                          <p className="font-sans text-[11.5px] sm:text-[12.5px] text-[#402E1D]/65 font-medium mt-0.5">
+                            Choose from our 6 signature base finishes (with natural cream top), or create your custom colors below.
+                          </p>
+                        </div>
+
+                        {/* 6 Signature Dual-Tone Swatches: Strictly 3 Columns a Row with Premium Tactile 3D Capsule Styling */}
+                        <div className="pt-1">
+                          <div className="grid grid-cols-3 gap-2.5 xs:gap-3 sm:gap-3.5 max-w-[320px] xs:max-w-[340px] sm:max-w-[360px]">
+                            {PREBUILT_COLOR_PAIRS.map((pair) => {
+                              const isSelected = paletteMode === "prebuilt" && selectedPrebuiltId === pair.id;
+
+                              return (
+                                <button
+                                  key={pair.id}
+                                  type="button"
+                                  onMouseEnter={() => setHoveredPairId(pair.id)}
+                                  onMouseLeave={() => setHoveredPairId(null)}
+                                  onClick={() => {
+                                    setSelectedPrebuiltId(pair.id);
+                                    setPaletteMode("prebuilt");
+                                  }}
+                                  title={`${pair.name}: Natural Cream + ${pair.name}`}
+                                  aria-label={pair.name}
+                                  className="group relative flex flex-col items-center cursor-pointer p-0 border-0 outline-none select-none text-center"
+                                >
+                                  {/* Minimal Architectural Dual-Tone Swatch Tile (Left: Natural Cream + Right: Signature Color) */}
+                                  <div className={`w-full h-[38px] xs:h-[42px] sm:h-[44px] rounded-[12px] xs:rounded-[14px] overflow-hidden relative flex flex-row transition-all duration-250 ${
+                                    isSelected
+                                      ? "ring-[2.5px] ring-[#73512E] ring-offset-[2px] ring-offset-[#FAF6EE] shadow-[0_4px_14px_rgba(115,81,46,0.22)] scale-[1.03]"
+                                      : "border border-[#402E1D]/14 shadow-[0_2px_6px_rgba(40,20,10,0.05)] hover:border-[#73512E]/40 hover:shadow-[0_4px_12px_rgba(40,20,10,0.10)] hover:-translate-y-0.5"
+                                  }`}>
+                                    {/* Left 50%: Upper Cushion Cover Color (Natural Cream) */}
+                                    <div
+                                      className="w-1/2 h-full relative border-r border-black/[0.08]"
+                                      style={{ backgroundColor: pair.upperColor }}
+                                    />
+                                    {/* Right 50%: Foundation Base Color */}
+                                    <div
+                                      className="w-1/2 h-full relative"
+                                      style={{ backgroundColor: pair.baseColor }}
+                                    />
+
+                                    {/* Subtle Inset Matte Framing Border */}
+                                    <div className="absolute inset-0 pointer-events-none rounded-[12px] xs:rounded-[14px] ring-1 ring-inset ring-black/5" />
+                                  </div>
+
+                                  {/* Minimal Typography Color Label Underneath */}
+                                  <span className={`font-sans text-[11px] xs:text-[11.5px] sm:text-[12px] tracking-tight mt-1.5 transition-colors duration-200 truncate max-w-full text-center block ${
+                                    isSelected ? "text-[#1E140D] font-bold" : "text-[#5C452E]/80 font-medium group-hover:text-[#1E140D]"
+                                  }`}>
+                                    {pair.name}
+                                  </span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Right: Custom Color Callout Preview Thumbnail */}
+                      <div className="relative shrink-0 self-stretch flex items-center justify-center">
+                        <div className="relative w-full md:w-[220px] lg:w-[245px] h-[115px] xs:h-[125px] sm:h-[140px] md:h-full min-h-[98px] sm:min-h-[110px] rounded-2xl overflow-hidden bg-white border border-[#402E1D]/12 p-1.5 flex items-center justify-center">
+                          <Image
+                            src="/images/custom-color-preview.avif"
+                            alt="Custom Color Seat Preview"
+                            fill
+                            unoptimized
+                            sizes="(max-width: 768px) 100vw, 245px"
+                            className="object-contain p-1 select-none pointer-events-none"
+                          />
+                        </div>
+                      </div>
+
                     </div>
 
-                    {/* 7 Signature Base Colors - Minimal Floating Swatches with Fluid Hover Expansion */}
-                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1">
-                      {PREBUILT_COLOR_PAIRS.map((pair) => {
-                        const isSelected = paletteMode === "prebuilt" && selectedPrebuiltId === pair.id;
-                        const isHovered = hoveredPairId === pair.id;
-                        const isExpanded = isSelected || isHovered;
-
-                        return (
-                          <button
-                            key={pair.id}
-                            type="button"
-                            onMouseEnter={() => setHoveredPairId(pair.id)}
-                            onMouseLeave={() => setHoveredPairId(null)}
-                            onClick={() => {
-                              setSelectedPrebuiltId(pair.id);
-                              setPaletteMode("prebuilt");
-                            }}
-                            style={isExpanded ? { backgroundColor: pair.baseColor } : undefined}
-                            className={`group relative h-9 sm:h-10 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center gap-2 p-1 cursor-pointer border-0 outline-none select-none ${
-                              isExpanded
-                                ? "text-white pr-3 sm:pr-3.5 scale-[1.02]"
-                                : "bg-transparent text-[#1E140D]"
-                            }`}
-                          >
-                            {/* Swatch Circle: Solid upperColor when expanded (hovered or active), split-disc when inactive */}
-                            <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden shrink-0 transition-transform duration-300 relative ${
-                              isExpanded ? "scale-105" : "hover:scale-105"
-                            }`}>
-                              <svg className="w-full h-full block" viewBox="0 0 36 36" fill="none">
-                                <circle cx="18" cy="18" r="18" fill={pair.upperColor} />
-                                {!isExpanded && (
-                                  <path d="M 0 18 A 18 18 0 0 0 36 18 Z" fill={pair.baseColor} />
-                                )}
-                              </svg>
-                            </div>
-
-                            {/* Fluidly Expanding Name Text */}
-                            <div
-                              className={`overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] whitespace-nowrap ${
-                                isExpanded
-                                  ? "max-w-[170px] opacity-100"
-                                  : "max-w-0 opacity-0"
-                              }`}
-                            >
-                              <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold leading-none text-white">
-                                {pair.name}
-                              </span>
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    {/* Custom Colors - Minimal Floating Row */}
-                    <div className="pt-2 sm:pt-2.5">
-                      <div className="flex items-center justify-between mb-2">
+                    {/* CUSTOM COLORS SECTION (Full Width of Modal Window) */}
+                    <div className="pt-2 sm:pt-2.5 w-full">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-0.5 mb-2">
                         <h4 className="font-sans text-[12.5px] sm:text-[13px] font-bold text-[#1E140D]">
                           Or Create Custom Colors
                         </h4>
-                        <span className="font-sans text-[10px] sm:text-[10.5px] text-[#402E1D]/55 font-medium">
+                        <span className="font-sans text-[10.5px] sm:text-[11px] text-[#402E1D]/55 font-medium">
                           Optional: Upload reference photo
                         </span>
                       </div>
 
-                      {/* Single Floating Minimal Selector Row */}
-                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                      {/* Responsive Custom Controls Row */}
+                      <div className="flex items-center gap-1.5 xs:gap-2 sm:gap-2.5 flex-wrap sm:flex-nowrap w-full">
                         
-                        {/* 1. Base Color Selector */}
+                        {/* 1. Top Color Selector */}
                         <label
                           onClick={() => setPaletteMode("custom")}
-                          className={`group relative h-9 sm:h-10 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center gap-2 p-1 cursor-pointer select-none ${
+                          className={`group relative h-9 sm:h-9.5 rounded-[11px] xs:rounded-[12px] transition-all duration-200 flex items-center gap-1.5 p-1 cursor-pointer select-none shrink-0 ${
                             paletteMode === "custom"
-                              ? "bg-[#EFECE5] text-[#1E140D] pr-3 sm:pr-3.5 ring-1.5 ring-[#876540]/35"
-                              : "bg-[#EFECE5]/60 hover:bg-[#EFECE5] text-[#1E140D] pr-2.5 sm:pr-3"
+                              ? "bg-[#EFECE5] text-[#1E140D] pr-2.5 sm:pr-3 border border-[#73512E]"
+                              : "bg-[#EFECE5]/60 hover:bg-[#EFECE5] text-[#1E140D] pr-2 sm:pr-2.5 border border-[#402E1D]/15"
                           }`}
                         >
                           <div 
-                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden shrink-0 relative transition-transform duration-300 group-hover:scale-105 border border-black/10"
-                            style={{ backgroundColor: customBase }}
-                          >
-                            <input
-                              type="color"
-                              value={customBase}
-                              onChange={(e) => {
-                                setCustomBase(e.target.value);
-                                setPaletteMode("custom");
-                              }}
-                              className="opacity-0 absolute inset-0 w-full h-full cursor-pointer"
-                            />
-                          </div>
-                          <div className="whitespace-nowrap flex items-center gap-1">
-                            <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold text-[#1E140D]">
-                              Base:
-                            </span>
-                            <span className="font-mono text-[10.5px] uppercase font-semibold text-[#876540]">
-                              {customBase}
-                            </span>
-                          </div>
-                        </label>
-
-                        {/* 2. Top Color Selector */}
-                        <label
-                          onClick={() => setPaletteMode("custom")}
-                          className={`group relative h-9 sm:h-10 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center gap-2 p-1 cursor-pointer select-none ${
-                            paletteMode === "custom"
-                              ? "bg-[#EFECE5] text-[#1E140D] pr-3 sm:pr-3.5 ring-1.5 ring-[#876540]/35"
-                              : "bg-[#EFECE5]/60 hover:bg-[#EFECE5] text-[#1E140D] pr-2.5 sm:pr-3"
-                          }`}
-                        >
-                          <div 
-                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden shrink-0 relative transition-transform duration-300 group-hover:scale-105 border border-black/10"
+                            className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-[7px] xs:rounded-[8px] overflow-hidden shrink-0 relative transition-transform duration-300 group-hover:scale-105 border border-black/10"
                             style={{ backgroundColor: customUpper }}
                           >
                             <input
@@ -407,41 +408,80 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                             />
                           </div>
                           <div className="whitespace-nowrap flex items-center gap-1">
-                            <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold text-[#1E140D]">
+                            <span className="font-sans text-[11px] sm:text-[12px] font-semibold text-[#1E140D]">
                               Top:
                             </span>
-                            <span className="font-mono text-[10.5px] uppercase font-semibold text-[#876540]">
+                            <span className="font-mono text-[10px] sm:text-[11px] uppercase font-semibold text-[#876540]">
                               {customUpper}
                             </span>
                           </div>
                         </label>
 
-                        {/* 3. Final Color Pair Result */}
+                        {/* 2. Base Color Selector */}
+                        <label
+                          onClick={() => setPaletteMode("custom")}
+                          className={`group relative h-9 sm:h-9.5 rounded-[11px] xs:rounded-[12px] transition-all duration-200 flex items-center gap-1.5 p-1 cursor-pointer select-none shrink-0 ${
+                            paletteMode === "custom"
+                              ? "bg-[#EFECE5] text-[#1E140D] pr-2.5 sm:pr-3 border border-[#73512E]"
+                              : "bg-[#EFECE5]/60 hover:bg-[#EFECE5] text-[#1E140D] pr-2 sm:pr-2.5 border border-[#402E1D]/15"
+                          }`}
+                        >
+                          <div 
+                            className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-[7px] xs:rounded-[8px] overflow-hidden shrink-0 relative transition-transform duration-300 group-hover:scale-105 border border-black/10"
+                            style={{ backgroundColor: customBase }}
+                          >
+                            <input
+                              type="color"
+                              value={customBase}
+                              onChange={(e) => {
+                                setCustomBase(e.target.value);
+                                setPaletteMode("custom");
+                              }}
+                              className="opacity-0 absolute inset-0 w-full h-full cursor-pointer"
+                            />
+                          </div>
+                          <div className="whitespace-nowrap flex items-center gap-1">
+                            <span className="font-sans text-[11px] sm:text-[12px] font-semibold text-[#1E140D]">
+                              Base:
+                            </span>
+                            <span className="font-mono text-[10px] sm:text-[11px] uppercase font-semibold text-[#876540]">
+                              {customBase}
+                            </span>
+                          </div>
+                        </label>
+
+                        {/* 3. Custom Color Pair Result (Minimal Architectural Tile matching swatches above) */}
                         <button
                           type="button"
                           onClick={() => setPaletteMode("custom")}
-                          style={paletteMode === "custom" ? { backgroundColor: customBase } : undefined}
-                          className={`group relative h-9 sm:h-10 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center gap-2 p-1 cursor-pointer border-0 outline-none select-none ${
-                            paletteMode === "custom"
-                              ? "text-white pr-3 sm:pr-3.5"
-                              : "bg-transparent hover:bg-[#EFECE5] text-[#1E140D] hover:pr-3 sm:hover:pr-3.5"
-                          }`}
+                          title="Custom Color Pair"
+                          aria-label="Custom Color Pair"
+                          className="group relative cursor-pointer p-0 border-0 outline-none select-none flex items-center justify-center shrink-0"
                         >
-                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden shrink-0 relative">
-                            <svg className="w-full h-full block" viewBox="0 0 36 36" fill="none">
-                              <circle cx="18" cy="18" r="18" fill={customUpper} />
-                              {paletteMode !== "custom" && (
-                                <path d="M 0 18 A 18 18 0 0 0 36 18 Z" fill={customBase} />
-                              )}
-                            </svg>
+                          {/* Minimal Architectural Dual-Tone Swatch Tile (Left: Top Color + Right: Base Color) */}
+                          <div className={`w-[60px] xs:w-[68px] sm:w-[76px] h-[34px] xs:h-[36px] sm:h-[38px] rounded-[11px] xs:rounded-[12px] overflow-hidden shrink-0 relative flex flex-row transition-all duration-250 ${
+                            paletteMode === "custom"
+                              ? "ring-[2.5px] ring-[#73512E] ring-offset-[2px] ring-offset-[#FAF6EE] shadow-[0_4px_14px_rgba(115,81,46,0.22)] scale-[1.03]"
+                              : "border border-[#402E1D]/14 shadow-[0_2px_6px_rgba(40,20,10,0.05)] hover:border-[#73512E]/40 hover:shadow-[0_4px_12px_rgba(40,20,10,0.10)] hover:-translate-y-0.5"
+                          }`}>
+                            {/* Left 50%: Upper Cushion Cover Color */}
+                            <div
+                              className="w-1/2 h-full relative border-r border-black/[0.08]"
+                              style={{ backgroundColor: customUpper }}
+                            />
+                            {/* Right 50%: Foundation Base Color */}
+                            <div
+                              className="w-1/2 h-full relative"
+                              style={{ backgroundColor: customBase }}
+                            />
+
+                            {/* Subtle Inset Matte Framing Border */}
+                            <div className="absolute inset-0 pointer-events-none rounded-[11px] xs:rounded-[12px] ring-1 ring-inset ring-black/5" />
                           </div>
-                          <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold leading-none whitespace-nowrap">
-                            Final Pair
-                          </span>
                         </button>
 
-                        {/* 4. Color Reference Image Upload - Stretched to fill right space */}
-                        <div className="relative flex-1 min-w-[180px]">
+                        {/* 4. Color Reference Image Upload - Full Width on Mobile, Flexible on Desktop */}
+                        <div className="relative flex-1 min-w-[130px] w-full sm:w-auto">
                           <input
                             ref={colorRefInputRef}
                             type="file"
@@ -450,13 +490,13 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                             className="hidden"
                           />
                           {colorRefPreview ? (
-                            <div className="h-9 sm:h-10 w-full rounded-full bg-[#FAF7F2] pl-2 pr-3 flex items-center justify-between gap-2 border border-[#876540]/30">
-                              <div className="flex items-center gap-2 min-w-0">
-                                <div className="w-6 h-6 rounded-full overflow-hidden shrink-0 border border-[#876540]/20">
+                            <div className="h-9 sm:h-9.5 w-full rounded-[11px] xs:rounded-[12px] bg-[#FAF7F2] pl-2 pr-3 flex items-center justify-between gap-2 border border-[#876540]/30">
+                              <div className="flex items-center gap-2 min-w-0 truncate">
+                                <div className="w-6 h-6 rounded-[6px] overflow-hidden shrink-0 border border-[#876540]/20">
                                   <img src={colorRefPreview} alt="Custom color reference" className="w-full h-full object-cover" />
                                 </div>
-                                <span className="font-sans text-[11.5px] font-semibold text-[#1E140D] truncate">
-                                  {colorRefFile?.name || "Color Photo Reference"}
+                                <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold text-[#1E140D] truncate">
+                                  {colorRefFile?.name || "Photo Reference"}
                                 </span>
                               </div>
                               <button
@@ -472,7 +512,7 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                             <button
                               type="button"
                               onClick={() => colorRefInputRef.current?.click()}
-                              className="h-9 sm:h-10 w-full rounded-full bg-[#FAF7F2] hover:bg-[#F3EFE8] text-[#876540] hover:text-[#1E140D] px-3 sm:px-4 flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer border border-dashed border-[#876540]/40 hover:border-[#876540]"
+                              className="h-9 sm:h-9.5 w-full rounded-[11px] xs:rounded-[12px] bg-[#FAF7F2] hover:bg-[#F3EFE8] text-[#876540] hover:text-[#1E140D] px-3 sm:px-4 flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer border border-dashed border-[#876540]/40 hover:border-[#876540]"
                             >
                               <Upload className="w-3.5 h-3.5 shrink-0 text-[#876540]" />
                               <span className="font-sans text-[11px] sm:text-[11.5px] font-semibold whitespace-nowrap truncate">
@@ -620,12 +660,12 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                     </div>
 
                     {/* Step 2 Back & Continue Buttons */}
-                    <div className="pt-4 sm:pt-7 flex items-center justify-between">
-                      {/* Step 2 Back Button (Signature Fused Pill Design) */}
+                    <div className="pt-4 sm:pt-7 flex items-center justify-end sm:justify-between gap-2">
+                      {/* Step 2 Back Button (Signature Fused Pill Design - Hidden on Mobile Phones) */}
                       <button
                         type="button"
                         onClick={() => setCurrentStep(1)}
-                        className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer font-sans"
+                        className="hidden sm:inline-flex group relative items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer font-sans"
                       >
                         <svg
                           className="w-[110px] sm:w-[120px] h-[44px] sm:h-[46px] overflow-visible"
@@ -746,38 +786,82 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
 
                     {/* Refined Minimal Contact Inputs in 2 Columns */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 font-sans">
-                      <input
-                        type="text"
-                        required
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Your Name *"
-                        className="w-full h-11 sm:h-12 px-4 rounded-xl sm:rounded-2xl bg-[#FAF7F2] border border-[#402E1D]/12 focus:border-[#876540]/60 font-sans text-[13px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/45 placeholder:font-normal focus:outline-none transition-colors"
-                      />
-                      <input
-                        type="email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Email Address *"
-                        className="w-full h-11 sm:h-12 px-4 rounded-xl sm:rounded-2xl bg-[#FAF7F2] border border-[#402E1D]/12 focus:border-[#876540]/60 font-sans text-[13px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/45 placeholder:font-normal focus:outline-none transition-colors"
-                      />
-                      <input
-                        type="tel"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="Phone Number (Optional)"
-                        className="w-full sm:col-span-2 h-11 sm:h-12 px-4 rounded-xl sm:rounded-2xl bg-[#FAF7F2] border border-[#402E1D]/12 focus:border-[#876540]/60 font-sans text-[13px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/45 placeholder:font-normal focus:outline-none transition-colors"
-                      />
+                      <div className="space-y-1">
+                        <input
+                          type="text"
+                          required
+                          value={name}
+                          onChange={(e) => {
+                            setName(e.target.value);
+                            if (fieldErrors.name) setFieldErrors(prev => ({ ...prev, name: undefined }));
+                          }}
+                          placeholder="Your Name *"
+                          className={`w-full h-11 sm:h-12 px-4 rounded-xl sm:rounded-2xl font-sans text-[13px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/45 placeholder:font-normal focus:outline-none transition-colors ${
+                            fieldErrors.name 
+                              ? "bg-red-50/50 border border-red-400 focus:border-red-500" 
+                              : "bg-[#FAF7F2] border border-[#402E1D]/12 focus:border-[#876540]/60"
+                          }`}
+                        />
+                        {fieldErrors.name && (
+                          <p className="text-[11px] text-red-600 font-medium px-1">
+                            {fieldErrors.name}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="space-y-1">
+                        <input
+                          type="email"
+                          required
+                          value={email}
+                          onChange={(e) => {
+                            setEmail(e.target.value);
+                            if (fieldErrors.email) setFieldErrors(prev => ({ ...prev, email: undefined }));
+                          }}
+                          placeholder="Email Address *"
+                          className={`w-full h-11 sm:h-12 px-4 rounded-xl sm:rounded-2xl font-sans text-[13px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/45 placeholder:font-normal focus:outline-none transition-colors ${
+                            fieldErrors.email 
+                              ? "bg-red-50/50 border border-red-400 focus:border-red-500" 
+                              : "bg-[#FAF7F2] border border-[#402E1D]/12 focus:border-[#876540]/60"
+                          }`}
+                        />
+                        {fieldErrors.email && (
+                          <p className="text-[11px] text-red-600 font-medium px-1">
+                            {fieldErrors.email}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="sm:col-span-2 space-y-1">
+                        <input
+                          type="tel"
+                          value={phone}
+                          onChange={(e) => {
+                            setPhone(e.target.value);
+                            if (fieldErrors.phone) setFieldErrors(prev => ({ ...prev, phone: undefined }));
+                          }}
+                          placeholder="Phone Number (Optional)"
+                          className={`w-full h-11 sm:h-12 px-4 rounded-xl sm:rounded-2xl font-sans text-[13px] font-medium text-[#1E140D] placeholder:text-[#402E1D]/45 placeholder:font-normal focus:outline-none transition-colors ${
+                            fieldErrors.phone 
+                              ? "bg-red-50/50 border border-red-400 focus:border-red-500" 
+                              : "bg-[#FAF7F2] border border-[#402E1D]/12 focus:border-[#876540]/60"
+                          }`}
+                        />
+                        {fieldErrors.phone && (
+                          <p className="text-[11px] text-red-600 font-medium px-1">
+                            {fieldErrors.phone}
+                          </p>
+                        )}
+                      </div>
                     </div>
 
                     {/* Step 3 Back & Submit Action */}
-                    <div className="pt-4 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-                      {/* Step 3 Back Button (Signature Fused Pill Design) */}
+                    <div className="pt-4 sm:pt-6 flex flex-col sm:flex-row items-center justify-end sm:justify-between gap-3 sm:gap-4">
+                      {/* Step 3 Back Button (Signature Fused Pill Design - Hidden on Mobile Phones) */}
                       <button
                         type="button"
                         onClick={() => setCurrentStep(2)}
-                        className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer font-sans"
+                        className="hidden sm:inline-flex group relative items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer font-sans"
                       >
                         <svg
                           className="w-[110px] sm:w-[120px] h-[44px] sm:h-[46px] overflow-visible"

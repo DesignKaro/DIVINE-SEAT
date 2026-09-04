@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemaps and AI indexing context
+Sitemap: https://divinelotus.com/sitemap.xml
+LLMs-Txt: https://divinelotus.com/llms.txt

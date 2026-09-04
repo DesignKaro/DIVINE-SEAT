@@ -4,16 +4,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { 
-  CheckCircle2, 
   RotateCcw, 
   Sparkles, 
   Clock, 
   Truck, 
-  Package, 
+  PackageCheck, 
   ShieldCheck, 
   Layers, 
   Mail,
-  ArrowRight
+  ArrowRight,
+  HelpCircle,
+  Globe,
+  AlertCircle,
+  HeartHandshake
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -55,176 +58,257 @@ const heroItemVariants: Variants = {
 
 const refundSections = [
   {
-    id: "trial-overview",
+    id: "change-of-mind",
     number: "01",
-    title: "30-Day Practice Trial",
+    title: "Change-of-Mind Returns",
     content: (
       <>
         <p>
-          We offer a 30-day practice trial from the date your order is delivered. You may test The Lotus Seat in your daily meditation or sitting routine for 30 calendar days.
+          If you simply decide that The Lotus Seat is not right for you, you may request a return within <strong>14 days of delivery</strong>, subject to the consumer rights applicable in your country.
+        </p>
+        <p className="mt-3 mb-2 text-[#1E140D] font-medium">
+          The product must be returned in a condition that allows us to offer it for resale. It should be:
+        </p>
+        <ul className="list-disc list-inside space-y-1.5 pl-1 text-[13.5px]">
+          <li>Clean and free from stains, marks or damage</li>
+          <li>Undamaged and complete</li>
+          <li>Returned with the included accessories and additional cover</li>
+          <li>Handled only to the extent reasonably necessary to inspect and understand the product</li>
+        </ul>
+        <p className="mt-3.5 text-[#402E1D]/80">
+          Where legally permitted, the customer is responsible for the cost of returning the product.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "customised-seats",
+    number: "02",
+    title: "Customised Lotus Seats",
+    content: (
+      <>
+        <p>
+          The Custom Lotus Seat is made according to the colour/design selected by the customer.
         </p>
         <p className="mt-2.5">
-          If the ergonomics or fit do not suit you, you can initiate a return for a full refund of the product purchase price.
+          Because customised products may be made specifically for an individual order, change-of-mind returns may be restricted where applicable law permits.
+        </p>
+        <p className="mt-2.5 text-[#402E1D]/80">
+          This does not affect your rights if the product is defective, damaged, incorrectly supplied or otherwise covered by mandatory consumer protection laws.
         </p>
       </>
     ),
   },
   {
-    id: "eligibility",
-    number: "02",
-    title: "Return Conditions",
-    content: (
-      <>
-        <p className="mb-2">To be eligible for a return under the 30-day trial:</p>
-        <ul className="list-disc list-inside space-y-1.5 pl-1 text-[13.5px]">
-          <li>Your return request must be submitted within 30 days of delivery.</li>
-          <li>The cork base, latex cushion, and fabric cover must be clean and free of physical damage, tears, or stains.</li>
-          <li>The product must be returned with all original components in safe protective packaging.</li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    id: "return-steps",
+    id: "damaged-defective",
     number: "03",
-    title: "How to Return",
+    title: "Damaged, Defective or Incorrect Products",
     content: (
       <>
-        <div className="space-y-2.5 my-3">
-          <div className="p-3.5 rounded-2xl bg-[#EFECE5] flex items-start gap-3">
-            <div className="w-6 h-6 rounded-full bg-[#876540] text-white font-bold text-[11.5px] flex items-center justify-center shrink-0 mt-0.5">
-              1
-            </div>
-            <div>
-              <div className="font-bold text-[#1E140D] text-[13px]">Contact Support</div>
-              <p className="text-[12.5px] text-[#402E1D]/80 mt-0.5">
-                Email <span className="font-semibold text-[#876540]">care@divinelotus.com</span> with your order number.
-              </p>
-            </div>
-          </div>
-
-          <div className="p-3.5 rounded-2xl bg-[#EFECE5] flex items-start gap-3">
-            <div className="w-6 h-6 rounded-full bg-[#876540] text-white font-bold text-[11.5px] flex items-center justify-center shrink-0 mt-0.5">
-              2
-            </div>
-            <div>
-              <div className="font-bold text-[#1E140D] text-[13px]">Pre-Paid Shipping Label</div>
-              <p className="text-[12.5px] text-[#402E1D]/80 mt-0.5">
-                We provide a digital prepaid courier label and instructions for carrier drop-off or pickup.
-              </p>
-            </div>
-          </div>
-
-          <div className="p-3.5 rounded-2xl bg-[#EFECE5] flex items-start gap-3">
-            <div className="w-6 h-6 rounded-full bg-[#876540] text-white font-bold text-[11.5px] flex items-center justify-center shrink-0 mt-0.5">
-              3
-            </div>
-            <div>
-              <div className="font-bold text-[#1E140D] text-[13px]">Inspection & Refund</div>
-              <p className="text-[12.5px] text-[#402E1D]/80 mt-0.5">
-                Once received and inspected, your refund is issued back to your original payment method within 2–3 business days.
-              </p>
-            </div>
-          </div>
+        <p>
+          We want every Lotus Seat to arrive as it was intended. If your order arrives:
+        </p>
+        <ul className="list-disc list-inside space-y-1.5 my-2.5 pl-1 text-[13.5px]">
+          <li>Damaged during delivery</li>
+          <li>Defective due to a manufacturing issue</li>
+          <li>Incorrect</li>
+          <li>Different from the product or configuration you ordered</li>
+        </ul>
+        <p>
+          please contact us as soon as reasonably possible with your order number and photographs or other information showing the issue.
+        </p>
+        <div className="mt-3 p-3.5 rounded-2xl bg-[#EFECE5] border-l-2 border-[#876540]">
+          <p className="font-semibold text-[#1E140D] text-[13.5px]">
+            &ldquo;When the mistake is ours, making it right is ours too.&rdquo;
+          </p>
+          <p className="text-[12.5px] text-[#402E1D]/80 mt-1">
+            Depending on the situation and applicable law, we may arrange a replacement, repair or refund at no additional cost to you.
+          </p>
         </div>
       </>
     ),
   },
   {
-    id: "refund-processing",
+    id: "damaged-after-delivery",
     number: "04",
-    title: "Refund Processing & Timelines",
+    title: "Products Damaged or Altered After Delivery",
     content: (
       <>
         <p>
-          Approved refunds are processed within 48 hours of return delivery to our facility.
+          Products that have been damaged through misuse, accidents, improper washing or care, stains, cuts, burns, modifications or other customer-caused damage may not qualify for a change-of-mind return or replacement, except where mandatory consumer law provides otherwise.
         </p>
         <p className="mt-2.5">
-          Funds typically reflect in your bank account or card statement within 3 to 7 business days depending on your card issuer.
+          Normal wear and reasonable use are treated separately from manufacturing defects.
         </p>
       </>
     ),
   },
   {
-    id: "damaged-items",
+    id: "how-to-request",
     number: "05",
-    title: "Damaged or Defective Items",
+    title: "How to Request a Return",
     content: (
       <>
         <p>
-          If your seat arrives damaged in transit or has a manufacturing defect, email <span className="font-semibold text-[#876540]">care@divinelotus.com</span> with photos of the issue within 7 days of delivery.
+          To request a return, contact us at:
+        </p>
+        <div className="my-3 p-4 rounded-2xl bg-[#EFECE5]">
+          <div className="text-[12px] font-bold text-[#876540] uppercase tracking-wider">Email Concierge</div>
+          <a 
+            href="mailto:theedivinelotuss@gmail.com"
+            className="text-[#1E140D] hover:text-[#876540] font-bold text-[14px] transition-colors mt-0.5 inline-block"
+          >
+            theedivinelotuss@gmail.com
+          </a>
+        </div>
+        <p className="font-medium text-[#1E140D] mb-1.5">Please include:</p>
+        <ul className="list-disc list-inside space-y-1.5 pl-1 text-[13.5px] mb-3">
+          <li>Order number</li>
+          <li>Name used for the order</li>
+          <li>Reason for the return</li>
+          <li>Photographs/videos where relevant</li>
+        </ul>
+        <p className="text-[#402E1D]/85">
+          We will provide the return instructions if your request is eligible.
+        </p>
+        <p className="mt-2 text-[12.5px] font-semibold text-[#876540]">
+          Please do not send a product back without first receiving return instructions from us.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "return-shipping",
+    number: "06",
+    title: "Return Shipping",
+    content: (
+      <>
+        <p>
+          For a change-of-mind return, the customer is responsible for return shipping costs where permitted by applicable law.
         </p>
         <p className="mt-2.5">
-          We will send a replacement unit immediately at no additional cost.
+          For a product that is defective, damaged on arrival, or incorrectly supplied by Divine Lotus, we will cover the reasonable return/replacement shipping costs where required.
         </p>
       </>
     ),
   },
   {
-    id: "custom-orders",
-    number: "06",
-    title: "Bespoke & Studio Bulk Orders",
-    content: (
-      <>
-        <p>
-          Standard catalog editions are fully covered under the 30-day practice trial. Custom bespoke color commissions and commercial studio orders (5+ units) are evaluated on a case-by-case basis.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "shipping-fees",
+    id: "inspection",
     number: "07",
-    title: "Return Shipping Fees",
+    title: "Inspection",
     content: (
       <>
         <p>
-          We do not charge restocking fees. For standard returns within the US, UK, and EU, a flat $25 return shipping label cost is deducted from the refund total (or waived if exchanging for another edition).
+          Once the returned product reaches us, we may inspect its condition before processing the applicable refund or replacement.
+        </p>
+        <p className="mt-2.5">
+          Where a reduction in refund is legally permitted because the product has been handled beyond what is reasonably necessary to inspect it, that reduction may apply.
         </p>
       </>
     ),
   },
   {
-    id: "exchanges",
+    id: "refunds",
     number: "08",
-    title: "Exchanges",
+    title: "Refunds",
     content: (
       <>
         <p>
-          If you wish to exchange your seat for a different colorway or model, reach out to our team at <span className="font-semibold text-[#876540]">care@divinelotus.com</span> to arrange a swap.
+          Where a refund is approved, it will normally be sent to the original payment method used for the purchase.
+        </p>
+        <p className="mt-2.5">
+          We will process eligible refunds as promptly as reasonably possible and within the period required by applicable law.
+        </p>
+        <p className="mt-2.5">
+          Your bank, card issuer or payment provider may take additional time to reflect the refund in your account.
+        </p>
+        <p className="mt-2.5 text-[#402E1D]/80">
+          Shipping charges, return costs, taxes or duties may be treated separately depending on the circumstances and the laws applicable to your purchase.
         </p>
       </>
     ),
   },
   {
-    id: "warranty-claims",
+    id: "pre-orders-production",
     number: "09",
-    title: "Warranty Claims vs. Returns",
+    title: "Pre-Orders and Production",
     content: (
       <>
         <p>
-          The 30-day trial covers ergonomics, comfort, and general satisfaction. Beyond 30 days, structural defects are covered under our <strong>3-Year Structural Warranty</strong> covering the cork foundation and latex core against breakage or abnormal breakdown.
+          The first Lotus Seats may be offered as a pre-order while the initial production batch is being prepared.
         </p>
+        <p className="mt-2.5">
+          The estimated production/dispatch period will be stated on the product page at the time of purchase.
+        </p>
+        <p className="mt-2.5">
+          If an unexpected delay occurs, we will communicate the revised timing and provide any cancellation or refund options required by applicable law.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "international-orders",
+    number: "10",
+    title: "International Orders",
+    content: (
+      <>
+        <p>
+          For international orders, customs duties, import taxes and other destination-country charges may apply unless clearly stated otherwise at checkout.
+        </p>
+        <p className="mt-2.5">
+          These charges may not be refundable by Divine Lotus where they are imposed by the customer’s country or customs authority.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "our-commitment",
+    number: "11",
+    title: "Our Commitment",
+    content: (
+      <>
+        <p>
+          We are a young brand, and every customer matters to us. We want the process to be straightforward:
+        </p>
+        <ul className="list-disc list-inside space-y-2 mt-3 pl-1 text-[13.5px]">
+          <li>If you’ve simply changed your mind, we’ll follow a fair return process.</li>
+          <li>If something went wrong on our side, we’ll work to make it right.</li>
+          <li>If a situation is covered by mandatory consumer law, those rights will always apply.</li>
+        </ul>
       </>
     ),
   },
   {
     id: "contact",
-    number: "10",
-    title: "Contact Concierge",
+    number: "12",
+    title: "Contact",
     content: (
       <>
         <p>
-          To start a return or ask a question about your order:
+          For any questions about returns or refunds:
         </p>
-        <div className="mt-3 p-4 rounded-2xl bg-[#EFECE5]">
-          <div className="font-bold text-[#1E140D] text-[13.5px]">Divine Lotus Support</div>
-          <a 
-            href="mailto:care@divinelotus.com"
-            className="text-[#876540] hover:text-[#1E140D] font-bold text-[13px] transition-colors mt-1 block"
-          >
-            care@divinelotus.com
-          </a>
+        <div className="mt-3.5 p-4 rounded-2xl bg-[#EFECE5] space-y-2">
+          <div className="font-bold text-[#1E140D] text-[14px]">Divine Lotus</div>
+          <div className="text-[13px] flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+            <span className="text-[#402E1D]/75">Email:</span>
+            <a 
+              href="mailto:theedivinelotuss@gmail.com"
+              className="text-[#876540] hover:text-[#1E140D] font-bold transition-colors"
+            >
+              theedivinelotuss@gmail.com
+            </a>
+          </div>
+          <div className="text-[13px] flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+            <span className="text-[#402E1D]/75">Website:</span>
+            <a 
+              href="https://thedivinelotus.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#876540] hover:text-[#1E140D] font-bold transition-colors"
+            >
+              thedivinelotus.com
+            </a>
+          </div>
         </div>
       </>
     ),
@@ -237,24 +321,24 @@ export default function RefundPolicyPage() {
       {/* Header */}
       <Header />
 
-      {/* Hero Header Section with Exact Footer Background, Frosted Glass Overlay, and Rounded Bottom */}
+      {/* Hero Header Section with Sanctuary Glass Sheen & Frosted Overlay */}
       <section 
         data-header-theme="dark"
         className="relative pt-32 sm:pt-40 lg:pt-44 pb-14 sm:pb-18 px-4 sm:px-8 lg:px-16 text-white rounded-b-[22px] sm:rounded-b-[28px] lg:rounded-b-[34px] overflow-hidden border-b border-white/35 shadow-[inset_0_-1px_1px_rgba(255,255,255,0.5),inset_0_-24px_60px_rgba(255,255,255,0.15)]"
       >
-        {/* Top Edge Specular White Sheen Line (Exact same as Footer) */}
+        {/* Top Edge Specular White Sheen Line */}
         <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none z-[3]" />
 
-        {/* Bottom Edge Specular White Sheen Line (Footer Rounded Edge Specular) */}
+        {/* Bottom Edge Specular White Sheen Line */}
         <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none z-[3]" />
 
-        {/* Ambient Top Inner White Glow (Exact same as Footer) */}
+        {/* Ambient Top Inner White Glow */}
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[80%] max-w-[1000px] h-[140px] bg-white/20 rounded-full blur-3xl pointer-events-none z-[2]" />
 
         {/* Ambient Bottom Inner White Glow */}
         <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[80%] max-w-[1000px] h-[140px] bg-white/20 rounded-full blur-3xl pointer-events-none z-[2]" />
 
-        {/* Sanctuary Gallery Lifestyle Background Image Layer (Exact same as Footer) */}
+        {/* Sanctuary Gallery Lifestyle Background Image Layer */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
           <Image
             src="/images/real-thing-bg-v2.avif"
@@ -264,11 +348,11 @@ export default function RefundPolicyPage() {
             unoptimized
             className="object-cover object-center brightness-[0.92] contrast-[1.02] scale-[1.02]"
           />
-          {/* Soft Scrim Gradient (Exact same as Footer) */}
+          {/* Soft Scrim Gradient */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/30 to-black/45" />
         </div>
 
-        {/* Hero Card Frosted Glass Overlay (Exact same as Footer) */}
+        {/* Hero Card Frosted Glass Overlay */}
         <div
           className="absolute inset-0 pointer-events-none z-[1]"
           style={{
@@ -280,7 +364,7 @@ export default function RefundPolicyPage() {
           }}
         />
 
-        {/* Polished Mineral Curved Specular Reflection Layer (Exact same as Footer) */}
+        {/* Polished Mineral Curved Specular Reflection Layer */}
         <div
           className="absolute inset-0 pointer-events-none z-[1]"
           style={{
@@ -294,10 +378,14 @@ export default function RefundPolicyPage() {
           animate="visible"
           className="relative z-10 max-w-[1360px] mx-auto text-left"
         >
-          {/* Eyebrow */}
-          <motion.div variants={heroItemVariants} className="flex items-center gap-2 mb-2 sm:mb-4">
+          {/* Eyebrow & Last Updated */}
+          <motion.div variants={heroItemVariants} className="flex flex-wrap items-center gap-3 mb-2 sm:mb-4">
             <span className="font-sans text-[10.5px] sm:text-[12px] font-bold tracking-[0.18em] uppercase text-[#D8CCBD]">
-              /REFUND & RETURN POLICY
+              /RETURNS & REFUNDS POLICY
+            </span>
+            <span className="text-white/40 text-[11px]">•</span>
+            <span className="font-sans text-[11px] sm:text-[12px] text-white/80 font-medium">
+              Last updated: 01/09/2026
             </span>
           </motion.div>
 
@@ -306,35 +394,35 @@ export default function RefundPolicyPage() {
             variants={heroItemVariants}
             className="font-display font-semibold text-[28px] sm:text-[42px] md:text-[52px] lg:text-[62px] leading-[1.12] sm:leading-[1.08] text-white tracking-tight mb-3 sm:mb-4 max-w-[900px]"
           >
-            Refund & Return Policy
+            Returns & Refunds Policy
           </motion.h1>
 
           {/* Summary Lead */}
           <motion.p 
             variants={heroItemVariants}
-            className="font-sans text-[13.5px] sm:text-[15.5px] md:text-[17px] leading-[1.6] sm:leading-[1.65] text-[#F0EBE3] max-w-[720px] mb-5 sm:mb-6"
+            className="font-sans text-[13.5px] sm:text-[15.5px] md:text-[17px] leading-[1.6] sm:leading-[1.65] text-[#F0EBE3] max-w-[760px] mb-5 sm:mb-6"
           >
-            Details on our 30-day practice trial, returns process, and refund turnaround times.
+            At Divine Lotus, we want you to feel comfortable not only while using The Lotus Seat, but also when ordering it. Our returns policy is designed to be fair to both you and us.
           </motion.p>
 
-          {/* Guarantee Card (Clean Borderless Frosted Glass Style) */}
+          {/* Guarantee Card */}
           <motion.div 
             variants={heroItemVariants}
-            className="bg-white/12 backdrop-blur-md rounded-[22px] sm:rounded-[28px] p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-4 max-w-[800px]"
+            className="bg-white/12 backdrop-blur-md rounded-[22px] sm:rounded-[28px] p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-4 max-w-[820px]"
           >
             <div>
               <div className="font-display font-semibold text-[15px] sm:text-[18px] text-white mb-0.5">
-                30-Day Practice Guarantee
+                Fair & Transparent Protection
               </div>
               <p className="font-sans text-[12px] sm:text-[13px] text-[#F0EBE3]/85 leading-relaxed">
-                Test the seat for 30 days. Full refund eligibility with zero restocking fees.
+                14-day change-of-mind returns, customized seat guidelines, and prompt refund processing.
               </p>
             </div>
             <a
-              href="#return-steps"
+              href="#how-to-request"
               className="px-4 py-2 rounded-full bg-white text-[#1E140D] hover:bg-[#F6F3ED] font-sans text-[11.5px] sm:text-[12px] font-semibold transition-colors shrink-0 text-center self-start sm:self-auto"
             >
-              How It Works
+              How to Return
             </a>
           </motion.div>
         </motion.div>
@@ -389,7 +477,7 @@ export default function RefundPolicyPage() {
                 Policy Index
               </div>
 
-              <nav className="space-y-1 font-sans text-[12.5px]">
+              <nav className="space-y-1 font-sans text-[12.5px] max-h-[36vh] overflow-y-auto no-scrollbar">
                 {refundSections.map((item) => (
                   <a
                     key={item.id}
@@ -413,11 +501,11 @@ export default function RefundPolicyPage() {
                 Need a Return?
               </div>
               <p className="font-sans text-[12px] text-[#402E1D]/75 leading-relaxed">
-                Contact our support team with your order number.
+                Email our support desk with your order number and photos to receive instructions.
               </p>
               <div className="pt-1">
                 <a
-                  href="mailto:care@divinelotus.com"
+                  href="mailto:theedivinelotuss@gmail.com"
                   className="group relative inline-flex items-center select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
                 >
                   <svg
@@ -465,6 +553,27 @@ export default function RefundPolicyPage() {
 
           {/* Right Column: Policy Cards (8 Cols) */}
           <div className="lg:col-span-8 space-y-4 sm:space-y-6 font-sans">
+            {/* Introductory Card */}
+            <motion.section
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.12 }}
+              className="bg-white rounded-[22px] sm:rounded-[30px] p-5 sm:p-7 lg:p-8"
+            >
+              <div className="flex items-center gap-2 mb-2 text-[#876540] font-medium text-[12px] uppercase tracking-wider">
+                <ShieldCheck className="w-4 h-4" />
+                <span>Our Principles</span>
+              </div>
+              <p className="font-sans text-[13.5px] sm:text-[14.5px] lg:text-[15px] leading-[1.7] text-[#402E1D]/90">
+                At Divine Lotus, we want you to feel comfortable not only while using The Lotus Seat, but also when ordering it.
+              </p>
+              <p className="font-sans text-[13.5px] sm:text-[14.5px] lg:text-[15px] leading-[1.7] text-[#402E1D]/90 mt-2.5">
+                Our returns policy is designed to be fair to both you and us. Nothing in this policy limits any consumer rights that cannot legally be excluded or restricted under the laws that apply to your purchase.
+              </p>
+            </motion.section>
+
+            {/* All 12 Sections */}
             {refundSections.map((item) => (
               <motion.section
                 key={item.id}
@@ -499,11 +608,11 @@ export default function RefundPolicyPage() {
                 Need a Return?
               </div>
               <p className="font-sans text-[12.5px] text-[#402E1D]/80 leading-relaxed">
-                Contact our support team directly with your order number to generate a return pickup label.
+                Contact our support team directly with your order number to receive return instructions.
               </p>
               <div className="pt-1">
                 <a
-                  href="mailto:care@divinelotus.com"
+                  href="mailto:theedivinelotuss@gmail.com"
                   className="group relative inline-flex items-center select-none transition-all duration-300 active:scale-[0.98] cursor-pointer"
                 >
                   <svg

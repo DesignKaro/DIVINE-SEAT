@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy",
+  title: "Privacy Policy  - Divine Lotus",
   description:
-    "Learn how Divine Lotus collects, manages, and protects your personal information with full GDPR and CCPA compliance.",
+    "Learn how Divine Lotus collects, uses, and protects your personal information with full transparency and data privacy rights.",
   alternates: {
     canonical: "/privacy-policy",
   },
   openGraph: {
     title: "Privacy Policy | Divine Lotus",
     description:
-      "Learn how Divine Lotus collects, manages, and protects your personal information with full GDPR and CCPA compliance.",
+      "Learn how Divine Lotus collects, uses, and protects your personal information with full transparency and data privacy rights.",
     url: "/privacy-policy",
   },
 };
