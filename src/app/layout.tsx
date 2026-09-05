@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     template: "%s | Divine Lotus",
   },
   description:
-    "Where ancient wisdom meets modern comfort. Handcrafted Portuguese cork foundation and botanical latex cushion for effortless spinal alignment and pain-free meditation sitting.",
+    "Thoughtfully designed seat for deeper meditation, natural alignment, and a calmer mind. Rooted in the wisdom of ancient asanas like Siddhasana and Padmasana, and handcrafted with natural materials for the way we sit today.",
   applicationName: "Divine Lotus",
   keywords: [
     "meditation seat",
@@ -71,9 +71,9 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Divine Lotus  - Architectural Ergonomic Meditation Seat",
+    title: "The Divine Lotus - Where Ancient Wisdom Meets Modern Comfort",
     description:
-      "Where ancient wisdom meets modern comfort. Handcrafted Portuguese cork foundation and botanical latex cushion for effortless spinal alignment and pain-free meditation.",
+      "Thoughtfully designed seat for deeper meditation, natural alignment, and a calmer mind. Rooted in the wisdom of ancient asanas like Siddhasana and Padmasana, and handcrafted with natural materials for the way we sit today.",
     url: siteUrl,
     siteName: "Divine Lotus",
     locale: "en_US",
@@ -101,9 +101,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Divine Lotus  - Architectural Ergonomic Meditation Seat",
+    title: "The Divine Lotus - Where Ancient Wisdom Meets Modern Comfort",
     description:
-      "Where ancient wisdom meets modern comfort. Handcrafted Portuguese cork foundation and botanical latex cushion for effortless spinal alignment.",
+      "Thoughtfully designed seat for deeper meditation, natural alignment, and a calmer mind. Rooted in the wisdom of ancient asanas like Siddhasana and Padmasana, and handcrafted with natural materials for the way we sit today.",
     images: ["/og-image.png", "/images/ancient_wisdom_modern_comfort.avif"],
     creator: "@divinelotus",
   },
