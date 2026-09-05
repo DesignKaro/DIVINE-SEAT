@@ -18,6 +18,7 @@ import {
   ShoppingBag
 } from "lucide-react";
 import { validateName, validateEmail, validatePhone } from "@/lib/validation";
+import { useCurrency } from "@/context/CurrencyContext";
 
 export interface ColorPair {
   id: string;
@@ -71,6 +72,7 @@ interface CustomizeModalProps {
 }
 
 export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps) {
+  const { custom } = useCurrency();
   // Step state (1: Palette, 2: Uploads & Notes, 3: Contact & Review)
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1);
 
@@ -779,7 +781,7 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
                         </span>
                         <span className="text-[#876540]/40 font-bold">•</span>
                         <span className="font-sans text-[12.5px] sm:text-[13px] font-bold text-[#876540]">
-                          €199
+                          {custom.price}
                         </span>
                       </div>
                     </div>
@@ -935,7 +937,7 @@ export default function CustomizeModal({ isOpen, onClose }: CustomizeModalProps)
 
                         <div className="absolute left-0 top-0 bottom-0 w-[210px] sm:w-[222px] flex items-center justify-center pointer-events-none px-2.5 font-sans">
                           <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.01em] text-[#1E140D] whitespace-nowrap">
-                            {isSubmitting ? "Submitting..." : "Submit Customization • €199"}
+                            {isSubmitting ? "Submitting..." : `Submit Customization • ${custom.price}`}
                           </span>
                         </div>
 

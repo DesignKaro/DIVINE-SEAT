@@ -7,6 +7,7 @@ import { motion, Variants } from "framer-motion";
 import { Check, ArrowUpRight } from "lucide-react";
 import AnimatedHeading from "@/components/ui/AnimatedHeading";
 import AnimatedReveal from "@/components/ui/AnimatedReveal";
+import { useCurrency } from "@/context/CurrencyContext";
 
 const CustomizeModal = dynamic(() => import("./CustomizeModal"), { ssr: false });
 
@@ -27,14 +28,11 @@ interface PricingTier {
   highlighted?: boolean;
 }
 
-const pricingTiers: PricingTier[] = [
+const basePricingTiers: Omit<PricingTier, "price" | "originalPrice" | "discountBadge" | "ctaText">[] = [
   {
     id: "standard",
     name: "The Lotus Seat",
     description: "The original Lotus Seat in the standard signature color and design.",
-    originalPrice: "€215",
-    discountBadge: "30% OFF",
-    price: "€149",
     priceSuffix: "+ shipping + applicable taxes",
     image: "/images/ancient_wisdom_modern_comfort.avif",
     features: [
@@ -45,15 +43,11 @@ const pricingTiers: PricingTier[] = [
       "Free meditation mat included",
     ],
     bonus: "Includes a Free Meditation Mat + complete Sadhana Practice Guide.",
-    ctaText: "ORDER NOW • €149",
   },
   {
     id: "custom",
     name: "The Lotus Seat  - Custom",
     description: "The same ergonomic Lotus Seat with the ability to personalize its appearance.",
-    originalPrice: "€285",
-    discountBadge: "30% OFF",
-    price: "€199",
     priceSuffix: "+ shipping + applicable taxes",
     features: [
       "Choice of available colors & finish pairings",
@@ -65,7 +59,6 @@ const pricingTiers: PricingTier[] = [
       "Free meditation mat included",
     ],
     bonus: "Includes a Free Meditation Mat + complete Sadhana Practice Guide.",
-    ctaText: "CUSTOMISE NOW • €199",
     highlighted: true,
   },
 ];
@@ -82,6 +75,25 @@ const customColorSwatches = [
 
 export default function PricingSection() {
   const [isCustomizeOpen, setIsCustomizeOpen] = useState(false);
+  const { currency, setCurrency, standard, custom } = useCurrency();
+
+  const activeTiers: PricingTier[] = [
+    {
+      ...basePricingTiers[0],
+      price: standard.price,
+      originalPrice: standard.originalPrice,
+      discountBadge: standard.discountBadge,
+      ctaText: standard.ctaText,
+    },
+    {
+      ...basePricingTiers[1],
+      price: custom.price,
+      originalPrice: custom.originalPrice,
+      discountBadge: custom.discountBadge,
+      ctaText: custom.ctaText,
+    },
+  ];
+
   return (
     <section
       id="choose-seat"
@@ -112,6 +124,34 @@ export default function PricingSection() {
               The same support, comfort and thoughtful design. Choose the finish that feels right for your practice and your space.
             </p>
           </AnimatedReveal>
+
+          {/* Currency Switcher Badge */}
+          <AnimatedReveal delay={0.22} y={12} className="flex items-center justify-center gap-2 mt-5">
+            <div className="inline-flex items-center p-1 rounded-full bg-[#EAE5DC] border border-[#402E1D]/10 text-[11.5px] sm:text-[12px] font-semibold text-[#402E1D]/75 shadow-inner">
+              <button
+                type="button"
+                onClick={() => setCurrency("INR")}
+                className={`px-3 sm:px-3.5 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+                  currency === "INR"
+                    ? "bg-white text-[#1E140D] font-bold shadow-sm"
+                    : "hover:text-[#1E140D]"
+                }`}
+              >
+                ₹ INR (India)
+              </button>
+              <button
+                type="button"
+                onClick={() => setCurrency("EUR")}
+                className={`px-3 sm:px-3.5 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+                  currency === "EUR"
+                    ? "bg-white text-[#1E140D] font-bold shadow-sm"
+                    : "hover:text-[#1E140D]"
+                }`}
+              >
+                € EUR (Global)
+              </button>
+            </div>
+          </AnimatedReveal>
         </div>
 
         {/* Structured Two-Column Wide Pricing Cards Stack */}
@@ -119,7 +159,7 @@ export default function PricingSection() {
           id="pricing" 
           className="flex flex-col gap-10 sm:gap-12 lg:gap-14 max-w-[1140px] mx-auto scroll-mt-20 sm:scroll-mt-24 lg:scroll-mt-28"
         >
-          {pricingTiers.map((tier, index) => {
+          {activeTiers.map((tier, index) => {
             const isLeftCard = index === 0;
             return (
               <motion.div

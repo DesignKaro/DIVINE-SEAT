@@ -90,11 +90,11 @@ const termSections = [
         <p className="mt-2.5 font-medium text-[#1E140D]">We currently offer:</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 my-3">
           <div className="p-3.5 rounded-2xl bg-[#EFECE5]">
-            <div className="font-bold text-[#1E140D] text-[13.5px]">The Lotus Seat  - €149</div>
+            <div className="font-bold text-[#1E140D] text-[13.5px]">The Lotus Seat  - €149 / ₹14,999</div>
             <p className="text-[12.5px] text-[#402E1D]/80 mt-1">Our standard colour and design.</p>
           </div>
           <div className="p-3.5 rounded-2xl bg-[#EFECE5]">
-            <div className="font-bold text-[#1E140D] text-[13.5px]">The Lotus Seat  - Custom  - €199</div>
+            <div className="font-bold text-[#1E140D] text-[13.5px]">The Lotus Seat  - Custom  - €199 / ₹19,999</div>
             <p className="text-[12.5px] text-[#402E1D]/80 mt-1">Our customisable version, allowing customers to choose from available colour and design combinations.</p>
           </div>
         </div>
@@ -153,11 +153,11 @@ const termSections = [
     content: (
       <>
         <p>
-          Unless otherwise stated, prices displayed on the website are in Euros (EUR). Current intended prices are:
+          Unless otherwise stated, prices displayed on the website are in Euros (EUR) for international orders or Indian Rupees (INR) for orders placed within India. Current intended prices are:
         </p>
         <ul className="list-disc list-inside space-y-1 my-2 pl-1 text-[13.5px]">
-          <li><strong>The Lotus Seat</strong>  - €149</li>
-          <li><strong>The Lotus Seat  - Custom</strong>  - €199</li>
+          <li><strong>The Lotus Seat</strong>  - €149 (or ₹14,999 for India)</li>
+          <li><strong>The Lotus Seat  - Custom</strong>  - €199 (or ₹19,999 for India)</li>
         </ul>
         <p className="mt-2 text-[#402E1D]/85">
           Prices may change for future orders. A price change after an order has been accepted will not normally alter the agreed product price for that order, except where required by law or where an obvious pricing error applies.

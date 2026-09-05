@@ -138,15 +138,15 @@ const shippingSections = [
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 font-medium text-[#1E140D] text-[13.5px]">
             <div className="p-2.5 rounded-xl bg-white/70 flex items-center justify-between">
               <span>The Lotus Seat</span>
-              <span className="font-bold text-[#876540]">€149</span>
+              <span className="font-bold text-[#876540]">€149 / ₹14,999</span>
             </div>
             <div className="p-2.5 rounded-xl bg-white/70 flex items-center justify-between">
               <span>The Lotus Seat Custom</span>
-              <span className="font-bold text-[#876540]">€199</span>
+              <span className="font-bold text-[#876540]">€199 / ₹19,999</span>
             </div>
           </div>
           <p className="text-[12px] text-[#402E1D]/75 pt-1">
-            plus applicable shipping, taxes and duties unless otherwise stated.
+            plus applicable shipping, taxes and duties unless otherwise stated. (EUR for International, INR for India).
           </p>
         </div>
       </>

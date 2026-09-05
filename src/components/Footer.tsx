@@ -8,10 +8,12 @@ import { submitFluentForm } from "@/lib/fluentform";
 import { validateEmail } from "@/lib/validation";
 import AnimatedHeading from "@/components/ui/AnimatedHeading";
 import AnimatedReveal from "@/components/ui/AnimatedReveal";
+import { useCurrency } from "@/context/CurrencyContext";
 
 const CustomizeModal = dynamic(() => import("./CustomizeModal"), { ssr: false });
 
 export default function Footer() {
+  const { standard, custom } = useCurrency();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState<string | null>(null);
   const [subscribed, setSubscribed] = useState(false);
@@ -167,7 +169,7 @@ export default function Footer() {
                 </svg>
                 <div className="absolute left-0 top-0 bottom-0 w-[202px] sm:w-[218px] flex items-center justify-center pointer-events-none px-3">
                   <span className="font-sans text-[10.5px] sm:text-[11.5px] font-bold tracking-[0.04em] uppercase text-[#1E140D] whitespace-nowrap">
-                    ORDER THE LOTUS SEAT  - €149
+                    ORDER THE LOTUS SEAT  - {standard.price}
                   </span>
                 </div>
                 <div className="absolute right-[4px] top-[4px] w-[36px] h-[36px] sm:w-[38px] sm:h-[38px] rounded-full bg-[#1E140D] flex items-center justify-center group-hover:bg-[#382618] transition-colors duration-300">
@@ -175,7 +177,7 @@ export default function Footer() {
                 </div>
               </a>
 
-              {/* Button 2: CUSTOMISE YOURS  - €199 (Matched Width & Geometry) */}
+              {/* Button 2: CUSTOMISE YOURS (Matched Width & Geometry) */}
               <button
                 type="button"
                 onClick={() => setIsCustomizeModalOpen(true)}
@@ -208,7 +210,7 @@ export default function Footer() {
                 </svg>
                 <div className="absolute left-0 top-0 bottom-0 w-[202px] sm:w-[218px] flex items-center justify-center pointer-events-none px-3">
                   <span className="font-sans text-[10.5px] sm:text-[11.5px] font-bold tracking-[0.04em] uppercase text-white whitespace-nowrap">
-                    CUSTOMISE YOURS  - €199
+                    CUSTOMISE YOURS  - {custom.price}
                   </span>
                 </div>
                 <div className="absolute right-[4px] top-[4px] w-[36px] h-[36px] sm:w-[38px] sm:h-[38px] rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">

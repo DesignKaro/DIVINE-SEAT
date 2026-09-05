@@ -3,6 +3,7 @@ import { Manrope, Cormorant_Garamond } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import CookieBanner from "@/components/CookieBanner";
 import RecaptchaProvider from "@/components/RecaptchaProvider";
+import { CurrencyProvider } from "@/context/CurrencyContext";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -236,9 +237,11 @@ export default function RootLayout({
         <JsonLd data={organizationSchema} />
       </head>
       <body suppressHydrationWarning className="min-h-screen bg-[#F6F3ED] text-[#402E1D] font-sans antialiased selection:bg-[#876540]/20 selection:text-[#402E1D]">
-        {children}
-        <CookieBanner />
-        <RecaptchaProvider />
+        <CurrencyProvider>
+          {children}
+          <CookieBanner />
+          <RecaptchaProvider />
+        </CurrencyProvider>
       </body>
     </html>
   );

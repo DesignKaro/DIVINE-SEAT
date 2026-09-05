@@ -4,8 +4,10 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useCurrency } from "@/context/CurrencyContext";
 
 export default function FinalCtaSection() {
+  const { standard, custom } = useCurrency();
   const scrollToPricing = () => {
     const el = document.getElementById("pricing");
     if (el) {
@@ -97,7 +99,7 @@ export default function FinalCtaSection() {
             onClick={scrollToPricing}
             className="group relative flex-1 py-3.5 sm:py-4 px-6 sm:px-7 rounded-full bg-white text-[#1E140D] hover:bg-[#FAF8F5] font-sans text-[12.5px] sm:text-[13.5px] font-bold tracking-[0.03em] uppercase transition-all duration-300 shadow-[0_12px_32px_rgba(0,0,0,0.35)] active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
           >
-            <span>ORDER THE LOTUS SEAT  - €149</span>
+            <span>ORDER THE LOTUS SEAT  - {standard.price}</span>
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
 
@@ -107,7 +109,7 @@ export default function FinalCtaSection() {
             onClick={scrollToPricing}
             className="group relative flex-1 py-3.5 sm:py-4 px-6 sm:px-7 rounded-full bg-white/12 hover:bg-white/20 text-white font-sans text-[12.5px] sm:text-[13.5px] font-semibold tracking-[0.03em] uppercase transition-all duration-300 backdrop-blur-md border border-white/20 active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
           >
-            <span>CUSTOMISE YOURS  - €199</span>
+            <span>CUSTOMISE YOURS  - {custom.price}</span>
             <ArrowRight className="w-4 h-4 text-white/70 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-white" />
           </button>
         </motion.div>
