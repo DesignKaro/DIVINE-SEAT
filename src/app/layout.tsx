@@ -144,6 +144,7 @@ const organizationSchema = {
       image: `${siteUrl}/images/ancient_wisdom_modern_comfort.avif`,
       sameAs: [
         "https://www.instagram.com/divinelotus",
+        "https://www.threads.net/@theedivinelotus",
         "https://www.youtube.com/@divinelotus",
         "https://twitter.com/divinelotus",
       ],
