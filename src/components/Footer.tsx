@@ -402,8 +402,6 @@ export default function Footer() {
               </p>
               <div className="space-y-2">
                 {[
-                  { label: "Privacy Policy", href: "/privacy-policy" },
-                  { label: "Terms of Service", href: "/terms" },
                   { label: "Shipping Policy", href: "/shipping-policy" },
                   { label: "Refund Policy", href: "/refund-policy" },
                   { label: "Warranty Policy", href: "/warranty-policy" },
