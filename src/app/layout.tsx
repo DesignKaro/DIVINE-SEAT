@@ -80,22 +80,25 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/ancient_wisdom_modern_comfort.avif",
-        width: 1536,
-        height: 1024,
-        alt: "The Lotus Seat  - Ancient Wisdom × Modern Comfort",
-      },
-      {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "The Lotus Seat  - Ancient Wisdom × Modern Comfort",
+        type: "image/png",
+        alt: "The Lotus Seat  - Where Ancient Wisdom Meets Modern Comfort",
       },
       {
-        url: "/og-seat.png",
-        width: 408,
-        height: 302,
-        alt: "The Lotus Seat by Divine Lotus",
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        type: "image/jpeg",
+        alt: "The Lotus Seat  - Where Ancient Wisdom Meets Modern Comfort",
+      },
+      {
+        url: "/images/ancient_wisdom_modern_comfort.avif",
+        width: 1200,
+        height: 800,
+        type: "image/avif",
+        alt: "The Lotus Seat  - Ancient Wisdom × Modern Comfort",
       },
     ],
   },
@@ -104,7 +107,7 @@ export const metadata: Metadata = {
     title: "The Divine Lotus - Where Ancient Wisdom Meets Modern Comfort",
     description:
       "Thoughtfully designed seat for deeper meditation, natural alignment, and a calmer mind. Rooted in the wisdom of ancient asanas like Siddhasana and Padmasana, and handcrafted with natural materials for the way we sit today.",
-    images: ["/og-image.png", "/images/ancient_wisdom_modern_comfort.avif"],
+    images: ["/og-image.png"],
     creator: "@divinelotus",
   },
   robots: {
